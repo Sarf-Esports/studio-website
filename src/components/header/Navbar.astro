@@ -5,37 +5,39 @@ interface NavigationEntry {
 }
 
 const NAVIGATION_ITEMS: NavigationEntry[] = [
-  { label: 'TOP', href: '/' },
-  { label: 'ABOUT', href: '/about' },
-  { label: 'WORKS', href: '/works' },
-  { label: 'ARCHIVE', href: '/archive' },
-  { label: 'CONTACT', href: '/contact' }
+  { label: "TOP", href: "/" },
+  { label: "ABOUT", href: "/about" },
+  { label: "WORKS", href: "/works" },
+  { label: "ARCHIVE", href: "/archive" },
+  { label: "CONTACT", href: "/contact" },
 ];
 ---
 
 <nav>
   <ul>
-    {NAVIGATION_ITEMS.map(n => (
-      <li>
-        <a href={n.href}>{n.label}</a>
-      </li>
-    ))}
+    {
+      NAVIGATION_ITEMS.map((n) => (
+        <li>
+          <a href={n.href}>{n.label}</a>
+        </li>
+      ))
+    }
   </ul>
 </nav>
 
 <style lang="scss">
-	ul {
-		display: flex;
-		margin: 0;
-		padding: 16px 0;
-		padding-left: 10px;
-		gap: 10px;
-		flex-direction: column;
-		list-style: none;
-	}
+  ul {
+    display: flex;
+    margin: 0;
+    padding: 16px 0;
+    padding-left: 10px;
+    gap: 10px;
+    flex-direction: column;
+    list-style: none;
+  }
 
-	a {
-		color: inherit;
-		text-decoration: none;
-	}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 </style>

@@ -1,6 +1,6 @@
 ---
-import Header from '../components/header/Header.astro';
-import Footer from '../components/footer/Footer.astro';
+import Header from "../components/header/Header.astro";
+import Footer from "../components/footer/Footer.astro";
 
 interface Props {
   title?: string;
@@ -10,56 +10,59 @@ const { title } = Astro.props;
 ---
 
 <html lang="ja">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		{title && <title>{title}</title>}
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    {title && <title>{title}</title>}
 
-		<!-- ▼ Google Fonts ▼ -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet" />
-		<!-- ▲ Google Fonts ▲ -->
+    <!-- ▼ Google Fonts ▼ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ▲ Google Fonts ▲ -->
 
-		<slot name="head" />
-	</head>
-  
-	<body>
-		<main>
-			<slot />
-		</main>
-		<div class="header-container"><Header /></div>
-		<!-- <Footer />  -->
-	</body>
+    <slot name="head" />
+  </head>
+
+  <body>
+    <main>
+      <slot />
+    </main>
+    <div class="header-container"><Header /></div>
+    <!-- <Footer />  -->
+  </body>
 </html>
 
 <style lang="scss">
-	html {
-		height: 100%;
-		font-family: "Noto Sans JP", sans-serif;
-		font-optical-sizing: auto;
-		font-weight: 400;
-		font-style: normal;
-		font-size: 18px;
-		background: $color-secondary;
-	}
+  html {
+    height: 100%;
+    font-family: "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    background: $color-secondary;
+  }
 
-	body {
-		display: grid;
-		grid-template-rows: auto 320px;
-		height: 100%;
-		margin: 0;
-		color: $text-color;
-		// overflow: hidden; // DBG: 使わないのが理想かも
-	}
+  body {
+    display: grid;
+    grid-template-rows: auto 320px;
+    height: 100%;
+    margin: 0;
+    color: $text-color;
+    // overflow: hidden; // DBG: 使わないのが理想かも
+  }
 
-	main {
-		grid-row: 1 / 2;
-	}
+  main {
+    grid-row: 1 / 2;
+  }
 
-	.header-container {
-		grid-row: 2 / 3;
-	}
+  .header-container {
+    grid-row: 2 / 3;
+  }
 </style>
