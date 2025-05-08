@@ -27,26 +27,39 @@ const { title } = Astro.props;
 	</head>
   
 	<body>
-		<Header />
 		<main>
 			<slot />
 		</main>
-		<Footer /> 
+		<div class="header-container"><Header /></div>
+		<!-- <Footer />  -->
 	</body>
 </html>
 
 <style lang="scss">
 	html {
+		height: 100%;
 		font-family: "Noto Sans JP", sans-serif;
 		font-optical-sizing: auto;
 		font-weight: 400;
 		font-style: normal;
+		font-size: 18px;
 		background: $color-secondary;
 	}
 
 	body {
-		color: $text-color;
+		display: grid;
+		grid-template-rows: auto 320px;
+		height: 100%;
 		margin: 0;
-		overflow: hidden;
+		color: $text-color;
+		// overflow: hidden; // DBG: 使わないのが理想かも
+	}
+
+	main {
+		grid-row: 1 / 2;
+	}
+
+	.header-container {
+		grid-row: 2 / 3;
 	}
 </style>
