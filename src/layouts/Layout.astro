@@ -1,7 +1,7 @@
 ---
-import { ClientRouter } from 'astro:transitions';
+import { ClientRouter } from "astro:transitions";
 import Header from "../components/header/Header.astro";
-import Footer from "../components/footer/Footer.astro";
+// import Footer from "../components/footer/Footer.astro"; // TMP: 使わないのであれば削除
 
 interface Props {
   title?: string;
@@ -37,7 +37,7 @@ const { title } = Astro.props;
       <slot />
     </main>
     <div class="header-container"><Header /></div>
-    <!-- <Footer />  -->
+    <!-- <Footer />  --><!-- TMP: 使わないのであればインポート含めて削除 -->
   </body>
 </html>
 
