@@ -7,10 +7,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "fmt": "prettier . --write"
   },
   "dependencies": {
     "astro": "^5.7.10",
     "sass": "^1.87.0"
+  },
+  "devDependencies": {
+    "prettier": "3.5.3",
+    "prettier-plugin-astro": "0.14.1"
   }
 }
