@@ -13,8 +13,11 @@
 - TOP
 - ABOUT
 - WORKS
+  - タブかスクロールでカテゴリごとにまとめる
+  - [all, thumbnail, video, poster, bgm, website, translator]
 - ARCHIVE
 - CONTACT
+  - Google Formを埋め込む
 
 ## デザイン
 
@@ -38,8 +41,10 @@
 ## その他要件
 
 - SPA?
+  - [View Transition](https://docs.astro.build/ja/guides/view-transitions/)を使う
 - 作品のカルーセル
 - 3D ロゴの配置
+  - ドラッグ可能なウィンドウの中に入れる。
 - 音楽再生機能
   - プレイヤー
   - 波形表示
