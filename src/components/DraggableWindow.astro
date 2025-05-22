@@ -8,16 +8,17 @@ interface Props {
   title?: string;
 }
 
-const { width = '400px', height = '300px', title } = Astro.props;
+const { width = "400px", height = "300px", title } = Astro.props;
 ---
+
 <style define:vars={{ "window-width": width, "window-height": height }}>
   .window {
     width: var(--window-width);
     height: var(--window-height);
-    
+
     background: white;
     border: 1px solid #ccc;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
     position: absolute;
     top: 100px;
     left: 100px;
@@ -46,7 +47,7 @@ const { width = '400px', height = '300px', title } = Astro.props;
     font-weight: bold;
     font-size: 0.8em;
     color: #333;
-    flex-grow: 1; 
+    flex-grow: 1;
     text-align: center;
   }
 
@@ -82,8 +83,8 @@ const { width = '400px', height = '300px', title } = Astro.props;
 </div>
 
 <script is:inline>
-  const windowEl = document.getElementById('draggableWindow');
-  const headerEl = document.getElementById('draggableHeader'); // ドラッグハンドルをヘッダーに変更
+  const windowEl = document.getElementById("draggableWindow");
+  const headerEl = document.getElementById("draggableHeader"); // ドラッグハンドルをヘッダーに変更
   let offsetX = 0;
   let offsetY = 0;
   let isDragging = false;
@@ -113,8 +114,8 @@ const { width = '400px', height = '300px', title } = Astro.props;
       newTop = window.innerHeight - windowEl.offsetHeight;
     }
 
-    windowEl.style.left = newLeft + 'px';
-    windowEl.style.top = newTop + 'px';
+    windowEl.style.left = newLeft + "px";
+    windowEl.style.top = newTop + "px";
   }
 
   function handleDragEnd() {
@@ -122,33 +123,37 @@ const { width = '400px', height = '300px', title } = Astro.props;
   }
 
   // ドラッグ開始イベントをヘッダーにのみ関連付ける
-  headerEl.addEventListener('mousedown', (e) => {
+  headerEl.addEventListener("mousedown", (e) => {
     handleDragStart(e.clientX, e.clientY);
   });
 
-  document.addEventListener('mousemove', (e) => {
+  document.addEventListener("mousemove", (e) => {
     handleDragMove(e.clientX, e.clientY);
   });
 
-  document.addEventListener('mouseup', () => {
+  document.addEventListener("mouseup", () => {
     handleDragEnd();
   });
 
   // タッチイベントもヘッダーに関連付ける
-  headerEl.addEventListener('touchstart', (e) => {
-    if (e.touches.length === 0) return;
-    const touch = e.touches[0];
-    handleDragStart(touch.clientX, touch.clientY);
-    e.preventDefault(); // スクロールなどのデフォルトのタッチ動作を防ぐ
-  }, { passive: false });
+  headerEl.addEventListener(
+    "touchstart",
+    (e) => {
+      if (e.touches.length === 0) return;
+      const touch = e.touches[0];
+      handleDragStart(touch.clientX, touch.clientY);
+      e.preventDefault(); // スクロールなどのデフォルトのタッチ動作を防ぐ
+    },
+    { passive: false },
+  );
 
-  document.addEventListener('touchmove', (e) => {
+  document.addEventListener("touchmove", (e) => {
     if (e.touches.length === 0) return;
     const touch = e.touches[0];
     handleDragMove(touch.clientX, touch.clientY);
   });
 
-  document.addEventListener('touchend', () => {
+  document.addEventListener("touchend", () => {
     handleDragEnd();
   });
 </script>
