@@ -1,0 +1,154 @@
+---
+interface Props {
+  /** default=300px */
+  width?: string | number;
+  /** default=200px */
+  height?: string | number;
+  /** default="Window" */
+  title?: string;
+}
+
+const { width = '400px', height = '300px', title } = Astro.props;
+---
+<style define:vars={{ "window-width": width, "window-height": height }}>
+  .window {
+    width: var(--window-width);
+    height: var(--window-height);
+    
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .window-header {
+    width: 100%;
+    height: 30px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    cursor: move;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+    flex-shrink: 0; /* タイトルバーが縮まないようにする */
+    justify-content: space-between; /* タイトルとボタンを両端に配置 */
+    padding: 0 8px; /* 左右のパディングを追加 */
+  }
+
+  .window-title {
+    font-weight: bold;
+    font-size: 0.8em;
+    color: #333;
+    flex-grow: 1; 
+    text-align: center;
+  }
+
+  .button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  .button:last-child {
+    margin-right: 0;
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1em;
+    flex-grow: 1;
+    box-sizing: border-box;
+  }
+</style>
+
+<div class="window" id="draggableWindow">
+  <div class="window-header" id="draggableHeader">
+    <span class="window-title">{title}</span>
+  </div>
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<script is:inline>
+  const windowEl = document.getElementById('draggableWindow');
+  const headerEl = document.getElementById('draggableHeader'); // ドラッグハンドルをヘッダーに変更
+  let offsetX = 0;
+  let offsetY = 0;
+  let isDragging = false;
+
+  function handleDragStart(clientX, clientY) {
+    isDragging = true;
+    // ウィンドウの左上からのオフセットではなく、マウスポインタのウィンドウ内での相対位置を計算
+    offsetX = clientX - windowEl.offsetLeft;
+    offsetY = clientY - windowEl.offsetTop;
+  }
+
+  function handleDragMove(clientX, clientY) {
+    if (!isDragging) return;
+
+    let newLeft = clientX - offsetX;
+    let newTop = clientY - offsetY;
+
+    // 画面の左端と上端の境界
+    if (newLeft < 0) newLeft = 0;
+    if (newTop < 0) newTop = 0;
+
+    // 画面の右端と下端の境界
+    if (newLeft + windowEl.offsetWidth > window.innerWidth) {
+      newLeft = window.innerWidth - windowEl.offsetWidth;
+    }
+    if (newTop + windowEl.offsetHeight > window.innerHeight) {
+      newTop = window.innerHeight - windowEl.offsetHeight;
+    }
+
+    windowEl.style.left = newLeft + 'px';
+    windowEl.style.top = newTop + 'px';
+  }
+
+  function handleDragEnd() {
+    isDragging = false;
+  }
+
+  // ドラッグ開始イベントをヘッダーにのみ関連付ける
+  headerEl.addEventListener('mousedown', (e) => {
+    handleDragStart(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    handleDragMove(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('mouseup', () => {
+    handleDragEnd();
+  });
+
+  // タッチイベントもヘッダーに関連付ける
+  headerEl.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 0) return;
+    const touch = e.touches[0];
+    handleDragStart(touch.clientX, touch.clientY);
+    e.preventDefault(); // スクロールなどのデフォルトのタッチ動作を防ぐ
+  }, { passive: false });
+
+  document.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 0) return;
+    const touch = e.touches[0];
+    handleDragMove(touch.clientX, touch.clientY);
+  });
+
+  document.addEventListener('touchend', () => {
+    handleDragEnd();
+  });
+</script>
