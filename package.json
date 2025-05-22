@@ -14,8 +14,10 @@
     "check": "astro sync && astro check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
+    "@astrojs/svelte": "^7.1.0",
     "astro": "^5.7.10",
     "sass": "^1.87.0",
+    "svelte": "^5.33.0",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "prettier": "3.5.3",
     "prettier-plugin-astro": "0.14.1",
+    "svelte-preprocess": "^6.0.3",
     "typescript-eslint": "^8.32.0"
   }
 }
