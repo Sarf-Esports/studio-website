@@ -51,23 +51,10 @@ const { width = "400px", height = "300px", title } = Astro.props;
     text-align: center;
   }
 
-  .button {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-
-  .button:last-child {
-    margin-right: 0;
-  }
-
   .content {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    padding: 1em;
     flex-grow: 1;
     box-sizing: border-box;
   }
@@ -82,78 +69,81 @@ const { width = "400px", height = "300px", title } = Astro.props;
   </div>
 </div>
 
-<script is:inline>
-  const windowEl = document.getElementById("draggableWindow");
-  const headerEl = document.getElementById("draggableHeader"); // ドラッグハンドルをヘッダーに変更
-  let offsetX = 0;
-  let offsetY = 0;
-  let isDragging = false;
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const windowEl = document.getElementById('draggableWindow') as HTMLElement | null;
+    const headerEl = document.getElementById('draggableHeader') as HTMLElement | null;
 
-  function handleDragStart(clientX, clientY) {
-    isDragging = true;
-    // ウィンドウの左上からのオフセットではなく、マウスポインタのウィンドウ内での相対位置を計算
-    offsetX = clientX - windowEl.offsetLeft;
-    offsetY = clientY - windowEl.offsetTop;
-  }
+    // 要素が存在していなかった場合の対策
+    if (!windowEl || !headerEl) return;
 
-  function handleDragMove(clientX, clientY) {
-    if (!isDragging) return;
+    let offsetX = 0;
+    let offsetY = 0;
+    let isDragging = false;
 
-    let newLeft = clientX - offsetX;
-    let newTop = clientY - offsetY;
-
-    // 画面の左端と上端の境界
-    if (newLeft < 0) newLeft = 0;
-    if (newTop < 0) newTop = 0;
-
-    // 画面の右端と下端の境界
-    if (newLeft + windowEl.offsetWidth > window.innerWidth) {
-      newLeft = window.innerWidth - windowEl.offsetWidth;
-    }
-    if (newTop + windowEl.offsetHeight > window.innerHeight) {
-      newTop = window.innerHeight - windowEl.offsetHeight;
+    function handleDragStart(clientX: number, clientY: number) {
+      if (!windowEl) return;
+      isDragging = true;
+      offsetX = clientX - windowEl.offsetLeft;
+      offsetY = clientY - windowEl.offsetTop;
     }
 
-    windowEl.style.left = newLeft + "px";
-    windowEl.style.top = newTop + "px";
-  }
+    function handleDragMove(clientX: number, clientY: number) {
+      if (!isDragging || !windowEl) return;
 
-  function handleDragEnd() {
-    isDragging = false;
-  }
+      let newLeft = clientX - offsetX;
+      let newTop = clientY - offsetY;
 
-  // ドラッグ開始イベントをヘッダーにのみ関連付ける
-  headerEl.addEventListener("mousedown", (e) => {
-    handleDragStart(e.clientX, e.clientY);
-  });
+      // 画面の左端と上端の境界
+      if (newLeft < 0) newLeft = 0;
+      if (newTop < 0) newTop = 0;
 
-  document.addEventListener("mousemove", (e) => {
-    handleDragMove(e.clientX, e.clientY);
-  });
+      // 画面の右端と下端の境界
+      const maxLeft = window.innerWidth - windowEl.offsetWidth;
+      const maxTop = window.innerHeight - windowEl.offsetHeight;
 
-  document.addEventListener("mouseup", () => {
-    handleDragEnd();
-  });
+      if (newLeft > maxLeft) {
+        newLeft = maxLeft;
+      }
+      if (newTop > maxTop) {
+        newTop = maxTop;
+      }
 
-  // タッチイベントもヘッダーに関連付ける
-  headerEl.addEventListener(
-    "touchstart",
-    (e) => {
+      windowEl.style.left = newLeft + 'px';
+      windowEl.style.top = newTop + 'px';
+    }
+
+    function handleDragEnd() {
+      isDragging = false;
+    }
+
+    headerEl.addEventListener('mousedown', (e: MouseEvent) => {
+      handleDragStart(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('mousemove', (e: MouseEvent) => {
+      handleDragMove(e.clientX, e.clientY);
+    });
+
+    document.addEventListener('mouseup', () => {
+      handleDragEnd();
+    });
+
+    headerEl.addEventListener('touchstart', (e: TouchEvent) => {
       if (e.touches.length === 0) return;
       const touch = e.touches[0];
       handleDragStart(touch.clientX, touch.clientY);
-      e.preventDefault(); // スクロールなどのデフォルトのタッチ動作を防ぐ
-    },
-    { passive: false },
-  );
+      e.preventDefault();
+    }, { passive: false });
 
-  document.addEventListener("touchmove", (e) => {
-    if (e.touches.length === 0) return;
-    const touch = e.touches[0];
-    handleDragMove(touch.clientX, touch.clientY);
-  });
+    document.addEventListener('touchmove', (e: TouchEvent) => {
+      if (e.touches.length === 0) return;
+      const touch = e.touches[0];
+      handleDragMove(touch.clientX, touch.clientY);
+    });
 
-  document.addEventListener("touchend", () => {
-    handleDragEnd();
+    document.addEventListener('touchend', () => {
+      handleDragEnd();
+    });
   });
 </script>
