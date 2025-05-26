@@ -1,0 +1,60 @@
+---
+interface Props {
+  items: {
+    title: string;
+    image: string;
+  }[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul>
+  {
+    items.map((work) => (
+      <li>
+        <button>
+          <figure>
+            <img src={work.image} alt={work.title} />
+            <figcaption>{work.title}</figcaption>
+          </figure>
+        </button>
+      </li>
+    ))
+  }
+</ul>
+
+<style lang="scss">
+  ul {
+    display: grid;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 42px 0;
+
+    @include sp {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  button {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  img {
+    width: 100%;
+  }
+</style>
