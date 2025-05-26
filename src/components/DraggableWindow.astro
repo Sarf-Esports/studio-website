@@ -11,7 +11,10 @@ interface Props {
 const { width = "400px", height = "300px", title } = Astro.props;
 ---
 
-<style lang="scss" define:vars={{ "window-width": width, "window-height": height }}>
+<style
+  lang="scss"
+  define:vars={{ "window-width": width, "window-height": height }}
+>
   $black: #101010;
 
   .window {
@@ -76,9 +79,13 @@ const { width = "400px", height = "300px", title } = Astro.props;
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    const windowEl = document.getElementById('draggableWindow') as HTMLElement | null;
-    const headerEl = document.getElementById('draggableHeader') as HTMLElement | null;
+  document.addEventListener("astro:page-load", () => {
+    const windowEl = document.getElementById(
+      "draggableWindow",
+    ) as HTMLElement | null;
+    const headerEl = document.getElementById(
+      "draggableHeader",
+    ) as HTMLElement | null;
 
     // 要素が存在していなかった場合の対策
     if (!windowEl || !headerEl) return;
@@ -115,40 +122,44 @@ const { width = "400px", height = "300px", title } = Astro.props;
         newTop = maxTop;
       }
 
-      windowEl.style.left = newLeft + 'px';
-      windowEl.style.top = newTop + 'px';
+      windowEl.style.left = newLeft + "px";
+      windowEl.style.top = newTop + "px";
     }
 
     function handleDragEnd() {
       isDragging = false;
     }
 
-    headerEl.addEventListener('mousedown', (e: MouseEvent) => {
+    headerEl.addEventListener("mousedown", (e: MouseEvent) => {
       handleDragStart(e.clientX, e.clientY);
     });
 
-    document.addEventListener('mousemove', (e: MouseEvent) => {
+    document.addEventListener("mousemove", (e: MouseEvent) => {
       handleDragMove(e.clientX, e.clientY);
     });
 
-    document.addEventListener('mouseup', () => {
+    document.addEventListener("mouseup", () => {
       handleDragEnd();
     });
 
-    headerEl.addEventListener('touchstart', (e: TouchEvent) => {
-      if (e.touches.length === 0) return;
-      const touch = e.touches[0];
-      handleDragStart(touch.clientX, touch.clientY);
-      e.preventDefault();
-    }, { passive: false });
+    headerEl.addEventListener(
+      "touchstart",
+      (e: TouchEvent) => {
+        if (e.touches.length === 0) return;
+        const touch = e.touches[0];
+        handleDragStart(touch.clientX, touch.clientY);
+        e.preventDefault();
+      },
+      { passive: false },
+    );
 
-    document.addEventListener('touchmove', (e: TouchEvent) => {
+    document.addEventListener("touchmove", (e: TouchEvent) => {
       if (e.touches.length === 0) return;
       const touch = e.touches[0];
       handleDragMove(touch.clientX, touch.clientY);
     });
 
-    document.addEventListener('touchend', () => {
+    document.addEventListener("touchend", () => {
       handleDragEnd();
     });
   });
