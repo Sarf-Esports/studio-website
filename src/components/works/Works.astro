@@ -1,9 +1,8 @@
 ---
+import type { Work } from "../../types/global";
+
 interface Props {
-  items: {
-    title: string;
-    image: string;
-  }[];
+  items: Work[];
 }
 
 const { items } = Astro.props;
@@ -13,9 +12,14 @@ const { items } = Astro.props;
   {
     items.map((work) => (
       <li>
-        <button>
+        <button
+          data-title={work.title}
+          data-image={work.imageSrc}
+          data-date={work.createdAt}
+          data-members={work.authors}
+        >
           <figure>
-            <img src={work.image} alt={work.title} />
+            <img src={work.imageSrc} alt={work.title} />
             <figcaption>{work.title}</figcaption>
           </figure>
         </button>
@@ -28,12 +32,13 @@ const { items } = Astro.props;
   ul {
     display: grid;
     width: 100%;
-    padding: 0;
+    padding: 24px 0; // ホバー時に画像が拡大する際の見切れを回避するために縦方向の余白を確保
     margin: 0;
     list-style: none;
     text-align: center;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 42px 0;
+    overflow: hidden;
 
     @include sp {
       grid-template-columns: repeat(2, 1fr);
@@ -48,6 +53,11 @@ const { items } = Astro.props;
     border: none;
     color: inherit;
     cursor: pointer;
+    transition: 0.15s ease-in;
+
+    &:hover {
+      scale: 1.05;
+    }
   }
 
   figure {
@@ -56,5 +66,12 @@ const { items } = Astro.props;
 
   img {
     width: 100%;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  figcaption {
+    font-size: 1rem;
+    margin-top: 4px;
   }
 </style>
