@@ -1,0 +1,63 @@
+---
+interface Props {
+  direction?: "forward" | "backward";
+}
+
+const direction = Astro.props.direction ?? "forward";
+---
+
+<div class="embla">
+  <div class="embla__viewport" data-direction={direction}>
+    <div class="embla__container">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .embla {
+    max-width: 48rem;
+    margin: auto;
+    --slide-height: 10rem;
+    --slide-spacing: 1rem;
+  }
+
+  .embla__viewport {
+    overflow: hidden;
+  }
+
+  .embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+
+  .embla__slide {
+    transform: translate3d(0, 0, 0);
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    padding-left: var(--slide-spacing);
+  }
+</style>
+
+<script>
+  //FIXME - スクリプト実行時の問題
+  // ここはグローバルで実行されるため、複数のカルーセルを置くとquerySelectorが最初の要素しか取得できない
+  // それを避けるためにis:inlineを使用したいけど、import文がバンドルを通さずそのまま反映されるためnpmライブラリを使えない
+
+  import EmblaCarousel from "embla-carousel";
+  import AutoScroll from "embla-carousel-auto-scroll";
+
+  const viewport = document.querySelector<HTMLElement>(".embla__viewport")!;
+  const direction = viewport.getAttribute("data-direction") as "forward" | "backward";
+  EmblaCarousel(
+    viewport,
+    { loop: true, watchDrag: false },
+    [
+      AutoScroll({
+        direction,
+        stopOnInteraction: false,
+      })
+    ]
+  );
+</script>

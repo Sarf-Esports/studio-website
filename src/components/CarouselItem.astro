@@ -1,0 +1,29 @@
+<div class="embla__slide">
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<style lang="scss">
+  .embla__slide {
+    flex: 0 0 auto; 
+    min-width: 0; 
+    padding-left: var(--slide-spacing); 
+    position: relative; 
+  }
+
+  .content {
+    height: var(--slide-height); 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    overflow: hidden; 
+  }
+  
+  .content > :global(img) { 
+    display: block; 
+    height: 100%;
+    width: auto;
+    object-fit: contain; 
+  }
+</style>

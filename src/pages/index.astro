@@ -1,7 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import DraggableWindow from "../components/DraggableWindow.astro";
 import Layout from "../layouts/Layout.astro";
 import Logo3d from "../components/Logo3d.svelte";
+import Carousel from '../components/Carousel.astro';
+import CarouselItem from '../components/CarouselItem.astro';
+
+import logoImage from '../assets/logo_w.png';
 ---
 
 <Layout title="top">
@@ -15,6 +20,20 @@ import Logo3d from "../components/Logo3d.svelte";
     REVATI Studio しろねこ、白猫。<br />
     ここらへんに各種ページのコンテンツを置く。
   </p>
+
+  <Carousel>
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+  </Carousel>
+
+  <Carousel direction="backward">
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+  </Carousel>
 
   <DraggableWindow title="REVATI 3D LOGO" width="30%" height="40%">
     <Logo3d client:only="svelte" />
