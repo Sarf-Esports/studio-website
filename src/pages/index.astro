@@ -21,18 +21,12 @@ import logoImage from '../assets/logo_w.png';
     ここらへんに各種ページのコンテンツを置く。
   </p>
 
-  <Carousel>
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
-  </Carousel>
-
-  <Carousel direction="backward">
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
-    <CarouselItem><Image src={logoImage} alt="logo"/></CarouselItem>
+  <Carousel slideHeight="6rem" maxWidth="120rem">
+    {Array.from({ length: 15 }).map(() => (
+      <CarouselItem>
+        <Image src={logoImage} alt="logo" />
+      </CarouselItem>
+    ))}
   </Carousel>
 
   <DraggableWindow title="REVATI 3D LOGO" width="30%" height="40%">

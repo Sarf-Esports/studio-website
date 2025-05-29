@@ -1,9 +1,16 @@
 ---
 interface Props {
-  direction?: "forward" | "backward";
+  forward?: boolean;
+  backward?: boolean;
+  maxWidth?: string;
+  slideHeight?: string;
 }
 
-const direction = Astro.props.direction ?? "forward";
+const direction = Astro.props.backward ? "backward" : "forward";
+const styles = {
+  "max-width": Astro.props.maxWidth || "48rem",
+  "slide-height": Astro.props.slideHeight || "10rem",
+}
 ---
 
 <div class="embla">
@@ -14,12 +21,11 @@ const direction = Astro.props.direction ?? "forward";
   </div>
 </div>
 
-<style lang="scss">
+<style lang="scss" define:vars={styles}>
   .embla {
-    max-width: 48rem;
-    margin: auto;
-    --slide-height: 10rem;
-    --slide-spacing: 1rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    --slide-spacing: 0px;
   }
 
   .embla__viewport {
@@ -34,7 +40,7 @@ const direction = Astro.props.direction ?? "forward";
 
   .embla__slide {
     transform: translate3d(0, 0, 0);
-    flex: 0 0 var(--slide-size);
+    flex: 0 0 var(--slide-height);
     min-width: 0;
     padding-left: var(--slide-spacing);
   }
@@ -54,6 +60,7 @@ const direction = Astro.props.direction ?? "forward";
         AutoScroll({
           direction,
           stopOnInteraction: false,
+          speed: 0.5,
         })
       ]
     );
