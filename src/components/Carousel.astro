@@ -41,23 +41,21 @@ const direction = Astro.props.direction ?? "forward";
 </style>
 
 <script>
-  //FIXME - スクリプト実行時の問題
-  // ここはグローバルで実行されるため、複数のカルーセルを置くとquerySelectorが最初の要素しか取得できない
-  // それを避けるためにis:inlineを使用したいけど、import文がバンドルを通さずそのまま反映されるためnpmライブラリを使えない
-
   import EmblaCarousel from "embla-carousel";
   import AutoScroll from "embla-carousel-auto-scroll";
 
-  const viewport = document.querySelector<HTMLElement>(".embla__viewport")!;
-  const direction = viewport.getAttribute("data-direction") as "forward" | "backward";
-  EmblaCarousel(
-    viewport,
-    { loop: true, watchDrag: false },
-    [
-      AutoScroll({
-        direction,
-        stopOnInteraction: false,
-      })
-    ]
-  );
+  const viewports = document.querySelectorAll<HTMLElement>(".embla__viewport")!;
+  viewports.forEach((viewport) => {
+    const direction = viewport.getAttribute("data-direction") as "forward" | "backward";
+    EmblaCarousel(
+      viewport,
+      { loop: true, watchDrag: false },
+      [
+        AutoScroll({
+          direction,
+          stopOnInteraction: false,
+        })
+      ]
+    );
+  });
 </script>
