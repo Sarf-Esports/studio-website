@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Canvas, T } from "@threlte/core";
 	import {
-		ContactShadows,
 		GLTF,
 		OrbitControls
 	} from "@threlte/extras";
