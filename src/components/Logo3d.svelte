@@ -13,8 +13,6 @@
 			<OrbitControls enableZoom enableDamping autoRotate target.y={0.5} />
 		</T.PerspectiveCamera>
 
-		<ContactShadows scale={10} blur={2} opacity={0.7} />
-
 		<GLTF
 			url="/models/REVATI-Studio-3D-logo.glb"
 			position={[-0.25, 0.5, 0]}
