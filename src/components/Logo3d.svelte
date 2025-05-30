@@ -4,6 +4,16 @@
 		GLTF,
 		OrbitControls
 	} from "@threlte/extras";
+
+	import { Vector3 } from "three";
+
+	const LIGHT_POS = new Vector3(-1, 8, 20);
+	const LIGHT_COL = 0xff8000;
+
+	const GLTF_LIST = [
+		'/models/REVATI-Studio-3D-logo.glb',
+		'/models/Revati-kun.glb'
+	];
 </script>
 
 <div class="logo-container">
@@ -13,13 +23,18 @@
 		</T.PerspectiveCamera>
 
 		<T.DirectionalLight
-			position={[-1, 8, 20]}
+			position={LIGHT_POS.toArray()}
 			intensity={25}
-			color={0xff8000}
+			color={LIGHT_COL}
+		/>
+		<T.DirectionalLight
+			position={LIGHT_POS.negate().toArray()}
+			intensity={3.5}
+			color={LIGHT_COL}
 		/>
 
 		<GLTF
-			url="/models/REVATI-Studio-3D-logo.glb"
+			url={GLTF_LIST[0]}
 			position={[-0.25, 0.5, 0]}
 			scale={10}
 			rotation={[Math.PI * 0.5, 0, 0]}
