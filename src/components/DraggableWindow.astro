@@ -11,32 +11,36 @@ interface Props {
 const { width = "400px", height = "300px", title } = Astro.props;
 ---
 
-<style define:vars={{ "window-width": width, "window-height": height }}>
+<style
+  lang="scss"
+  define:vars={{ "window-width": width, "window-height": height }}
+>
+  $black: #101010;
+
   .window {
     width: var(--window-width);
     height: var(--window-height);
 
-    background: white;
-    border: 1px solid #ccc;
-    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    background: rgba($color-background, 0.75);
+    border: 3px solid $black;
+    box-shadow: 0 2px 12px #00000080;
     position: absolute;
     top: 100px;
     left: 100px;
     display: flex;
     flex-direction: column;
 
-    border-radius: 6px;
+    border-radius: 3px;
     overflow: hidden;
   }
 
   .window-header {
     width: 100%;
     height: 30px;
-    background-color: #f0f0f0;
+    background-color: $black;
     display: flex;
     align-items: center;
     cursor: move;
-    border-bottom: 1px solid #ccc;
     box-sizing: border-box;
     flex-shrink: 0; /* タイトルバーが縮まないようにする */
     justify-content: space-between; /* タイトルとボタンを両端に配置 */
@@ -46,9 +50,9 @@ const { width = "400px", height = "300px", title } = Astro.props;
   .window-title {
     font-weight: bold;
     font-size: 0.8em;
-    color: #333;
     flex-grow: 1;
     text-align: center;
+    user-select: none;
   }
 
   .content {
@@ -57,6 +61,11 @@ const { width = "400px", height = "300px", title } = Astro.props;
     align-items: center;
     flex-grow: 1;
     box-sizing: border-box;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
   }
 </style>
 
@@ -70,9 +79,13 @@ const { width = "400px", height = "300px", title } = Astro.props;
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    const windowEl = document.getElementById('draggableWindow') as HTMLElement | null;
-    const headerEl = document.getElementById('draggableHeader') as HTMLElement | null;
+  document.addEventListener("astro:page-load", () => {
+    const windowEl = document.getElementById(
+      "draggableWindow",
+    ) as HTMLElement | null;
+    const headerEl = document.getElementById(
+      "draggableHeader",
+    ) as HTMLElement | null;
 
     // 要素が存在していなかった場合の対策
     if (!windowEl || !headerEl) return;
@@ -109,40 +122,44 @@ const { width = "400px", height = "300px", title } = Astro.props;
         newTop = maxTop;
       }
 
-      windowEl.style.left = newLeft + 'px';
-      windowEl.style.top = newTop + 'px';
+      windowEl.style.left = newLeft + "px";
+      windowEl.style.top = newTop + "px";
     }
 
     function handleDragEnd() {
       isDragging = false;
     }
 
-    headerEl.addEventListener('mousedown', (e: MouseEvent) => {
+    headerEl.addEventListener("mousedown", (e: MouseEvent) => {
       handleDragStart(e.clientX, e.clientY);
     });
 
-    document.addEventListener('mousemove', (e: MouseEvent) => {
+    document.addEventListener("mousemove", (e: MouseEvent) => {
       handleDragMove(e.clientX, e.clientY);
     });
 
-    document.addEventListener('mouseup', () => {
+    document.addEventListener("mouseup", () => {
       handleDragEnd();
     });
 
-    headerEl.addEventListener('touchstart', (e: TouchEvent) => {
-      if (e.touches.length === 0) return;
-      const touch = e.touches[0];
-      handleDragStart(touch.clientX, touch.clientY);
-      e.preventDefault();
-    }, { passive: false });
+    headerEl.addEventListener(
+      "touchstart",
+      (e: TouchEvent) => {
+        if (e.touches.length === 0) return;
+        const touch = e.touches[0];
+        handleDragStart(touch.clientX, touch.clientY);
+        e.preventDefault();
+      },
+      { passive: false },
+    );
 
-    document.addEventListener('touchmove', (e: TouchEvent) => {
+    document.addEventListener("touchmove", (e: TouchEvent) => {
       if (e.touches.length === 0) return;
       const touch = e.touches[0];
       handleDragMove(touch.clientX, touch.clientY);
     });
 
-    document.addEventListener('touchend', () => {
+    document.addEventListener("touchend", () => {
       handleDragEnd();
     });
   });
