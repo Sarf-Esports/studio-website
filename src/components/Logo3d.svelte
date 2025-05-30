@@ -12,6 +12,12 @@
 			<OrbitControls enableZoom enableDamping autoRotate target.y={0.5} />
 		</T.PerspectiveCamera>
 
+		<T.DirectionalLight
+			position={[-1, 8, 20]}
+			intensity={25}
+			color={0xff8000}
+		/>
+
 		<GLTF
 			url="/models/REVATI-Studio-3D-logo.glb"
 			position={[-0.25, 0.5, 0]}
