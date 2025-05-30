@@ -10,7 +10,7 @@ const direction = Astro.props.backward ? "backward" : "forward";
 const styles = {
   "max-width": Astro.props.maxWidth || "48rem",
   "slide-height": Astro.props.slideHeight || "10rem",
-}
+};
 ---
 
 <div class="embla">
@@ -45,17 +45,15 @@ const styles = {
 
   const viewports = document.querySelectorAll<HTMLElement>(".embla__viewport")!;
   viewports.forEach((viewport) => {
-    const direction = viewport.getAttribute("data-direction") as "forward" | "backward";
-    EmblaCarousel(
-      viewport,
-      { loop: true, watchDrag: false },
-      [
-        AutoScroll({
-          direction,
-          stopOnInteraction: false,
-          speed: 0.5,
-        })
-      ]
-    );
+    const direction = viewport.getAttribute("data-direction") as
+      | "forward"
+      | "backward";
+    EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
+      AutoScroll({
+        direction,
+        stopOnInteraction: false,
+        speed: 0.5,
+      }),
+    ]);
   });
 </script>

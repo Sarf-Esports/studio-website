@@ -1,12 +1,12 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 import DraggableWindow from "../components/DraggableWindow.astro";
 import Layout from "../layouts/Layout.astro";
 import Logo3d from "../components/Logo3d.svelte";
-import Carousel from '../components/Carousel.astro';
-import CarouselItem from '../components/CarouselItem.astro';
+import Carousel from "../components/Carousel.astro";
+import CarouselItem from "../components/CarouselItem.astro";
 
-import logoImage from '../assets/logo_w.png';
+import logoImage from "../assets/logo_w.png";
 ---
 
 <Layout title="top">
@@ -22,11 +22,13 @@ import logoImage from '../assets/logo_w.png';
   </p>
 
   <Carousel slideHeight="6rem" maxWidth="120rem">
-    {Array.from({ length: 15 }).map(() => (
-      <CarouselItem>
-        <Image src={logoImage} alt="logo" />
-      </CarouselItem>
-    ))}
+    {
+      Array.from({ length: 15 }).map(() => (
+        <CarouselItem>
+          <Image src={logoImage} alt="logo" />
+        </CarouselItem>
+      ))
+    }
   </Carousel>
 
   <DraggableWindow title="REVATI Studio" width="498px" height="266px">
