@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import WorkList from "../components/works/Works.astro";
+import Modal from "../components/works/Modal.astro";
 ---
 
 <Layout title="works">
@@ -7,9 +9,190 @@ import Layout from "../layouts/Layout.astro";
     <meta name="description" content="This is a works page." />
   </slot>
 
-  <h1>Works page</h1>
-  <p>
-    REVATI Studio しろねこ、白猫。<br />
-    ここらへんに各種ページのコンテンツを置く。
-  </p>
+  <h1>Our Works</h1>
+
+  <h2>Media Production</h2>
+  <h3>Video Production</h3>
+  <WorkList items={[]} />
+  <h3>Video Editing</h3>
+  <WorkList items={[]} />
+
+  <h2>Visual Design</h2>
+  <h3>Illustration</h3>
+  <!-- DBG: 臨時の作品群 ↓ -->
+  <WorkList
+    items={[
+      {
+        title: "ればっちくん",
+        imageSrc: "https://i.imgur.com/ARpQ8JC.png",
+        createdAt: "2025-05-09",
+        authors: "にんじゃはむぞー",
+      },
+      {
+        title: "REVATI ヘッダー",
+        imageSrc:
+          "https://revati.jp/images/logos/revati/header_mini_oxipng.png",
+        createdAt: "2024-04-01",
+        authors: "REVATI",
+      },
+      {
+        title: "No Image (©2023 Rinrin.rs | CC BY-SA 4.0)",
+        imageSrc:
+          "https://feat--168-goods-poster-carou.revati.pages.dev/images/news/thumbnails/20240301_test.png",
+        createdAt: "2023-10-02",
+        authors: "Rinrin.rs",
+      },
+      {
+        title: "鮮やかHDR",
+        imageSrc:
+          "https://files.aipictors.com/db9a4176-9792-462b-ac7f-a5935edccca3",
+        createdAt: "2023-04-12",
+        authors: "Stable Diffusion",
+      },
+      {
+        title: "ポスター Ω<ﾅﾝﾃﾞｽｯﾃｰ!? (©2024 Rinrin.rs | CC BY-SA 4.0)",
+        imageSrc:
+          "https://dev.rinrin.pages.dev/images/creations/thumbnails/poster-nandesuttee.webp",
+        createdAt: "2024-09-18",
+        authors: "Rinrin.rs",
+      },
+    ]}
+  />
+  <h3>Graphic Design</h3>
+  <WorkList items={[]} />
+  <h3>Web Design</h3>
+  <WorkList items={[]} />
+
+  <h2>Digital Development</h2>
+  <WorkList items={[]} />
+  <h3>Web Development</h3>
+  <WorkList
+    items={[
+      {
+        title: "revati.jp",
+        imageSrc: "https://i.imgur.com/gEmZFMK.png",
+        createdAt: "2023-01-21",
+        authors: "Rinrin.rs、GEN3987、Retoruto9900K、しろねこ",
+      },
+    ]}
+  />
+  <h3>App Development</h3>
+  <WorkList items={[]} />
+  <h3>Bot Development</h3>
+  <WorkList items={[]} />
 </Layout>
+
+<Modal />
+
+<style lang="scss">
+  h1,
+  h2,
+  h3 {
+    text-align: center;
+  }
+</style>
+
+<script>
+  import type { Work } from "../types/global";
+
+  const UPDATE_DELAY = 500;
+
+  let dialog: HTMLDialogElement;
+  let modalElms: {
+    title: HTMLElement;
+    image: HTMLImageElement;
+    date: HTMLElement;
+    authors: HTMLElement;
+  };
+
+  function handleWorkClick(this: HTMLButtonElement) {
+    const imageSrc = this.getAttribute("data-image");
+    const title = this.getAttribute("data-title");
+    const createdAt = this.getAttribute("data-date");
+    const authors = this.getAttribute("data-members");
+    if (
+      title !== null &&
+      imageSrc !== null &&
+      createdAt !== null &&
+      authors !== null
+    ) {
+      const event: CustomEvent<Work> = new CustomEvent("open-work-modal", {
+        detail: { imageSrc, title, createdAt, authors },
+      });
+      document.dispatchEvent(event);
+    }
+  }
+
+  function initializeWorks() {
+    document
+      .querySelectorAll("button[data-image][data-title]")
+      .forEach((btn) => {
+        btn.removeEventListener("click", handleWorkClick);
+        btn.addEventListener("click", handleWorkClick);
+      });
+  }
+
+  function openModal(event: Event) {
+    const { imageSrc, title, createdAt, authors } = (event as CustomEvent<Work>)
+      .detail;
+    modalElms.image.src = imageSrc;
+    modalElms.image.alt = title;
+    modalElms.title.textContent = title;
+    modalElms.date.textContent = createdAt;
+    modalElms.authors.textContent = authors;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    dialog.close();
+    document.body.style.overflow = "";
+  }
+
+  function initializeModal() {
+    dialog = document.getElementById("work-modal-dialog")! as HTMLDialogElement;
+    modalElms = {
+      title: document.getElementById("work-modal-title")!,
+      image: document.getElementById("work-modal-image")! as HTMLImageElement,
+      date: document.getElementById("work-modal-date")!,
+      authors: document.getElementById("work-modal-authors")!,
+    };
+
+    dialog.addEventListener("cancel", (e) => {
+      e.preventDefault();
+      closeModal();
+    });
+
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) closeModal();
+    });
+  }
+
+  function initialize() {
+    initializeWorks();
+    initializeModal();
+  }
+
+  // DOMが完全にロードされた後に関数を実行
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialize);
+  } else {
+    initialize();
+  }
+
+  // ページの表示・非表示状態が変わったら再初期化
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) setTimeout(initialize, UPDATE_DELAY);
+  });
+
+  // 初回ページロードとすべてのナビゲーション後に再初期化
+  document.addEventListener("astro:page-load", () => {
+    setTimeout(initialize, UPDATE_DELAY);
+  });
+
+  document
+    .getElementById("work-modal-close")!
+    .addEventListener("click", closeModal);
+
+  document.addEventListener("open-work-modal", openModal);
+</script>
