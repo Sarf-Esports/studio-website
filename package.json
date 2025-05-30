@@ -18,6 +18,8 @@
     "@threlte/core": "^8.0.4",
     "@threlte/extras": "^9.2.1",
     "astro": "^5.7.10",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-auto-scroll": "^8.6.0",
     "sass": "^1.87.0",
     "svelte": "^5.33.0",
     "three": "^0.176.0",

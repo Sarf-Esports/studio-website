@@ -1,0 +1,61 @@
+---
+interface Props {
+  forward?: boolean;
+  backward?: boolean;
+  maxWidth?: string;
+  slideHeight?: string;
+}
+
+const direction = Astro.props.backward ? "backward" : "forward";
+const styles = {
+  "max-width": Astro.props.maxWidth || "48rem",
+  "slide-height": Astro.props.slideHeight || "10rem",
+}
+---
+
+<div class="embla">
+  <div class="embla__viewport" data-direction={direction}>
+    <div class="embla__container">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style lang="scss" define:vars={styles}>
+  .embla {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    --slide-spacing: 0px;
+  }
+
+  .embla__viewport {
+    overflow: hidden;
+  }
+
+  .embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+</style>
+
+<script>
+  import EmblaCarousel from "embla-carousel";
+  import AutoScroll from "embla-carousel-auto-scroll";
+
+  const viewports = document.querySelectorAll<HTMLElement>(".embla__viewport")!;
+  viewports.forEach((viewport) => {
+    const direction = viewport.getAttribute("data-direction") as "forward" | "backward";
+    EmblaCarousel(
+      viewport,
+      { loop: true, watchDrag: false },
+      [
+        AutoScroll({
+          direction,
+          stopOnInteraction: false,
+          speed: 0.5,
+        })
+      ]
+    );
+  });
+</script>
