@@ -13,19 +13,21 @@ const styles = {
 };
 ---
 
-<div class="embla">
+<section class="embla">
   <div class="embla__viewport" data-direction={direction}>
     <div class="embla__container">
       <slot />
     </div>
   </div>
-</div>
+</section>
 
 <style lang="scss" define:vars={styles}>
   .embla {
     max-width: var(--max-width);
     margin: 0 auto;
     --slide-spacing: 0px;
+    user-select: none;
+    pointer-events: none;
   }
 
   .embla__viewport {
