@@ -27,6 +27,7 @@
 - フォント
   - Noto Sans Japanese
     - Regular: `400`
+    - Black: `900`
 
 ## 使用技術
 
