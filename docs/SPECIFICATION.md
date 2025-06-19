@@ -13,7 +13,6 @@
 - WORKS (TOP)
   - [all, thumbnail, video, poster, bgm, website, translator]
 - ABOUT
-- ARCHIVE
 - CONTACT
   - Google Formを埋め込む
 
