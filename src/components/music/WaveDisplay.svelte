@@ -154,7 +154,7 @@
         gainNode.connect(audioContext.destination);
 
         // 初期音量設定
-        gainNode.gain.value = 1.0;
+        gainNode.gain.value = 0.08;
 
         // 現在のaudio要素を記録
         currentAudioElement = audio;
