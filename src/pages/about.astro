@@ -50,9 +50,7 @@ const PROCESS = [
         <h2>主要なサービス領域</h2>
         <ul>{SERVICES.map((s) => <li class="service">{s}</li>)}</ul>
       </div>
-    </section>
-    <section>
-      <div>
+      <div class="process-container">
         <h2>手続き</h2>
         <ul class="process">
           {
@@ -130,6 +128,10 @@ const PROCESS = [
 
   .service {
     margin-block: 6px;
+  }
+
+  .process-container {
+    margin-top: 68px;
   }
 
   .process {
