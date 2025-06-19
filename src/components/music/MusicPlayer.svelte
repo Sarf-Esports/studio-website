@@ -1,0 +1,252 @@
+<script lang="ts">
+  import { onMount } from "svelte";
+  import type { Track, PlayerState } from "../../types/music";
+  import ControlPanel from "./ControlPanel.svelte";
+  import WaveDisplay from "./WaveDisplay.svelte";
+
+  let tracks: Track[] = [
+    {
+      title: "stupid mfs",
+      artist: "chris_gangcat",
+      src: "/music/stupid-mfs.mp3",
+    },
+    {
+      title: "Kill it [ABYSSUM EP VOL.2]",
+      artist: "chris_gangcat",
+      src: "/music/kill-it.mp3",
+    },
+  ];
+
+  // 音楽プレイヤーの状態
+  let playerState = $state<PlayerState>({
+    currentTrack: null,
+    isPlaying: false,
+    currentTime: 0,
+    duration: 0,
+    playlist: tracks,
+    currentIndex: 0,
+  });
+
+  let audioElement = $state<HTMLAudioElement>();
+  let isDesktop = $state(true);
+
+  // デバイス判定
+  onMount(() => {
+    const checkDevice = () => {
+      isDesktop = window.innerWidth >= 768;
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+
+    return () => {
+      window.removeEventListener("resize", checkDevice);
+    };
+  });
+  // プレイリストが変更されたら更新
+  $effect(() => {
+    playerState.playlist = tracks;
+    if (tracks.length > 0 && !playerState.currentTrack) {
+      playerState.currentTrack = tracks[0];
+    }
+  });
+
+  // 現在のトラックが変更されたときの処理
+  $effect(() => {
+    if (playerState.currentTrack && audioElement) {
+      console.log("Current track changed to:", playerState.currentTrack.title);
+    }
+  });
+
+  // 音楽再生・一時停止
+  function togglePlay() {
+    if (!audioElement || !playerState.currentTrack) return;
+
+    if (playerState.isPlaying) {
+      pause();
+    } else {
+      play();
+    }
+  }
+  function play() {
+    if (!audioElement) return;
+    audioElement.play().then(() => {
+      playerState.isPlaying = true;
+      console.log("再生開始:", playerState.currentTrack?.title);
+    }).catch(error => {
+      console.error("再生に失敗しました:", error);
+      playerState.isPlaying = false;
+    });
+  }
+
+  function pause() {
+    if (!audioElement) return;
+    audioElement.pause();
+    playerState.isPlaying = false;
+    console.log("再生停止:", playerState.currentTrack?.title);
+  }
+
+  // 次の曲
+  function nextTrack() {
+    if (playerState.playlist.length === 0) return;
+
+    const nextIndex =
+      (playerState.currentIndex + 1) % playerState.playlist.length;
+    changeTrack(nextIndex);
+  }
+
+  // 前の曲
+  function prevTrack() {
+    if (playerState.playlist.length === 0) return;
+
+    const prevIndex =
+      playerState.currentIndex === 0
+        ? playerState.playlist.length - 1
+        : playerState.currentIndex - 1;
+    changeTrack(prevIndex);
+  }
+  function changeTrack(index: number) {
+    if (index < 0 || index >= playerState.playlist.length) return;
+
+    const wasPlaying = playerState.isPlaying;
+    
+    // 現在の再生を停止
+    if (audioElement) {
+      audioElement.pause();
+    }
+    
+    playerState.currentIndex = index;
+    playerState.currentTrack = playerState.playlist[index];
+    playerState.currentTime = 0;
+    playerState.duration = 0;
+    playerState.isPlaying = false;
+
+    // 新しいトラックが読み込まれたら再生開始
+    if (wasPlaying) {
+      // 少し待ってから再生開始（audio要素のsrc変更を待つ）
+      setTimeout(() => {
+        if (audioElement && audioElement.src) {
+          audioElement.play().then(() => {
+            playerState.isPlaying = true;
+          }).catch(error => {
+            console.error("再生に失敗しました:", error);
+            playerState.isPlaying = false;
+          });
+        }
+      }, 200);
+    }
+  }
+  // シーク
+  function seek(time: number) {
+    if (!audioElement) return;
+    audioElement.currentTime = time;
+    playerState.currentTime = time;
+  }
+
+  function handleTimeUpdate() {
+    if (audioElement) {
+      playerState.currentTime = audioElement.currentTime;
+    }
+  }
+  function handleLoadedMetadata() {
+    if (audioElement) {
+      playerState.duration = audioElement.duration;
+      console.log("メタデータ読み込み完了:", playerState.currentTrack?.title);
+    }
+  }
+
+  function handleEnded() {
+    nextTrack();
+  }
+
+  function handleError() {
+    console.error("音楽ファイルの読み込みに失敗しました");
+    playerState.isPlaying = false;
+  }
+</script>
+
+{#if playerState.currentTrack}
+  <audio
+    bind:this={audioElement}
+    src={playerState.currentTrack.src}
+    ontimeupdate={handleTimeUpdate}
+    onloadedmetadata={handleLoadedMetadata}
+    onended={handleEnded}
+    onerror={handleError}
+    preload="metadata"
+  ></audio>
+{/if}
+
+<div class="music-player" class:desktop={isDesktop} class:mobile={!isDesktop}>
+  <WaveDisplay
+    isPlaying={playerState.isPlaying}
+    currentTime={playerState.currentTime}
+    duration={playerState.duration}
+    musicSrc={playerState.currentTrack?.src}
+    audioElement={audioElement}
+    className={isDesktop ? "wave-desktop" : "wave-mobile"}
+  />
+
+  <ControlPanel
+    currentTrack={playerState.currentTrack}
+    isPlaying={playerState.isPlaying}
+    currentTime={playerState.currentTime}
+    duration={playerState.duration}
+    onTogglePlay={togglePlay}
+    onNext={nextTrack}
+    onPrev={prevTrack}
+    onSeek={seek}
+    className={isDesktop ? "control-desktop" : "control-mobile"}
+  />
+</div>
+
+<style lang="scss">
+  .music-player {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+
+    &.desktop {
+      inset: 0;
+
+      :global(.wave-desktop) {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        pointer-events: auto;
+      }
+
+      :global(.control-desktop) {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 350px;
+        pointer-events: auto;
+      }
+    }
+
+    &.mobile {
+      inset: 0;
+
+      :global(.wave-mobile) {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 80px;
+        width: 60px;
+        pointer-events: auto;
+      }
+
+      :global(.control-mobile) {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        pointer-events: auto;
+      }
+    }
+  }
+</style>

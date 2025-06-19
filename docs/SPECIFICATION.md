@@ -59,3 +59,15 @@
   - 波形表示
 - レスポンシブデザイン対応
 - 日本語のみの対応
+
+## 音楽再生の機能
+- MusicPlayer (svelte) (状態をまとめて管理)
+  - ControlPanel (svelte)
+  - WaveDisplay (svelte)
+
+- Desktop
+  - 画面下部に横全画面で波を表示
+  - 画面右下にコントロールを表示(title, artist, play/pause, next, prev)
+- Mobile
+  - 画面右側に波を表示
+  - 画面下部に横全画面で小さめ(低め)のコントロールを表示(title, artist, play/pause, next, prev)
