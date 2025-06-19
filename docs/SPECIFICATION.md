@@ -11,7 +11,18 @@
 ## サイトマップ
 
 - WORKS (TOP)
-  - [all, thumbnail, video, poster, bgm, website, translator]
+  - Our Works
+    - Media Production
+      - Video Production
+      - Video Editing
+    - Visual Design
+      - Illustration
+      - Graphic Design
+      - Web Design
+    - Digital Development
+      - Web Development
+      - App Development
+      - Bot Development
 - ABOUT
 - CONTACT
   - Google Formを埋め込む
