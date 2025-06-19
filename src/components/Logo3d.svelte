@@ -1,19 +1,13 @@
 <script lang="ts">
-	import { Canvas, T } from "@threlte/core";
-	import {
-		GLTF,
-		OrbitControls
-	} from "@threlte/extras";
+	import { Canvas, T } from '@threlte/core';
+	import { GLTF, OrbitControls } from '@threlte/extras';
 
-	import { Vector3 } from "three";
+	import { Vector3 } from 'three';
 
 	const LIGHT_POS = new Vector3(-1, 8, 20);
 	const LIGHT_COL = 0xff8000;
 
-	const GLTF_LIST = [
-		'/models/REVATI-Studio-3D-logo.glb',
-		'/models/Revati-kun.glb'
-	];
+	const GLTF_LIST = ['/models/REVATI-Studio-3D-logo.glb', '/models/Revati-kun.glb'];
 </script>
 
 <div class="logo-container">
@@ -22,16 +16,8 @@
 			<OrbitControls enableZoom enableDamping autoRotate target.y={0.5} />
 		</T.PerspectiveCamera>
 
-		<T.DirectionalLight
-			position={LIGHT_POS.toArray()}
-			intensity={25}
-			color={LIGHT_COL}
-		/>
-		<T.DirectionalLight
-			position={LIGHT_POS.negate().toArray()}
-			intensity={3.5}
-			color={LIGHT_COL}
-		/>
+		<T.DirectionalLight position={LIGHT_POS.toArray()} intensity={25} color={LIGHT_COL} />
+		<T.DirectionalLight position={LIGHT_POS.negate().toArray()} intensity={3.5} color={LIGHT_COL} />
 
 		<GLTF
 			url={GLTF_LIST[0]}
