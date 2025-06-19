@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ContactContent from "../components/contact/ContactContent.svelte";
 ---
 
 <Layout title="contact">
@@ -7,9 +8,20 @@ import Layout from "../layouts/Layout.astro";
     <meta name="description" content="This is a contact page." />
   </slot>
 
-  <h1>Contact page</h1>
-  <p>
-    REVATI Studio しろねこ、白猫。<br />
-    ここらへんに各種ページのコンテンツを置く。
-  </p>
+  <h1>CONTACT</h1>
+  <p>ご要件に合わせて下記よりお問い合わせください。</p>
+  <ContactContent client:only="svelte" />
 </Layout>
+
+<style lang="scss">
+  h1,
+  p {
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 58px;
+    margin-bottom: 0;
+  }
+</style>
