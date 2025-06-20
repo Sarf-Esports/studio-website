@@ -4,11 +4,11 @@
   import ControlPanel from "./ControlPanel.svelte";
   import WaveDisplay from "./WaveDisplay.svelte";
 
-  let tracks: Track[] = [
+  const tracks: Track[] = [
     {
-      title: "stupid mfs",
+      title: "BACK ONCE AGAIN",
       artist: "chris_gangcat",
-      src: "/music/stupid-mfs.mp3",
+      src: "/music/back-once-again.mp3",
     },
     {
       title: "Kill it [ABYSSUM EP VOL.2]",
