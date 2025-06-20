@@ -24,7 +24,6 @@
     onPrev,
     onSeek,
   }: Props = $props();
-
   function formatTime(seconds: number): string {
     if (!isFinite(seconds)) return "0:00";
 
@@ -114,31 +113,38 @@
         </svg>
       </button>
     </div>
-
-    <div class="seek-container">
-      <span class="time current-time">{formatTime(currentTime)}</span>
-      <input
-        type="range"
-        class="seek-bar"
-        min="0"
-        max="100"
-        value={progress}
-        oninput={handleSeekInput}
-        aria-label="シークバー"
-      />
-      <span class="time total-time">{formatTime(duration)}</span>
-    </div>
+    {#if !isMobile}
+      <div class="seek-container">
+        <span class="time current-time">{formatTime(currentTime)}</span>
+        <input
+          type="range"
+          class="seek-bar"
+          min="0"
+          max="100"
+          value={progress}
+          oninput={handleSeekInput}
+          aria-label="シークバー"
+        />
+        <span class="time total-time">{formatTime(duration)}</span>
+      </div>
+    {/if}
   {:else}
     <div class="no-track">音楽が選択されていません</div>
   {/if}
 </div>
+
+{#if currentTrack && isMobile}
+  <div class="mobile-progress-bar">
+    <div class="progress-fill" style="width: {progress}%"></div>
+  </div>
+{/if}
 
 <style lang="scss">
   .control-panel {
     background: rgba(54, 51, 51, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 12px;
-    padding: 20px;
+    padding: 24px;
     color: #f6e9e9;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(225, 100, 40, 0.3);
@@ -208,7 +214,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
 
       .time {
         font-size: 12px;
@@ -250,14 +255,15 @@
       color: rgba(246, 233, 233, 0.5);
       font-size: 14px;
     }
-
-    // モバイル用のスタイル調整
+    
     &.control-mobile {
       border-radius: 0;
+      height: var(--mobile-control-height);
       padding: 4px 16px;
       display: flex;
       align-items: center;
       gap: 12px;
+      box-sizing: border-box;
 
       .track-info {
         margin-bottom: 0;
@@ -286,10 +292,10 @@
         gap: 8px;
 
         .control-btn {
-          padding: 6px;
+          padding: 7px;
 
           &.play-pause {
-            padding: 8px;
+            padding: 6px;
           }
         }
       }
@@ -297,6 +303,23 @@
       .seek-container {
         display: none;
       }
+    }
+  }
+
+  .mobile-progress-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgba(54, 51, 51, 0.8);
+    z-index: 1000;
+
+    .progress-fill {
+      height: 100%;
+      background: #e16428;
+      transition: width 0.1s ease;
+      border-radius: 0 2px 2px 0;
     }
   }
 </style>

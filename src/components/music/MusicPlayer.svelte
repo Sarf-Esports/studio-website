@@ -211,6 +211,10 @@
 </div>
 
 <style lang="scss">
+  :root {
+    --mobile-control-height: 75px;
+  }
+
   .music-player {
     position: fixed;
     pointer-events: none;
@@ -243,7 +247,7 @@
         top: 0;
         right: 0;
         width: 70px;
-        height: calc(100dvh - 90px);
+        height: calc(100dvh - var(--mobile-control-height));
         pointer-events: auto;
         // border: red 1px solid;
         // z-index: 1000;
@@ -254,7 +258,8 @@
         bottom: 0;
         left: 0;
         right: 0;
-        height: 80px;
+        height: var(--mobile-control-height);
+        max-height: var(--mobile-control-height);
         pointer-events: auto;
       }
     }
