@@ -1,17 +1,30 @@
 <script lang="ts">
   import type { Track } from "../../types/music";
 
-  export let currentTrack: Track | null;
-  export let isPlaying: boolean;
-  export let currentTime: number;
-  export let duration: number;
-  export let onTogglePlay: () => void;
-  export let onNext: () => void;
-  export let onPrev: () => void;
-  export let onSeek: (time: number) => void;
-  export let className: string = "";
+  interface Props {
+    currentTrack: Track | null;
+    isMobile: boolean;
+    isPlaying: boolean;
+    currentTime: number;
+    duration: number;
+    onTogglePlay: () => void;
+    onNext: () => void;
+    onPrev: () => void;
+    onSeek: (time: number) => void;
+  }
 
-  // 時間をフォーマット
+  const {
+    currentTrack,
+    isMobile,
+    isPlaying,
+    currentTime,
+    duration,
+    onTogglePlay,
+    onNext,
+    onPrev,
+    onSeek,
+  }: Props = $props();
+
   function formatTime(seconds: number): string {
     if (!isFinite(seconds)) return "0:00";
 
@@ -19,25 +32,22 @@
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   }
-  // シークバーハンドリング
+
   function handleSeekInput(event: Event) {
     const target = event.target as HTMLInputElement;
     const seekTime = (parseFloat(target.value) / 100) * duration;
     onSeek(seekTime);
   }
 
-  // 進行率を計算
-  $: progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progress = $derived(duration > 0 ? (currentTime / duration) * 100 : 0);
 </script>
 
-<div class="control-panel {className}">
+<div class="control-panel {isMobile ? 'control-mobile' : 'control-desktop'}">
   {#if currentTrack}
-    <!-- 曲情報 -->
     <div class="track-info">
       <div class="track-title">{currentTrack.title}</div>
       <div class="track-artist">{currentTrack.artist}</div>
     </div>
-    <!-- 再生コントロール -->
     <div class="controls">
       <button class="control-btn prev" onclick={onPrev} aria-label="前の曲">
         <svg
@@ -105,7 +115,6 @@
       </button>
     </div>
 
-    <!-- シークバー -->
     <div class="seek-container">
       <span class="time current-time">{formatTime(currentTime)}</span>
       <input

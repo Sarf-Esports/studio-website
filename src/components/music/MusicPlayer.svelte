@@ -28,21 +28,23 @@
   });
 
   let audioElement = $state<HTMLAudioElement>();
-  let isDesktop = $state(true);
+  let isMobile = $state(false);
+  let resizeKey = $state(0); // リサイズトリガー用
 
-  // デバイス判定
   onMount(() => {
-    const checkDevice = () => {
-      isDesktop = window.innerWidth >= 768;
+    const updateWindowSize = () => {
+      isMobile = window.innerWidth < 768;
+      resizeKey++; // リサイズが発生したことを子コンポーネントに通知
     };
 
-    checkDevice();
-    window.addEventListener("resize", checkDevice);
+    updateWindowSize();
+    window.addEventListener("resize", updateWindowSize);
 
     return () => {
-      window.removeEventListener("resize", checkDevice);
+      window.removeEventListener("resize", updateWindowSize);
     };
   });
+
   // プレイリストが変更されたら更新
   $effect(() => {
     playerState.playlist = tracks;
@@ -68,15 +70,19 @@
       play();
     }
   }
+
   function play() {
     if (!audioElement) return;
-    audioElement.play().then(() => {
-      playerState.isPlaying = true;
-      console.log("再生開始:", playerState.currentTrack?.title);
-    }).catch(error => {
-      console.error("再生に失敗しました:", error);
-      playerState.isPlaying = false;
-    });
+    audioElement
+      .play()
+      .then(() => {
+        playerState.isPlaying = true;
+        console.log("再生開始:", playerState.currentTrack?.title);
+      })
+      .catch((error) => {
+        console.error("再生に失敗しました:", error);
+        playerState.isPlaying = false;
+      });
   }
 
   function pause() {
@@ -86,7 +92,6 @@
     console.log("再生停止:", playerState.currentTrack?.title);
   }
 
-  // 次の曲
   function nextTrack() {
     if (playerState.playlist.length === 0) return;
 
@@ -95,7 +100,6 @@
     changeTrack(nextIndex);
   }
 
-  // 前の曲
   function prevTrack() {
     if (playerState.playlist.length === 0) return;
 
@@ -105,16 +109,17 @@
         : playerState.currentIndex - 1;
     changeTrack(prevIndex);
   }
+
   function changeTrack(index: number) {
     if (index < 0 || index >= playerState.playlist.length) return;
 
     const wasPlaying = playerState.isPlaying;
-    
+
     // 現在の再生を停止
     if (audioElement) {
       audioElement.pause();
     }
-    
+
     playerState.currentIndex = index;
     playerState.currentTrack = playerState.playlist[index];
     playerState.currentTime = 0;
@@ -126,17 +131,20 @@
       // 少し待ってから再生開始（audio要素のsrc変更を待つ）
       setTimeout(() => {
         if (audioElement && audioElement.src) {
-          audioElement.play().then(() => {
-            playerState.isPlaying = true;
-          }).catch(error => {
-            console.error("再生に失敗しました:", error);
-            playerState.isPlaying = false;
-          });
+          audioElement
+            .play()
+            .then(() => {
+              playerState.isPlaying = true;
+            })
+            .catch((error) => {
+              console.error("再生に失敗しました:", error);
+              playerState.isPlaying = false;
+            });
         }
       }, 200);
     }
   }
-  // シーク
+
   function seek(time: number) {
     if (!audioElement) return;
     audioElement.currentTime = time;
@@ -148,6 +156,7 @@
       playerState.currentTime = audioElement.currentTime;
     }
   }
+
   function handleLoadedMetadata() {
     if (audioElement) {
       playerState.duration = audioElement.duration;
@@ -177,17 +186,19 @@
   ></audio>
 {/if}
 
-<div class="music-player" class:desktop={isDesktop} class:mobile={!isDesktop}>
+<div class="music-player {isMobile ? 'mobile' : 'desktop'}">
   <WaveDisplay
+    {isMobile}
+    {resizeKey}
     isPlaying={playerState.isPlaying}
     currentTime={playerState.currentTime}
     duration={playerState.duration}
     musicSrc={playerState.currentTrack?.src}
-    audioElement={audioElement}
-    className={isDesktop ? "wave-desktop" : "wave-mobile"}
+    {audioElement}
   />
 
   <ControlPanel
+    {isMobile}
     currentTrack={playerState.currentTrack}
     isPlaying={playerState.isPlaying}
     currentTime={playerState.currentTime}
@@ -196,14 +207,12 @@
     onNext={nextTrack}
     onPrev={prevTrack}
     onSeek={seek}
-    className={isDesktop ? "control-desktop" : "control-mobile"}
   />
 </div>
 
 <style lang="scss">
   .music-player {
     position: fixed;
-    z-index: 1000;
     pointer-events: none;
 
     &.desktop {
@@ -212,17 +221,16 @@
       :global(.wave-desktop) {
         position: fixed;
         bottom: 0;
-        left: 0;
-        right: 0;
-        height: 120px;
+        height: 70px;
         pointer-events: auto;
+        // border: red 1px solid;
       }
 
       :global(.control-desktop) {
         position: fixed;
         bottom: 20px;
         right: 20px;
-        width: 350px;
+        width: 360px;
         pointer-events: auto;
       }
     }
@@ -234,9 +242,11 @@
         position: fixed;
         top: 0;
         right: 0;
-        bottom: 80px;
-        width: 60px;
+        width: 70px;
+        height: calc(100dvh - 90px);
         pointer-events: auto;
+        // border: red 1px solid;
+        // z-index: 1000;
       }
 
       :global(.control-mobile) {

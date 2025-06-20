@@ -1,21 +1,24 @@
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
+
   interface Props {
+    isMobile: boolean;
+    resizeKey: number;
     isPlaying: boolean;
     currentTime: number;
     duration: number;
-    className?: string;
     musicSrc?: string | null;
     audioElement?: HTMLAudioElement | null;
   }
+
   const {
+    isMobile,
+    resizeKey,
     isPlaying,
-    currentTime,
-    duration,
-    className = "",
     musicSrc = null,
     audioElement = null,
   }: Props = $props();
+
   let audioContext: AudioContext | null = null;
   let audio: HTMLAudioElement | null = null;
   let analyser: AnalyserNode | null = null;
@@ -33,48 +36,40 @@
       ctx = canvas.getContext("2d");
       updateCanvasSize();
     }
+  });
 
-    // リサイズイベントリスナー
-    const handleResize = () => {
+  // 親コンポーネントからのリサイズ通知を監視
+  $effect(() => {
+    if (resizeKey > 0) {
       updateCanvasSize();
-      console.log("Canvas resized to:", canvas.width, "x", canvas.height);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    }
   });
 
   function updateCanvasSize() {
-    if (!canvas) return;
+    if (!canvas || !ctx) return;
 
-    const container = canvas.parentElement;
-    if (container) {
-      const rect = container.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
+    const container = canvas.parentElement!;
+    const rect = container.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
 
-      // Canvas のサイズが変更されたら再描画
-      if (ctx && isPlaying && analyser && dataArray) {
-        // 次のフレームで再描画
-        requestAnimationFrame(() => {
-          if (!animationId && isPlaying) {
-            startVisualization();
-          }
-        });
-      }
-    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    canvas.style.width = rect.width + "px";
+    canvas.style.height = rect.height + "px";
+    ctx.scale(dpr, dpr);
+
+    console.log(
+      `WaveDisplay resized (${isMobile ? "mobile" : "desktop"}): ${rect.width} x ${rect.height}`,
+    );
+    console.log(
+      `Canvas resized (${isMobile ? "mobile" : "desktop"}): ${canvas.width} x ${canvas.height}`,
+    );
   }
+
   $effect(() => {
     if (musicSrc || audioElement) {
-      console.log(
-        "Effect triggered - musicSrc:",
-        musicSrc,
-        "audioElement:",
-        !!audioElement,
-      );
       // audio要素が変更された場合は既存の接続をクリア
       if (currentAudioElement && currentAudioElement !== audioElement) {
         console.log("Audio element changed, cleaning up...");
@@ -94,7 +89,9 @@
 
   onDestroy(() => {
     cleanup();
-  }); // グローバルなAudioContextを管理
+  });
+
+  // グローバルなAudioContextを管理
   let globalAudioContext: AudioContext | null = null;
 
   function getAudioContext(): AudioContext {
@@ -120,7 +117,6 @@
       audioContext = getAudioContext();
       console.log("Using AudioContext:", audioContext.state);
 
-      // 既存のaudioElementを使用するか、新しく作成する
       if (audioElement) {
         audio = audioElement;
         console.log("Using provided audio element");
@@ -132,28 +128,23 @@
 
       // 現在のaudio要素と異なる場合、または初回の場合のみソースを作成
       if (currentAudioElement !== audio || !source) {
-        // 既存のソースがあれば切断
         if (source) {
           source.disconnect();
           source = null;
         }
 
-        // ノードの作成と接続
         source = audioContext.createMediaElementSource(audio);
         analyser = audioContext.createAnalyser();
         gainNode = audioContext.createGain();
 
-        // FFT設定
         analyser.fftSize = 512;
         bufferLength = analyser.frequencyBinCount;
         dataArray = new Uint8Array(bufferLength);
 
-        // ノードチェーンの接続
         source.connect(analyser);
         analyser.connect(gainNode);
         gainNode.connect(audioContext.destination);
 
-        // 初期音量設定
         gainNode.gain.value = 0.08;
 
         // 現在のaudio要素を記録
@@ -171,8 +162,10 @@
       }
     }
   }
+
   function startVisualization() {
     console.log("Starting visualization, isPlaying:", isPlaying);
+
     if (!analyser || !dataArray || !ctx || !canvas) {
       console.log("Missing required components for visualization:", {
         analyser: !!analyser,
@@ -183,7 +176,6 @@
       return;
     }
 
-    // AudioContextが停止状態の場合は再開
     if (audioContext?.state === "suspended") {
       console.log("Resuming suspended audio context");
       audioContext.resume();
@@ -199,41 +191,60 @@
 
       analyser.getByteFrequencyData(dataArray);
 
-      // データが存在するかチェック
-      const hasData = dataArray.some((value) => value > 0);
-      if (!hasData && Math.random() < 0.01) {
-        // 1%の確率でログ出力
-        console.log("No audio data detected");
-      }
-
-      // キャンバスをクリア
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // 周波数スペクトラムを描画
-      const barWidth = canvas.width / bufferLength;
-      let x = 0;
+      const dpr = window.devicePixelRatio || 1;
+      const displayWidth = canvas.width / dpr;
+      const displayHeight = canvas.height / dpr;
 
-      for (let i = 0; i < bufferLength; i++) {
+      const barCount = bufferLength;
+
+      for (let i = 0; i < barCount; i++) {
         const normalized = dataArray[i] / 255;
-        const barHeight =
-          Math.pow(normalized, 2.5) * canvas.height * 0.8 +
-          Math.sin(normalized * Math.PI * 2) * canvas.height * 0.1;
 
-        const finalHeight = Math.max(barHeight, 2);
+        const baseLength =
+          Math.pow(normalized, 2.5) * 0.8 +
+          Math.sin(normalized * Math.PI * 2) * 0.1;
 
-        const gradient = ctx.createLinearGradient(
-          0,
-          canvas.height - finalHeight,
-          0,
-          canvas.height,
-        );
+        let gradient: CanvasGradient;
+        let x: number, y: number, width: number, height: number;
+
+        if (isMobile) {
+          // モバイル: 縦向き波形描画
+          const barHeight = displayHeight / barCount;
+          const barWidth = baseLength * displayWidth;
+          const finalWidth = Math.max(barWidth, 2);
+
+          x = 0;
+          y = i * barHeight;
+          width = finalWidth;
+          height = barHeight - 1;
+
+          gradient = ctx.createLinearGradient(0, 0, finalWidth, 0);
+        } else {
+          // デスクトップ: 横向き波形描画
+          const barWidth = displayWidth / barCount;
+          const barHeight = baseLength * displayHeight;
+          const finalHeight = Math.max(barHeight, 2);
+
+          x = i * barWidth;
+          y = displayHeight - finalHeight;
+          width = barWidth - 1;
+          height = finalHeight;
+
+          gradient = ctx.createLinearGradient(
+            0,
+            displayHeight - finalHeight,
+            0,
+            displayHeight,
+          );
+        }
+
         gradient.addColorStop(0, "rgba(240, 183, 77, 0.9)");
         gradient.addColorStop(1, "rgba(225, 100, 40, 0.9)");
 
         ctx.fillStyle = gradient;
-        ctx.fillRect(x, canvas.height - finalHeight, barWidth - 1, finalHeight);
-
-        x += barWidth;
+        ctx.fillRect(x, y, width, height);
       }
 
       animationId = requestAnimationFrame(drawSpectrum);
@@ -248,6 +259,7 @@
       animationId = null;
     }
   }
+
   function cleanup() {
     stopVisualization();
 
@@ -277,7 +289,7 @@
   }
 </script>
 
-<div class="wave-display {className}">
+<div class="wave-display {isMobile ? 'wave-mobile' : 'wave-desktop'}">
   <div class="wave-container">
     <canvas bind:this={canvas}></canvas>
   </div>
@@ -289,12 +301,21 @@
     border: none;
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
 
     &.wave-desktop {
-      // border-top: 2px solid rgba(225, 100, 40, 0.3);
       height: 100%;
       display: flex;
       align-items: flex-end; // 下端に配置
+    }
+
+    &.wave-mobile {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .wave-container {
@@ -317,7 +338,6 @@
       }
     }
 
-    // デスクトップ用の調整
     &.wave-desktop {
       .wave-container {
         align-items: flex-end; // 画面下端にぴったり
@@ -331,15 +351,25 @@
       }
     }
 
-    // モバイル用の調整
     &.wave-mobile {
       .wave-container {
-        padding: 10px;
-        flex-direction: column;
-        align-items: stretch; // モバイルでは幅いっぱい
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        max-height: 100%; // 親要素の高さを超えないように制限
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(180deg);
+        transform-origin: center;
+        overflow: hidden;
 
         canvas {
-          max-height: 80px;
+          width: 100%;
+          height: 100%;
+          max-height: none;
+          max-width: none;
         }
       }
     }
