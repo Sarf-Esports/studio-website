@@ -289,7 +289,7 @@
   }
 </script>
 
-<div class="wave-display {isMobile ? 'wave-mobile' : 'wave-desktop'}">
+<div class="wave-display {isMobile ? 'mobile' : 'desktop'}">
   <div class="wave-container">
     <canvas bind:this={canvas}></canvas>
   </div>
@@ -303,20 +303,8 @@
     padding: 0;
     width: 100%;
     height: 100%;
-
-    &.wave-desktop {
-      height: 100%;
-      display: flex;
-      align-items: flex-end; // 下端に配置
-    }
-
-    &.wave-mobile {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    position: fixed;
+    display: flex;
 
     .wave-container {
       width: 100%;
@@ -338,7 +326,11 @@
       }
     }
 
-    &.wave-desktop {
+    &.desktop {
+      bottom: 0;
+      height: 70px;
+      align-items: flex-end; // 下端に配置
+      
       .wave-container {
         align-items: flex-end; // 画面下端にぴったり
         justify-content: stretch; // 幅いっぱい
@@ -351,7 +343,14 @@
       }
     }
 
-    &.wave-mobile {
+    &.mobile {
+      top: 0;
+      right: 0;
+      width: 70px;
+      height: calc(100dvh - var(--mobile-control-height));
+      align-items: center;
+      justify-content: center;
+      
       .wave-container {
         padding: 0;
         margin: 0;

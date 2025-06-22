@@ -71,39 +71,40 @@
   </button>
 {/if}
 
-<div
-  class="control-panel {isMobile
-    ? 'control-mobile'
-    : 'control-desktop'} {!isMobile && isMinimized ? 'hidden' : ''}"
->
-  {#if !isMobile && !isMinimized}
-    <button
-      class="minimize-btn"
-      onclick={handleMinimize}
-      onkeydown={(e) => e.key === "Enter" && handleMinimize()}
-      aria-label="最小化"
-      type="button"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-dash"
-        viewBox="0 0 16 16"
+{#if isMobile || !isMinimized}
+  <div class="control-panel {isMobile ? 'mobile' : 'desktop'}">
+    {#if !isMobile && !isMinimized}
+      <button
+        class="minimize-btn"
+        onclick={handleMinimize}
+        onkeydown={(e) => e.key === "Enter" && handleMinimize()}
+        aria-label="最小化"
+        type="button"
       >
-        <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
-      </svg>
-    </button>
-  {/if}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-dash"
+          viewBox="0 0 16 16"
+        >
+          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+        </svg>
+      </button>
+    {/if}
 
-  {#if currentTrack}
     <div class="track-info">
-      <div class="track-title">{currentTrack.title}</div>
-      <div class="track-artist">{currentTrack.artist}</div>
+      <div class="track-title">{currentTrack?.title ?? "-"}</div>
+      <div class="track-artist">{currentTrack?.artist ?? "-"}</div>
     </div>
     <div class="controls">
-      <button class="control-btn prev" onclick={onPrev} aria-label="前の曲">
+      <button
+        class="control-btn prev {currentTrack ? '' : 'disabled'}"
+        onclick={onPrev}
+        aria-label="前の曲"
+        disabled={!currentTrack}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -119,9 +120,10 @@
       </button>
 
       <button
-        class="control-btn play-pause"
+        class="control-btn play-pause {currentTrack ? '' : 'disabled'}"
         onclick={onTogglePlay}
         aria-label={isPlaying ? "一時停止" : "再生"}
+        disabled={!currentTrack}
       >
         {#if isPlaying}
           <svg
@@ -153,7 +155,12 @@
         {/if}
       </button>
 
-      <button class="control-btn next" onclick={onNext} aria-label="次の曲">
+      <button
+        class="control-btn next {currentTrack ? '' : 'disabled'}"
+        onclick={onNext}
+        aria-label="次の曲"
+        disabled={!currentTrack}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -173,20 +180,19 @@
         <span class="time current-time">{formatTime(currentTime)}</span>
         <input
           type="range"
-          class="seek-bar"
+          class="seek-bar {currentTrack ? '' : 'disabled'}"
           min="0"
           max="100"
           value={progress}
           oninput={handleSeekInput}
           aria-label="シークバー"
+          disabled={!currentTrack}
         />
         <span class="time total-time">{formatTime(duration)}</span>
       </div>
     {/if}
-  {:else}
-    <div class="no-track">音楽が選択されていません</div>
-  {/if}
-</div>
+  </div>
+{/if}
 
 {#if currentTrack && isMobile}
   <div class="mobile-progress-bar">
@@ -262,6 +268,15 @@
             transform: scale(1.05);
           }
         }
+
+        &.disabled {
+          color: rgba(246, 233, 233, 0.3);
+          cursor: not-allowed;
+
+          &:hover {
+            transform: none;
+          }
+        }
       }
     }
 
@@ -302,16 +317,36 @@
           border: none;
           cursor: pointer;
         }
+
+        &.disabled {
+          cursor: not-allowed;
+          background: rgba(246, 233, 233, 0.1);
+
+          &::-webkit-slider-thumb,
+          &::-moz-range-thumb {
+            background: rgba(246, 233, 233, 0.3);
+          }
+        }
       }
     }
 
-    .no-track {
-      text-align: center;
-      color: rgba(246, 233, 233, 0.5);
-      font-size: 14px;
+    &.desktop {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 360px;
+      pointer-events: auto;
     }
 
-    &.control-mobile {
+    &.mobile {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 75px;
+      max-height: 75px;
+      pointer-events: auto;
+
       border-radius: 0;
       height: var(--mobile-control-height);
       padding: 4px 16px;
@@ -358,10 +393,6 @@
       .seek-container {
         display: none;
       }
-    }
-
-    &.hidden {
-      display: none;
     }
   }
 

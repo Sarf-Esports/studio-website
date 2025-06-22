@@ -218,50 +218,6 @@
   .music-player {
     position: fixed;
     pointer-events: none;
-
-    &.desktop {
-      inset: 0;
-
-      :global(.wave-desktop) {
-        position: fixed;
-        bottom: 0;
-        height: 70px;
-        pointer-events: auto;
-        // border: red 1px solid;
-      }
-
-      :global(.control-desktop) {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 360px;
-        pointer-events: auto;
-      }
-    }
-
-    &.mobile {
-      inset: 0;
-
-      :global(.wave-mobile) {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 70px;
-        height: calc(100dvh - var(--mobile-control-height));
-        pointer-events: auto;
-        // border: red 1px solid;
-        // z-index: 1000;
-      }
-
-      :global(.control-mobile) {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: var(--mobile-control-height);
-        max-height: var(--mobile-control-height);
-        pointer-events: auto;
-      }
-    }
+    inset: 0;
   }
 </style>
