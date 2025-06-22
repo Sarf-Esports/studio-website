@@ -56,7 +56,7 @@
   // 現在のトラックが変更されたときの処理
   $effect(() => {
     if (playerState.currentTrack && audioElement) {
-      console.log("Current track changed to:", playerState.currentTrack.title);
+      // console.log("Current track changed to:", playerState.currentTrack.title);
     }
   });
 
@@ -77,7 +77,7 @@
       .play()
       .then(() => {
         playerState.isPlaying = true;
-        console.log("再生開始:", playerState.currentTrack?.title);
+        // console.log("再生開始:", playerState.currentTrack?.title);
       })
       .catch((error) => {
         console.error("再生に失敗しました:", error);
@@ -89,7 +89,7 @@
     if (!audioElement) return;
     audioElement.pause();
     playerState.isPlaying = false;
-    console.log("再生停止:", playerState.currentTrack?.title);
+    // console.log("再生停止:", playerState.currentTrack?.title);
   }
 
   function nextTrack() {
@@ -160,7 +160,7 @@
   function handleLoadedMetadata() {
     if (audioElement) {
       playerState.duration = audioElement.duration;
-      console.log("メタデータ読み込み完了:", playerState.currentTrack?.title);
+      // console.log("メタデータ読み込み完了:", playerState.currentTrack?.title);
     }
   }
 
