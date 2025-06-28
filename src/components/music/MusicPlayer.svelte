@@ -29,12 +29,15 @@
 
   let audioElement = $state<HTMLAudioElement>();
   let isMobile = $state(false);
-  let resizeKey = $state(0); // リサイズトリガー用
 
   onMount(() => {
     const updateWindowSize = () => {
       isMobile = window.innerWidth < 768;
-      resizeKey++; // リサイズが発生したことを子コンポーネントに通知
+      // 通常のwindowリサイズをWaveDisplayに通知（最新のisMobile状態も含める）
+      const resizeEvent = new CustomEvent("wave-display-resize", {
+        detail: { type: "window", isMobile },
+      });
+      document.dispatchEvent(resizeEvent);
     };
 
     updateWindowSize();
@@ -188,8 +191,6 @@
 
 <div class="music-player {isMobile ? 'mobile' : 'desktop'}">
   <WaveDisplay
-    {isMobile}
-    {resizeKey}
     isPlaying={playerState.isPlaying}
     currentTime={playerState.currentTime}
     duration={playerState.duration}

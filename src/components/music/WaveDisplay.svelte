@@ -3,8 +3,6 @@
   import { AudioAnalyzer, WaveVisualizer } from "../../utils";
 
   interface Props {
-    isMobile: boolean;
-    resizeKey: number;
     isPlaying: boolean;
     currentTime: number;
     duration: number;
@@ -12,13 +10,9 @@
     audioElement?: HTMLAudioElement | null;
   }
 
-  const {
-    isMobile,
-    resizeKey,
-    isPlaying,
-    musicSrc = null,
-    audioElement = null,
-  }: Props = $props();
+  const { isPlaying, musicSrc = null, audioElement = null }: Props = $props();
+
+  let isMobile = $state(false); // 内部で管理
 
   let audio: HTMLAudioElement | null = null;
   let canvas: HTMLCanvasElement;
@@ -26,25 +20,39 @@
   let waveVisualizer: WaveVisualizer | null = null;
 
   onMount(() => {
+    // 初期のisMobile状態を設定
+    isMobile = window.innerWidth < 768;
+
     if (canvas) {
       audioAnalyzer = new AudioAnalyzer();
       waveVisualizer = new WaveVisualizer(canvas, isMobile);
       waveVisualizer.updateCanvasSize();
     }
-  });
 
-  // isMobileが変更された時の処理
-  $effect(() => {
-    waveVisualizer?.setMobile(isMobile);
-  });
-  
-  // 親コンポーネントからのリサイズ通知を監視
-  $effect(() => {
-    if (resizeKey > 0) {
-      waveVisualizer?.updateCanvasSize();
-    }
-  });
+    // リサイズイベントをリッスン
+    const handleResize = (event: Event) => {
+      // イベントにisMobile情報が含まれている場合は、それを優先して使用
+      const customEvent = event as CustomEvent;
+      const eventIsMobile = customEvent.detail?.isMobile;
+      if (eventIsMobile !== undefined) {
+        isMobile = eventIsMobile; // 内部状態も更新
+        waveVisualizer?.setMobile(eventIsMobile);
+      }
 
+      // DOM更新とCSS適用を待ってからキャンバスサイズを更新
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          waveVisualizer?.updateCanvasSize();
+        }, 10);
+      });
+    };
+
+    document.addEventListener("wave-display-resize", handleResize);
+
+    return () => {
+      document.removeEventListener("wave-display-resize", handleResize);
+    };
+  });
 
   $effect(() => {
     if (musicSrc || audioElement) {
@@ -107,7 +115,10 @@
       return audioAnalyzer!.getFrequencyData();
     };
 
-    waveVisualizer.startVisualization(getFrequencyData, audioAnalyzer.getBufferLength());
+    waveVisualizer.startVisualization(
+      getFrequencyData,
+      audioAnalyzer.getBufferLength(),
+    );
   }
 
   function stopVisualization() {
@@ -172,7 +183,7 @@
       bottom: 0;
       height: 70px;
       align-items: flex-end; // 下端に配置
-      
+
       .wave-container {
         align-items: flex-end; // 画面下端にぴったり
         justify-content: stretch; // 幅いっぱい
@@ -189,10 +200,12 @@
       top: 0;
       right: 0;
       width: 70px;
-      height: calc(100dvh - var(--mobile-control-height));
+      height: calc(
+        100dvh - var(--mobile-control-height) * (1 - var(--mobile-expanded, 0))
+      );
       align-items: center;
       justify-content: center;
-      
+
       .wave-container {
         padding: 0;
         margin: 0;

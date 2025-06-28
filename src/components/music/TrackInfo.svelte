@@ -4,11 +4,14 @@
   interface Props {
     currentTrack: Track | null;
     isMobile: boolean;
+    isMobileExpanded?: boolean;
   }
-  const { currentTrack, isMobile }: Props = $props();
+  const { currentTrack, isMobile, isMobileExpanded = false }: Props = $props();
+
+  let expanded = $derived(isMobile && isMobileExpanded);
 </script>
 
-<div class="track-info {isMobile ? 'mobile' : 'desktop'}">
+<div class="track-info {isMobile ? 'mobile' : 'desktop'}" class:expanded>
   <div class="track-title">{currentTrack?.title ?? "-"}</div>
   <div class="track-artist">{currentTrack?.artist ?? "-"}</div>
 </div>
@@ -47,6 +50,27 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      &.expanded {
+        text-align: center;
+        flex: none;
+        margin-bottom: 16px;
+
+        .track-title {
+          font-size: 18px;
+          margin-bottom: 4px;
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+        }
+
+        .track-artist {
+          font-size: 14px;
+          white-space: normal;
+          overflow: visible;
+          text-overflow: unset;
+        }
       }
     }
 

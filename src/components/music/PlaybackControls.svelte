@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Track } from "../../types/music";
-
   interface Props {
     currentTrack: Track | null;
     isPlaying: boolean;
     isMobile: boolean;
+    isMobileExpanded: boolean;
     onTogglePlay: () => void;
     onNext: () => void;
     onPrev: () => void;
@@ -13,16 +13,29 @@
     currentTrack,
     isPlaying,
     isMobile,
+    isMobileExpanded,
     onTogglePlay,
     onNext,
     onPrev,
   }: Props = $props();
+
+  let expanded = $derived(isMobile && isMobileExpanded);
+
+  // モバイルのexpandボタンとの干渉を防止
+  function handleClick(callback: () => void) {
+    return (event: MouseEvent) => {
+      event.stopPropagation();
+      callback();
+    };
+  }
 </script>
 
-<div class="controls {isMobile ? 'mobile' : 'desktop'}">
+<div class="controls {isMobile ? 'mobile' : 'desktop'}" class:expanded>
   <button
-    class="control-btn prev {currentTrack ? '' : 'disabled'}"
-    onclick={onPrev}
+    class="control-btn prev"
+    class:disabled={!currentTrack}
+    class:expanded
+    onclick={handleClick(onPrev)}
     aria-label="前の曲"
     disabled={!currentTrack}
   >
@@ -39,10 +52,11 @@
       />
     </svg>
   </button>
-
   <button
-    class="control-btn play-pause {currentTrack ? '' : 'disabled'}"
-    onclick={onTogglePlay}
+    class="control-btn play-pause"
+    class:disabled={!currentTrack}
+    class:expanded
+    onclick={handleClick(onTogglePlay)}
     aria-label={isPlaying ? "一時停止" : "再生"}
     disabled={!currentTrack}
   >
@@ -75,10 +89,11 @@
       </svg>
     {/if}
   </button>
-
   <button
-    class="control-btn next {currentTrack ? '' : 'disabled'}"
-    onclick={onNext}
+    class="control-btn next"
+    class:disabled={!currentTrack}
+    class:expanded
+    onclick={handleClick(onNext)}
     aria-label="次の曲"
     disabled={!currentTrack}
   >
@@ -162,6 +177,24 @@
         &.play-pause {
           padding: 6px;
         }
+
+        &.expanded {
+          padding: 12px;
+
+          svg {
+            width: 40px;
+            height: 40px;
+          }
+
+          &.play-pause {
+            padding: 12px;
+          }
+        }
+      }
+
+      &.expanded {
+        gap: 20px;
+        margin-bottom: 16px;
       }
     }
   }

@@ -30,7 +30,8 @@
   <span class="time current-time">{formatTime(currentTime)}</span>
   <input
     type="range"
-    class="seek-bar {currentTrack ? '' : 'disabled'}"
+    class="seek-bar"
+    class:disabled={!currentTrack}
     min="0"
     max="100"
     value={progress}
