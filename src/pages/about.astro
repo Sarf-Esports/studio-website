@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import MusicPlayer from "../components/music/MusicPlayer.svelte";
 
 const SERVICES = [
   "映像制作・動画編集",
@@ -66,6 +67,9 @@ const PROCESS = [
           }
         </ul>
       </div>
+    </section>
+     <section>
+      <MusicPlayer client:only="svelte" />
     </section>
   </div>
 </Layout>
