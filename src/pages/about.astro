@@ -36,48 +36,56 @@ const PROCESS = [
     <meta name="description" content="This is a about page." />
   </slot>
 
-  <section>
-    <h1>
-      REVATI Studio<span class="ruby">[レバティ・スタジオ]</span><br /><span
-        class="subtitle">/ Creative Production</span
-      >
-    </h1>
-    <p>
-      <span class="concept">“創造性のすべてを、ここに。“</span
-      >あらゆるクリエイティブをワンストップで
-    </p>
-    <div>
-      <h2>主要なサービス領域</h2>
-      <ul>{SERVICES.map((s) => <li class="service">{s}</li>)}</ul>
-    </div>
-  </section>
-  <section>
-    <div>
-      <h2>手続き</h2>
-      <ul class="process">
-        {
-          PROCESS.map((step, i) => (
-            <li class="step">
-              <div class="step-num">{i + 1}</div>
-              <div class="step-content">
-                <h3 class="step-title">{step.title}</h3>
-                <p class="step-desc">{step.desc}</p>
-              </div>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-  <section>
-    <MusicPlayer client:only="svelte" />
-  </section>
+  <div class="container">
+    <section>
+      <h1>
+        REVATI Studio<span class="ruby">[レバティ・スタジオ]</span><br /><span
+          class="subtitle">/ Creative Production</span
+        >
+      </h1>
+      <p>
+        <span class="concept">“創造性のすべてを、ここに。“</span
+        >あらゆるクリエイティブをワンストップで
+      </p>
+      <div>
+        <h2>主要なサービス領域</h2>
+        <ul>{SERVICES.map((s) => <li class="service">{s}</li>)}</ul>
+      </div>
+      <div class="process-container">
+        <h2>手続き</h2>
+        <ul class="process">
+          {
+            PROCESS.map((step, i) => (
+              <li class="step">
+                <div class="step-num">{i + 1}</div>
+                <div class="step-content">
+                  <h3 class="step-title">{step.title}</h3>
+                  <p class="step-desc">{step.desc}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+     <section>
+      <MusicPlayer client:only="svelte" />
+    </section>
+  </div>
 </Layout>
 
 <style lang="scss">
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
   section {
-    margin: 74px 64px;
+    width: 742px;
+    margin: 74px auto;
     margin-bottom: 90px;
+    position: relative;
+    right: 32px;
   }
 
   h1 {
@@ -124,6 +132,10 @@ const PROCESS = [
 
   .service {
     margin-block: 6px;
+  }
+
+  .process-container {
+    margin-top: 68px;
   }
 
   .process {
