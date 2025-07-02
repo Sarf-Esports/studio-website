@@ -63,10 +63,8 @@
 
 {#if isMobile || !isMinimized}
   <div
-    class="control-panel {isMobile ? 'mobile' : 'desktop'} {isMobile &&
-    isMobileExpanded
-      ? 'expanded'
-      : ''}"
+    class="control-panel {isMobile ? 'mobile' : 'desktop'}"
+    class:expanded={isMobile && isMobileExpanded}
     onclick={isMobile && !isMobileExpanded ? handleMobileExpand : undefined}
     onkeydown={(e) =>
       e.key === "Enter" &&
