@@ -1,4 +1,6 @@
 <script module lang="ts">
+	// この値を更新する場合は、
+	// `/src/layouts/Layout.astro` の `style` タグ内で定義される `$music-player-bp` Sass 変数も更新すること
 	export const MUSIC_PLAYER_BREAKPOINT = 768;
 </script>
 

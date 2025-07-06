@@ -59,6 +59,10 @@ const { title } = Astro.props;
 </html>
 
 <style lang="scss">
+  // この値を更新する場合は、
+  // `/src/components/music/MusicPlayer.svelte` の `module` スクリプトブロック内で定義される `MUSIC_PLAYER_BREAKPOINT` 定数も更新すること
+  $music-player-bp: 768;
+
   html {
     height: 100%;
     font-family: "Noto Sans JP", sans-serif;
@@ -76,6 +80,10 @@ const { title } = Astro.props;
     height: 100%;
     margin: 0;
     color: $text-color;
+
+    @media screen and (max-width: #{$music-player-bp - 1}px) {
+      grid-template-rows: auto 292px;
+    }
   }
 
   main {
