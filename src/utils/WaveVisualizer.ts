@@ -27,12 +27,15 @@ export class WaveVisualizer {
 
     console.log(
       `Resize detected [${this.isMobile ? "mobile" : "desktop"}]\n` +
-      `container: ${rect.width} x ${rect.height}\n` +
-      `canvas: ${this.canvas.width} x ${this.canvas.height}`
+        `container: ${rect.width} x ${rect.height}\n` +
+        `canvas: ${this.canvas.width} x ${this.canvas.height}`,
     );
   }
 
-  startVisualization(getFrequencyData: () => Uint8Array | null, bufferLength: number): void {
+  startVisualization(
+    getFrequencyData: () => Uint8Array | null,
+    bufferLength: number,
+  ): void {
     if (!this.ctx || !this.canvas) {
       console.error("Missing required components for visualization:", {
         ctx: !!this.ctx,
@@ -43,7 +46,7 @@ export class WaveVisualizer {
 
     const drawSpectrum = () => {
       const dataArray = getFrequencyData();
-      
+
       // データが取得できない場合は終了
       if (!dataArray || !this.ctx || !this.canvas) {
         console.error("Stopping visualization");
@@ -96,7 +99,7 @@ export class WaveVisualizer {
             0,
             displayHeight - finalHeight,
             0,
-            displayHeight
+            displayHeight,
           );
         }
 
