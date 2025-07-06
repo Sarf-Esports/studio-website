@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
 	import { AudioAnalyzer, WaveVisualizer } from '../../utils';
+	import { MUSIC_PLAYER_BREAKPOINT } from './MusicPlayer.svelte';
 
 	interface Props {
 		isPlaying: boolean;
@@ -21,7 +22,7 @@
 
 	onMount(() => {
 		// 初期のisMobile状態を設定
-		isMobile = window.innerWidth < 768;
+		isMobile = window.innerWidth < MUSIC_PLAYER_BREAKPOINT;
 
 		if (canvas) {
 			audioAnalyzer = new AudioAnalyzer();

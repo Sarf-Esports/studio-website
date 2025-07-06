@@ -1,3 +1,7 @@
+<script module lang="ts">
+	export const MUSIC_PLAYER_BREAKPOINT = 768;
+</script>
+
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { Track, PlayerState } from '../../types/music';
@@ -32,7 +36,7 @@
 
 	onMount(() => {
 		const updateWindowSize = () => {
-			isMobile = window.innerWidth < 768;
+			isMobile = window.innerWidth < MUSIC_PLAYER_BREAKPOINT;
 			// 通常のwindowリサイズをWaveDisplayに通知（最新のisMobile状態も含める）
 			const resizeEvent = new CustomEvent('wave-display-resize', {
 				detail: { type: 'window', isMobile }
