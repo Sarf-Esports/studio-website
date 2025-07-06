@@ -39,9 +39,9 @@ const PROCESS = [
   <div class="container">
     <section>
       <h1>
-        REVATI Studio<span class="ruby">[レバティ・スタジオ]</span><br /><span
-          class="subtitle">/ Creative Production</span
-        >
+        REVATI Studio<span class="ruby">[レバティ・スタジオ]</span><br
+          class="title-br"
+        /><span class="subtitle">/ Creative Production</span>
       </h1>
       <p>
         <span class="concept">“創造性のすべてを、ここに。“</span
@@ -81,11 +81,11 @@ const PROCESS = [
   }
 
   section {
-    width: 742px;
+    max-width: 742px;
     margin: 74px auto;
     margin-bottom: 90px;
     position: relative;
-    right: 32px;
+    right: 132px;
   }
 
   h1 {
@@ -181,5 +181,78 @@ const PROCESS = [
     font-size: 15px;
     margin: 0;
     opacity: 0.8;
+  }
+
+  // レイアウト制御用
+  @media screen and (max-width: 880px) {
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    section {
+      max-width: initial;
+      margin: 30px 10px;
+      right: 0;
+    }
+  }
+
+  @include sp {
+    .container {
+      max-width: 440px;
+    }
+
+    h1 {
+      font-size: 42px;
+      line-height: 34px;
+    }
+
+    .title-br {
+      display: none;
+    }
+
+    .subtitle,
+    .ruby {
+      font-size: 14px;
+    }
+
+    .ruby {
+      display: block;
+      margin-left: 8px;
+    }
+
+    .subtitle {
+      letter-spacing: 4px;
+    }
+
+    p,
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      margin-block: 62px;
+    }
+
+    .concept {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 21px;
+      padding: 0 12px;
+    }
+
+    .process-container {
+      margin-top: 54px;
+    }
+
+    .step-title {
+      font-size: 19px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+    }
   }
 </style>
