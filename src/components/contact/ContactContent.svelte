@@ -71,6 +71,11 @@
 		width: calc(100% - 64px);
 		border: none;
 		border-top: 1px solid $color-accent;
+
+		// タブのボタンの背景より狭くなってしまうため
+		@media screen and (max-width: 824px) {
+			width: 100%;
+		}
 	}
 
 	h2 {
@@ -106,5 +111,28 @@
 
 	a {
 		color: $color-accent;
+	}
+
+	@include sp {
+		button {
+			font-size: 19px;
+			width: 50%;
+			padding: 12px 0;
+		}
+
+		h2 {
+			font-size: 25px;
+		}
+
+		p {
+			font-size: 15px;
+			margin-inline: 4px;
+		}
+
+		.btn {
+			font-size: 19px;
+			margin-block: 34px;
+			padding: 14px 38px;
+		}
 	}
 </style>
