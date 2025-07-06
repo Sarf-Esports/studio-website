@@ -61,6 +61,7 @@ const { statusCode, title, message } = Astro.props;
     text-decoration: none;
     font-weight: 900;
     font-size: 1.1rem;
+    margin-bottom: 2rem;
     padding: 0.8em 2em;
     border: 2px solid $color-accent;
     border-radius: 100vh;
@@ -71,6 +72,21 @@ const { statusCode, title, message } = Astro.props;
       color: $text-color;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @include sp {
+    .container {
+      margin-top: 2rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: 0.9rem;
     }
   }
 </style>
