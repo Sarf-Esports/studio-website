@@ -1,1 +1,63 @@
-<footer>footer</footer>
+---
+const NAVIGATION: {
+  label: string;
+  href: string;
+  isExternal?: boolean;
+}[] = [
+  {
+    label: "REVATI について",
+    href: "https://revati.jp",
+    isExternal: true,
+  },
+  {
+    label: "プライバシーポリシー",
+    href: "https://revati.jp/privacy",
+    isExternal: true,
+  },
+];
+---
+
+<footer>
+  <p>© 2025 REVATI Studio</p>
+  <ul>
+    {
+      NAVIGATION.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            target={item.isExternal ? "_blank" : null}
+            rel={item.isExternal ? "noopener noreferrer" : null}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</footer>
+
+<style lang="scss">
+  footer {
+    height: 100%;
+    padding: 8px 0;
+    background-color: #131010;
+    text-align: center;
+  }
+
+  ul {
+    display: flex;
+    padding: 0;
+    gap: 14px;
+    justify-content: center;
+  }
+
+  li {
+    display: inline;
+    list-style: none;
+  }
+
+  a {
+    font-size: 14px;
+    color: inherit;
+  }
+</style>
