@@ -94,26 +94,42 @@ const { width = "400px", height = "300px", title } = Astro.props;
     let offsetY = 0;
     let isDragging = false;
 
-    function handleDragStart(clientX: number, clientY: number) {
+    function handleDragStart(pageX: number, pageY: number) {
       if (!windowEl) return;
       isDragging = true;
-      offsetX = clientX - windowEl.offsetLeft;
-      offsetY = clientY - windowEl.offsetTop;
+
+      // 初回ドラッグ時に bottom/right から top/left へ切り替える
+      const computedStyle = getComputedStyle(windowEl);
+      if (
+        computedStyle.top === "auto" &&
+        computedStyle.position === "absolute"
+      ) {
+        const rect = windowEl.getBoundingClientRect();
+        windowEl.style.top = `${rect.top + window.scrollY}px`;
+        windowEl.style.left = `${rect.left + window.scrollX}px`;
+        windowEl.style.bottom = "auto";
+        windowEl.style.right = "auto";
+      }
+
+      offsetX = pageX - windowEl.offsetLeft;
+      offsetY = pageY - windowEl.offsetTop;
     }
 
-    function handleDragMove(clientX: number, clientY: number) {
+    function handleDragMove(pageX: number, pageY: number) {
       if (!isDragging || !windowEl) return;
 
-      let newLeft = clientX - offsetX;
-      let newTop = clientY - offsetY;
+      let newLeft = pageX - offsetX;
+      let newTop = pageY - offsetY;
 
       // 画面の左端と上端の境界
       if (newLeft < 0) newLeft = 0;
       if (newTop < 0) newTop = 0;
 
-      // 画面の右端と下端の境界
-      const maxLeft = window.innerWidth - windowEl.offsetWidth;
-      const maxTop = window.innerHeight - windowEl.offsetHeight;
+      // 画面の右端と下端の境界 (ドキュメント全体)
+      const maxLeft =
+        document.documentElement.scrollWidth - windowEl.offsetWidth;
+      const maxTop =
+        document.documentElement.scrollHeight - windowEl.offsetHeight;
 
       if (newLeft > maxLeft) {
         newLeft = maxLeft;
@@ -131,11 +147,11 @@ const { width = "400px", height = "300px", title } = Astro.props;
     }
 
     headerEl.addEventListener("mousedown", (e: MouseEvent) => {
-      handleDragStart(e.clientX, e.clientY);
+      handleDragStart(e.pageX, e.pageY);
     });
 
     document.addEventListener("mousemove", (e: MouseEvent) => {
-      handleDragMove(e.clientX, e.clientY);
+      handleDragMove(e.pageX, e.pageY);
     });
 
     document.addEventListener("mouseup", () => {
@@ -147,7 +163,7 @@ const { width = "400px", height = "300px", title } = Astro.props;
       (e: TouchEvent) => {
         if (e.touches.length === 0) return;
         const touch = e.touches[0];
-        handleDragStart(touch.clientX, touch.clientY);
+        handleDragStart(touch.pageX, touch.pageY);
         e.preventDefault();
       },
       { passive: false },
@@ -156,7 +172,7 @@ const { width = "400px", height = "300px", title } = Astro.props;
     document.addEventListener("touchmove", (e: TouchEvent) => {
       if (e.touches.length === 0) return;
       const touch = e.touches[0];
-      handleDragMove(touch.clientX, touch.clientY);
+      handleDragMove(touch.pageX, touch.pageY);
     });
 
     document.addEventListener("touchend", () => {
