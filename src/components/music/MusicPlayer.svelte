@@ -20,6 +20,16 @@
 			title: 'Kill it [ABYSSUM EP VOL.2]',
 			artist: 'chris_gangcat',
 			src: '/music/kill-it.mp3'
+		},
+		{
+			title: 'GANGCAT ONMYOWN',
+			artist: 'chris_gangcat',
+			src: '/music/gangcat-onmyown.mp3'
+		},
+		{
+			title: '???',
+			artist: 'chris_gangcat',
+			src: '/music/untitled-project.mp3'
 		}
 	];
 
