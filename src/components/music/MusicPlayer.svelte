@@ -27,9 +27,9 @@
 			src: '/music/gangcat-onmyown.mp3'
 		},
 		{
-			title: '???',
+			title: 'sound check',
 			artist: 'chris_gangcat',
-			src: '/music/untitled-project.mp3'
+			src: '/music/sound-check.mp3'
 		}
 	];
 
