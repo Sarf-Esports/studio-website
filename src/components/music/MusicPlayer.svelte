@@ -6,32 +6,12 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import type { Track, PlayerState } from '../../types/music';
 	import ControlPanel from './ControlPanel.svelte';
 	import WaveDisplay from './WaveDisplay.svelte';
+	import { getMusicList } from '../../utils';
+	import type { PlayerState } from '../../types';
 
-	const tracks: Track[] = [
-		{
-			title: 'BACK ONCE AGAIN',
-			artist: 'chris_gangcat',
-			src: '/music/back-once-again.mp3'
-		},
-		{
-			title: 'Kill it [ABYSSUM EP VOL.2]',
-			artist: 'chris_gangcat',
-			src: '/music/kill-it.mp3'
-		},
-		{
-			title: 'GANGCAT ONMYOWN',
-			artist: 'chris_gangcat',
-			src: '/music/gangcat-onmyown.mp3'
-		},
-		{
-			title: 'sound check',
-			artist: 'chris_gangcat',
-			src: '/music/sound-check.mp3'
-		}
-	];
+	const tracks = getMusicList();
 
 	// 音楽プレイヤーの状態
 	let playerState = $state<PlayerState>({

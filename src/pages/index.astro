@@ -1,118 +1,18 @@
 ---
-import type { Work } from "../types";
-import logoImage from "../assets/logo_w.png";
-
-import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
 import CarouselItem from "../components/CarouselItem.astro";
 import WorkList from "../components/works/Works.astro";
 import Modal from "../components/works/Modal.astro";
 import DraggableWindow from "../components/DraggableWindow.astro";
 import Logo3d from "../components/Logo3d.svelte";
+import { queryAssets } from '../utils';
+import type { ImageAsset } from '../types';
 
-interface SubCategory {
-  name: string;
-  works: Work[];
-}
+import { WORKS } from '../data';
 
-interface MainCategory {
-  name: string;
-  subCategories: SubCategory[];
-}
-
-const WORKS: MainCategory[] = [
-  {
-    name: "Media Production",
-    subCategories: [
-      {
-        name: "Video Production",
-        works: [],
-      },
-      {
-        name: "Video Editing",
-        works: [],
-      },
-    ],
-  },
-  {
-    name: "Visual Design",
-    subCategories: [
-      {
-        name: "Illustration",
-        works: [
-          {
-            title: "ればっちくん",
-            imageSrc: "https://i.imgur.com/ARpQ8JC.png",
-            createdAt: "2025-05-09",
-            authors: "にんじゃはむぞー",
-          },
-          {
-            title: "鮮やかHDR",
-            imageSrc:
-              "https://files.aipictors.com/db9a4176-9792-462b-ac7f-a5935edccca3",
-            createdAt: "2023-04-12",
-            authors: "Stable Diffusion",
-          },
-        ],
-      },
-      {
-        name: "Graphic Design",
-        works: [
-          {
-            title: "REVATI ヘッダー",
-            imageSrc:
-              "https://revati.jp/images/logos/revati/header_mini_oxipng.png",
-            createdAt: "2024-04-01",
-            authors: "REVATI",
-          },
-          {
-            title: "No Image (©2023 Rinrin.rs | CC BY-SA 4.0)",
-            imageSrc:
-              "https://feat--168-goods-poster-carou.revati.pages.dev/images/news/thumbnails/20240301_test.png",
-            createdAt: "2023-10-02",
-            authors: "Rinrin.rs",
-          },
-          {
-            title: "ポスター Ω<ﾅﾝﾃﾞｽｯﾃｰ!? (©2024 Rinrin.rs | CC BY-SA 4.0)",
-            imageSrc:
-              "https://dev.rinrin.pages.dev/images/creations/thumbnails/poster-nandesuttee.webp",
-            createdAt: "2024-09-18",
-            authors: "Rinrin.rs",
-          },
-        ],
-      },
-      {
-        name: "Web Design",
-        works: [],
-      },
-    ],
-  },
-  {
-    name: "Digital Development",
-    subCategories: [
-      {
-        name: "Web Development",
-        works: [
-          {
-            title: "revati.jp",
-            imageSrc: "https://i.imgur.com/gEmZFMK.png",
-            createdAt: "2023-01-21",
-            authors: "Rinrin.rs、GEN3987、Retoruto9900K、しろねこ",
-          },
-        ],
-      },
-      {
-        name: "App Development",
-        works: [],
-      },
-      {
-        name: "Bot Development",
-        works: [],
-      },
-    ],
-  },
-];
+const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
 
 // ウィンドウの最大サイズ。ビューポートが狭くなっても、このアスペクト比を保ちながら縮小する。
 const DRAGGABLE_WINDOW_MAX_SIZE = { width: 500, height: 276 };
@@ -133,9 +33,13 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
 
   <Carousel slideHeight="6rem" maxWidth="100vw">
     {
-      Array.from({ length: 8 }).map(() => (
+      carouselImages.map((asset) => (
         <CarouselItem>
-          <Image src={logoImage} alt="logo" />
+          {
+            typeof asset.src === "string"
+              ? <Image src={asset.src} alt={asset.title} inferSize />
+              : <Image src={asset.src} alt={asset.title} />
+          }
         </CarouselItem>
       ))
     }
@@ -144,15 +48,10 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
   <h1>Our Works</h1>
 
   {
-    WORKS.map((mainCategory) => (
+    Object.entries(WORKS).map(([category, works]) => (
       <section>
-        <h2>{mainCategory.name}</h2>
-        {mainCategory.subCategories.map((subCategory) => (
-          <div>
-            <h3>{subCategory.name}</h3>
-            <WorkList items={subCategory.works} />
-          </div>
-        ))}
+        <h2>{category}</h2>
+        <WorkList items={works} />
       </section>
     ))
   }
@@ -177,7 +76,7 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
 </style>
 
 <script>
-  import type { Work } from "../types";
+  import type { Work_old } from "../types";
 
   const UPDATE_DELAY = 500;
 
@@ -200,7 +99,7 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
       createdAt !== null &&
       authors !== null
     ) {
-      const event: CustomEvent<Work> = new CustomEvent("open-work-modal", {
+      const event: CustomEvent<Work_old> = new CustomEvent("open-work-modal", {
         detail: { imageSrc, title, createdAt, authors },
       });
       document.dispatchEvent(event);
@@ -217,7 +116,7 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
   }
 
   function openModal(event: Event) {
-    const { imageSrc, title, createdAt, authors } = (event as CustomEvent<Work>)
+    const { imageSrc, title, createdAt, authors } = (event as CustomEvent<Work_old>)
       .detail;
     modalElms.image.src = imageSrc;
     modalElms.image.alt = title;

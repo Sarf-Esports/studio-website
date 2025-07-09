@@ -1,2 +1,3 @@
-export * from "./AudioAnalyzer";
-export * from "./WaveVisualizer";
+export * from './AudioAnalyzer';
+export * from './WaveVisualizer';
+export * from './work';
