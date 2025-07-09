@@ -50,12 +50,28 @@ const styles = {
     const direction = viewport.getAttribute("data-direction") as
       | "forward"
       | "backward";
-    EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
+    const api = EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
       AutoScroll({
         direction,
         stopOnInteraction: false,
         speed: 0.5,
       }),
     ]);
+
+    const container = api.rootNode().querySelector(".embla__container")!;
+    const slideNodes = api.slideNodes();
+
+    let currentWidth = [...slideNodes].reduce((acc, slide) => acc + slide.clientWidth, 0);
+    let i = 0;
+
+    // viewportの幅に十分満たないとスライドが回らないから複製してかさ増しする
+    while (currentWidth < (viewport.clientWidth + 100)) {
+      const slide = slideNodes[i % slideNodes.length];
+      container.appendChild(slide.cloneNode(true));
+      currentWidth += slide.clientWidth;
+      i++;
+    }
+
+    api.reInit();
   });
 </script>
