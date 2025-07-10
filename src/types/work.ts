@@ -11,8 +11,7 @@ export interface Work_old {
 export interface Work {
   title: string;
   createdAt: string;
-  //REVIEW - 別な名前にするかも
-  subCategory: string;
+  tags: string[];
   authors: string[];
   assets: Asset[];
   // ここで定義されない場合、assetsの最初の要素のサムネイルを使用する
@@ -25,36 +24,36 @@ export type AssetType = 'video' | 'image' | 'music' | 'website' | 'external';
 
 export type ImageSource = string | ImageMetadata;
 
-export interface BaseAsset {
-  title: string;
-}
-
-export interface VideoAsset extends BaseAsset {
+export interface VideoAsset {
   type: 'video';
+  title: string;
   src: string;
   thumbnail?: ImageSource;
 }
 
-export interface ImageAsset extends BaseAsset {
+export interface ImageAsset {
   type: 'image';
   src: ImageSource;
+  caption: string;
   showInCarousel?: boolean;
 }
 
-export interface MusicAsset extends BaseAsset {
+export interface MusicAsset {
   type: 'music';
+  title: string;
   src: string;
   thumbnail?: ImageSource;
 }
 
-export interface WebsiteAsset extends BaseAsset {
+export interface WebsiteAsset {
   type: 'website';
+  title: string;
   url: string;
   clientName: string;
   thumbnail?: ImageSource;
 }
 
-export interface ExternalAsset extends BaseAsset {
+export interface ExternalAsset {
   type: 'external';
   url: string;
   thumbnail?: ImageSource;
