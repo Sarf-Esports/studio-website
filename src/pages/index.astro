@@ -3,14 +3,11 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
 import CarouselItem from "../components/CarouselItem.astro";
-import WorkList from "../components/works/Works.astro";
-import Modal from "../components/works/Modal.astro";
+import WorksContainer from "../components/works/WorksContainer.svelte";
 import DraggableWindow from "../components/DraggableWindow.astro";
 import Logo3d from "../components/Logo3d.svelte";
 import { queryAssets } from '../utils';
 import type { ImageAsset } from '../types';
-
-import { WORKS } from '../data';
 
 const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
 
@@ -47,14 +44,16 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
 
   <h1>Our Works</h1>
 
-  {
+  <!-- {
     Object.entries(WORKS).map(([category, works]) => (
       <section>
         <h2>{category}</h2>
         <WorkList items={works} />
       </section>
     ))
-  }
+  } -->
+
+  <WorksContainer client:load />
 
   <DraggableWindow
     title="REVATI Studio"
@@ -65,7 +64,7 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
   </DraggableWindow>
 </Layout>
 
-<Modal />
+<!-- <Modal /> -->
 
 <style lang="scss">
   h1,
