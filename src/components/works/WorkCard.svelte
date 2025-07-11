@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Work } from '../../types/work';
+  import { extractYouTubeVideoId, getYouTubeThumbnail } from '../../utils/youtube';
 
   interface Props {
     work: Work;
@@ -26,6 +27,16 @@
     const imageAsset = work.assets.find((asset) => asset.type === 'image');
     if (imageAsset && imageAsset.type === 'image') {
       return typeof imageAsset.src === 'string' ? imageAsset.src : imageAsset.src.src;
+    }
+
+    // videoアセットがある場合、YouTubeサムネイルを試行
+    const videoAsset = work.assets.find((asset) => asset.type === 'video');
+    if (videoAsset && videoAsset.type === 'video') {
+      const videoUrl = videoAsset.src;
+      const videoId = extractYouTubeVideoId(videoUrl);
+      if (videoId) {
+        return getYouTubeThumbnail(videoId);
+      }
     }
 
     // フォールバック画像
@@ -68,7 +79,7 @@
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    aspect-ratio: 1;
+    aspect-ratio: 16/9;
 
     &:hover {
       transform: translateY(-4px);
@@ -134,7 +145,7 @@
   }
 
   .work-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #fff;
     margin: 0;
@@ -161,14 +172,15 @@
     white-space: nowrap;
   }
 
-  // レスポンシブ対応
+  @media (max-width: 1200px) {
+    .work-title {
+      font-size: 0.9rem;
+    }
+  }
+
   @media (max-width: 768px) {
     .work-overlay {
       padding: 1rem;
-    }
-
-    .work-title {
-      font-size: 1rem;
     }
 
     .tag {
@@ -178,16 +190,8 @@
   }
 
   @media (max-width: 480px) {
-    .work-card {
-      aspect-ratio: 16/9; // スマホでは横長の画像表示
-    }
-
     .work-overlay {
       padding: 0.75rem;
-    }
-
-    .work-title {
-      font-size: 0.9rem;
     }
 
     .tag {

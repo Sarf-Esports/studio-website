@@ -31,8 +31,8 @@
 <style lang="scss">
   .works-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     padding: 1rem 0;
   }
 
@@ -72,14 +72,14 @@
   // レスポンシブ対応
   @media (max-width: 1200px) {
     .works-grid {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
   }
 
   @media (max-width: 768px) {
     .works-grid {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
       padding: 0.5rem 0;
     }

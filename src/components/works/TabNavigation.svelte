@@ -99,7 +99,6 @@
     border-top: 1px solid $color-accent;
   }
 
-  // レスポンシブ対応
   @media (max-width: 768px) {
     .tab-container {
       gap: 0.5rem;

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Work } from '../../types/work';
+  import { getYouTubeEmbedUrl } from '../../utils/youtube';
 
   interface Props {
     work: Work | null;
@@ -72,25 +73,6 @@
       return getAssetUrl(asset);
     }
     return null;
-  }
-
-  function getYouTubeEmbedUrl(url: string): string {
-    // YouTube URL パターンを埋め込み用URLに変換
-    const patterns = [
-      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
-      /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/,
-      /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/
-    ];
-
-    for (const pattern of patterns) {
-      const match = url.match(pattern);
-      if (match) {
-        return `https://www.youtube.com/embed/${match[1]}`;
-      }
-    }
-
-    // パターンにマッチしない場合はそのまま返す
-    return url;
   }
 </script>
 
