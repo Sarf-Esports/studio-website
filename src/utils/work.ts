@@ -8,6 +8,7 @@ export interface WorkEntry extends Work {
 export interface WorkQueryOptions {
   category?: keyof WORKS;
   author?: string;
+  tags?: string[];
 }
 
 export function queryWorks(options?: WorkQueryOptions): WorkEntry[] {
@@ -19,6 +20,7 @@ export function queryWorks(options?: WorkQueryOptions): WorkEntry[] {
 
     for (const work of categoryWorks) {
       if (options?.author && !work.authors.includes(options.author)) continue;
+      if (options?.tags && !options.tags.every(tag => work.tags.includes(tag))) continue;
 
       works.push({
         ...work,
