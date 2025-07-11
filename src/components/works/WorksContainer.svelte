@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Work } from '../../types';
   import { WORKS } from '../../data';
+	import { queryWorks } from '../../utils';
   import TabNavigation from './TabNavigation.svelte';
   import WorksList from './WorksList.svelte';
   import WorkModal from './WorkModal.svelte';
-	import { queryWorks } from '../../utils';
 
   type TabType = 'all' | keyof WORKS;
 
@@ -26,12 +26,10 @@
     
     // デザインタブの場合、movieの動画+サムネイル作品も追加
     if (activeTab === 'design') {
-      const additionalWorks = queryWorks({
+      const videoWithThumbnailWorks = queryWorks({
         category: 'movie',
         tags: ['動画編集', 'サムネイル制作']
-      });
-
-      const videoWithThumbnailWorks = additionalWorks.filter(work => (
+      }).filter(work => (
         work.assets.some(asset => asset.type === 'video') &&
         work.assets.some(asset => asset.type === 'image')
       ));

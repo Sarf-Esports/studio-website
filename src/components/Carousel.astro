@@ -42,35 +42,54 @@ const styles = {
 </style>
 
 <script>
-  import EmblaCarousel from "embla-carousel";
+  import EmblaCarousel, { type EmblaCarouselType }  from "embla-carousel";
   import AutoScroll from "embla-carousel-auto-scroll";
 
-  const viewports = document.querySelectorAll<HTMLElement>(".embla__viewport")!;
-  viewports.forEach((viewport) => {
-    const direction = viewport.getAttribute("data-direction") as
-      | "forward"
-      | "backward";
-    const api = EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
+  const carousels = new Map<HTMLElement, EmblaCarouselType>();
+
+  document.addEventListener('astro:page-load', () => {
+    const viewports = document.querySelectorAll<HTMLElement>(".embla__viewport")!;
+
+    for (const [viewport, existingCarousel] of carousels) {
+      existingCarousel.destroy();
+      carousels.delete(viewport);
+    }
+    
+    for (const viewport of viewports) {
+      const newCarousel = initCarousel(viewport);
+      fitSlides(viewport, newCarousel);
+      carousels.set(viewport, newCarousel);
+    }
+  });
+
+  function initCarousel(viewport: HTMLElement) {
+    const carousel = EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
       AutoScroll({
-        direction,
+        direction: viewport.getAttribute("data-direction") as "forward" | "backward",
         stopOnInteraction: false,
         speed: 0.5,
       }),
     ]);
 
-    const container = api.rootNode().querySelector(".embla__container")!;
-    const slideNodes = api.slideNodes();
+    carousel.on('resize', () => {
+      fitSlides(viewport, carousel);
+    });
+
+    return carousel;
+  }
+
+  /** viewportの幅に十分満たないとスライドが回らないから複製してかさ増しする */
+  function fitSlides(viewport: HTMLElement, carousel: EmblaCarouselType) {
+    const container = carousel.rootNode().querySelector(".embla__container")!;
+    const slideNodes = carousel.slideNodes();
 
     let currentWidth = [...slideNodes].reduce((acc, slide) => acc + slide.clientWidth, 0);
 
-    // viewportの幅に十分満たないとスライドが回らないから複製してかさ増しする
     while (currentWidth < viewport.clientWidth) {
       for (const slide of slideNodes) {
         container.appendChild(slide.cloneNode(true));
         currentWidth += slide.clientWidth;
       }
     }
-
-    api.reInit();
-  });
+  }
 </script>

@@ -44,15 +44,6 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
 
   <h1>Our Works</h1>
 
-  <!-- {
-    Object.entries(WORKS).map(([category, works]) => (
-      <section>
-        <h2>{category}</h2>
-        <WorkList items={works} />
-      </section>
-    ))
-  } -->
-
   <WorksContainer client:load />
 
   <DraggableWindow
@@ -64,8 +55,6 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
   </DraggableWindow>
 </Layout>
 
-<!-- <Modal /> -->
-
 <style lang="scss">
   h1,
   h2,
@@ -73,108 +62,3 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
     text-align: center;
   }
 </style>
-
-<script>
-  import type { Work_old } from "../types";
-
-  const UPDATE_DELAY = 500;
-
-  let dialog: HTMLDialogElement;
-  let modalElms: {
-    title: HTMLElement;
-    image: HTMLImageElement;
-    date: HTMLElement;
-    authors: HTMLElement;
-  };
-
-  function handleWorkClick(this: HTMLButtonElement) {
-    const imageSrc = this.getAttribute("data-image");
-    const title = this.getAttribute("data-title");
-    const createdAt = this.getAttribute("data-date");
-    const authors = this.getAttribute("data-members");
-    if (
-      title !== null &&
-      imageSrc !== null &&
-      createdAt !== null &&
-      authors !== null
-    ) {
-      const event: CustomEvent<Work_old> = new CustomEvent("open-work-modal", {
-        detail: { imageSrc, title, createdAt, authors },
-      });
-      document.dispatchEvent(event);
-    }
-  }
-
-  function initializeWorks() {
-    document
-      .querySelectorAll("button[data-image][data-title]")
-      .forEach((btn) => {
-        btn.removeEventListener("click", handleWorkClick);
-        btn.addEventListener("click", handleWorkClick);
-      });
-  }
-
-  function openModal(event: Event) {
-    const { imageSrc, title, createdAt, authors } = (event as CustomEvent<Work_old>)
-      .detail;
-    modalElms.image.src = imageSrc;
-    modalElms.image.alt = title;
-    modalElms.title.textContent = title;
-    modalElms.date.textContent = createdAt;
-    modalElms.authors.textContent = authors;
-    dialog.showModal();
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeModal() {
-    dialog.close();
-    document.body.style.overflow = "";
-  }
-
-  function initializeModal() {
-    dialog = document.getElementById("work-modal-dialog")! as HTMLDialogElement;
-    modalElms = {
-      title: document.getElementById("work-modal-title")!,
-      image: document.getElementById("work-modal-image")! as HTMLImageElement,
-      date: document.getElementById("work-modal-date")!,
-      authors: document.getElementById("work-modal-authors")!,
-    };
-
-    dialog.addEventListener("cancel", (e) => {
-      e.preventDefault();
-      closeModal();
-    });
-
-    dialog.addEventListener("click", (e) => {
-      if (e.target === dialog) closeModal();
-    });
-  }
-
-  function initialize() {
-    initializeWorks();
-    initializeModal();
-  }
-
-  // DOMが完全にロードされた後に関数を実行
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initialize);
-  } else {
-    initialize();
-  }
-
-  // ページの表示・非表示状態が変わったら再初期化
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) setTimeout(initialize, UPDATE_DELAY);
-  });
-
-  // 初回ページロードとすべてのナビゲーション後に再初期化
-  document.addEventListener("astro:page-load", () => {
-    setTimeout(initialize, UPDATE_DELAY);
-  });
-
-  document
-    .getElementById("work-modal-close")!
-    .addEventListener("click", closeModal);
-
-  document.addEventListener("open-work-modal", openModal);
-</script>

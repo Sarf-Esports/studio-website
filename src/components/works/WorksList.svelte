@@ -69,7 +69,6 @@
     line-height: 1.6;
   }
 
-  // レスポンシブ対応
   @media (max-width: 1200px) {
     .works-grid {
       grid-template-columns: repeat(3, 1fr);
