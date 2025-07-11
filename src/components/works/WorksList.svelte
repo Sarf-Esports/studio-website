@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Work } from '../../types/work';
+  import type { Work } from '../../types';
   import WorkCard from './WorkCard.svelte';
 
   interface Props {

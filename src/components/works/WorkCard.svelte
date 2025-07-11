@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Work } from '../../types/work';
-  import { extractYouTubeVideoId, getYouTubeThumbnail } from '../../utils/youtube';
+  import type { Work } from '../../types';
+  import { extractYouTubeVideoId, getYouTubeThumbnail } from '../../utils';
 
   interface Props {
     work: Work;

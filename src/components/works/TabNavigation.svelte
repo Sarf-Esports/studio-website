@@ -1,20 +1,18 @@
 <script lang="ts">
+	import { WORKS } from '../../data';
+
   interface Props {
-    activeTab: string;
-    onTabChange: (tab: string) => void;
+    activeTab: TabType;
+    onTabChange: (tab: TabType) => void;
   }
 
   let { activeTab, onTabChange }: Props = $props();
 
-  const tabs = [
-    { id: 'ALL', label: 'ALL' },
-    { id: 'Movie', label: 'MOVIE' },
-    { id: 'Music', label: 'MUSIC' },
-    { id: 'Design', label: 'DESIGN' },
-    { id: 'Service', label: 'SERVICE' }
-  ];
+  type TabType = 'all' | keyof WORKS;
 
-  function handleTabClick(tabId: string) {
+  const tabs = ['all', ...Object.keys(WORKS)] as TabType[];
+
+  function handleTabClick(tabId: TabType) {
     onTabChange(tabId);
   }
 </script>
@@ -24,10 +22,10 @@
     {#each tabs as tab}
       <button
         class="tab-button"
-        class:is-active={activeTab === tab.id}
-        onclick={() => handleTabClick(tab.id)}
+        class:is-active={activeTab === tab}
+        onclick={() => handleTabClick(tab)}
       >
-        {tab.label}
+        {tab.toUpperCase()}
       </button>
     {/each}
   </div>

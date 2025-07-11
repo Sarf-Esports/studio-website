@@ -1,11 +1,13 @@
 <script lang="ts">
-  import type { Work } from '../../types/work';
-  import { WORKS } from '../../data/work';
+  import type { Work } from '../../types';
+  import { WORKS } from '../../data';
   import TabNavigation from './TabNavigation.svelte';
   import WorksList from './WorksList.svelte';
   import WorkModal from './WorkModal.svelte';
 
-  let activeTab = $state('ALL');
+  type TabType = 'all' | keyof WORKS;
+
+  let activeTab = $state<TabType>('all');
   let selectedWork = $state<Work | null>(null);
 
   // 全ての作品を取得
@@ -15,10 +17,10 @@
 
   // 選択されたタブに応じて作品をフィルタリング
   const filteredWorks = $derived(
-    activeTab === 'ALL' ? getAllWorks() : WORKS[activeTab as keyof typeof WORKS] || []
+    activeTab === 'all' ? getAllWorks() : WORKS[activeTab] || []
   );
 
-  function handleTabChange(tabId: string) {
+  function handleTabChange(tabId: TabType) {
     activeTab = tabId;
   }
 

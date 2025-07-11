@@ -6,10 +6,10 @@ import { MUSIC } from './music';
 import { SERVICE } from './service';
 
 export const WORKS = {
-  'Movie': MOVIE,
-  'Music': MUSIC,
-  'Design': DESIGN,
-  'Service': SERVICE
+  movie: MOVIE,
+  music: MUSIC,
+  design: DESIGN,
+  service: SERVICE,
 } satisfies Record<string, Work[]>;
 
 export type WORKS = typeof WORKS;

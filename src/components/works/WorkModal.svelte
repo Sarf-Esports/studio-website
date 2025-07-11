@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Work } from '../../types/work';
-  import { getYouTubeEmbedUrl } from '../../utils/youtube';
+  import type { Asset, Work } from '../../types';
+  import { getYouTubeEmbedUrl } from '../../utils';
 
   interface Props {
     work: Work | null;
@@ -52,7 +52,7 @@
     });
   }
 
-  function getAssetUrl(asset: any): string {
+  function getAssetUrl(asset: Asset): string {
     if (asset.type === 'image') {
       return typeof asset.src === 'string' ? asset.src : asset.src.src;
     }
@@ -63,16 +63,6 @@
       return asset.url;
     }
     return '';
-  }
-
-  function getAssetThumbnail(asset: any): string | null {
-    if (asset.thumbnail) {
-      return typeof asset.thumbnail === 'string' ? asset.thumbnail : asset.thumbnail.src;
-    }
-    if (asset.type === 'image') {
-      return getAssetUrl(asset);
-    }
-    return null;
   }
 </script>
 
