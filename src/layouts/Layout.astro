@@ -73,7 +73,9 @@ const { title } = Astro.props;
 
   body {
     display: grid;
-    grid-template-rows: 96px auto 168px;
+    $header-height: 96px;
+    $footer-height: 168px;
+    grid-template-rows: $header-height auto $footer-height;
     height: 100%;
     margin: 0;
     color: $text-color;
