@@ -292,7 +292,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.5);
+      box-shadow: 0 0 0 2px rgba($color-accent, 0.5);
     }
   }
 
@@ -342,13 +342,13 @@
   }
 
   .tag {
-    background: rgba(0, 245, 255, 0.2);
-    color: rgba(0, 245, 255, 0.9);
+    background: rgba($color-accent, 0.2);
+    color: rgba($color-accent, 0.9);
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     font-size: 0.75rem;
     font-weight: 500;
-    border: 1px solid rgba(0, 245, 255, 0.3);
+    border: 1px solid rgba($color-accent, 0.3);
   }
 
   .work-assets {
@@ -421,17 +421,17 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: rgba(0, 245, 255, 0.9);
+    color: rgba($color-accent, 0.9);
     text-decoration: none;
     font-weight: 500;
     padding: 0.5rem 1rem;
-    border: 1px solid rgba(0, 245, 255, 0.3);
+    border: 1px solid rgba($color-accent, 0.3);
     border-radius: 6px;
     transition: all 0.2s ease;
 
     &:hover {
-      background: rgba(0, 245, 255, 0.1);
-      border-color: rgba(0, 245, 255, 0.5);
+      background: rgba($color-accent, 0.1);
+      border-color: rgba($color-accent, 0.5);
     }
 
     svg {
