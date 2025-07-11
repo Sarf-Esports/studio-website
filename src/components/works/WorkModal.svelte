@@ -8,37 +8,37 @@
   }
 
   let { work, onClose }: Props = $props();
+  let dialog = $state<HTMLDialogElement>();
 
   const isOpen = $derived(work !== null);
 
-  // モーダルが開いているときに背景スクロールを無効化
+  // dialogの開閉を制御
   $effect(() => {
-    if (isOpen) {
-      // スクロールバーの幅を取得してレイアウトシフトを防ぐ
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-      document.body.style.overflow = 'hidden';
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
+    if (dialog) {
+      if (isOpen && work) {
+        dialog.showModal();
+        document.body.style.overflow = 'hidden';
+      } else {
+        dialog.close();
+        document.body.style.overflow = '';
+      }
     }
 
-    // クリーンアップ関数
     return () => {
-      document.body.style.overflow = '';
-      document.body.style.paddingRight = '';
+      if (dialog) {
+        dialog.close();
+        document.body.style.overflow = '';
+      }
     };
   });
 
-  function handleBackdropClick(event: MouseEvent) {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
+  function handleDialogClose() {
+    onClose();
   }
 
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
+  function handleDialogClick(event: MouseEvent) {
+    // backdrop（dialog要素自体）がクリックされた場合にモーダルを閉じる
+    if (event.target === dialog) {
       onClose();
     }
   }
@@ -66,10 +66,13 @@
   }
 </script>
 
-{#if isOpen && work}
-  <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="modal-backdrop" onclick={handleBackdropClick} onkeydown={handleKeydown}>
-    <div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+{#if work}
+  <dialog 
+    bind:this={dialog} 
+    onclose={handleDialogClose}
+    onclick={handleDialogClick}
+  >
+    <div class="modal-content">
       <header class="modal-header">
         <h2 id="modal-title" class="modal-title">{work.title}</h2>
         <button class="modal-close" onclick={onClose} aria-label="モーダルを閉じる">
@@ -197,25 +200,30 @@
         </div>
       </div>
     </div>
-  </div>
+  </dialog>
 {/if}
 
 <style lang="scss">
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+  dialog {
+    background: transparent;
+    border: none;
     padding: 2rem;
-    backdrop-filter: blur(4px);
-    min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height for mobile */
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+
+    &::backdrop {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    &[open] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   .modal-content {
@@ -230,6 +238,7 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
+    margin: auto;
   }
 
   .modal-header {
@@ -256,6 +265,9 @@
     padding: 0.5rem;
     border-radius: 8px;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       color: #fff;
@@ -265,6 +277,10 @@
     &:focus {
       outline: none;
       box-shadow: 0 0 0 2px rgba($color-accent, 0.5);
+    }
+
+    svg {
+      display: block;
     }
   }
 
@@ -414,7 +430,7 @@
 
   // レスポンシブ対応
   @media (max-width: 768px) {
-    .modal-backdrop {
+    dialog {
       padding: 1rem;
       align-items: flex-start;
       padding-top: max(1rem, env(safe-area-inset-top));
@@ -458,7 +474,7 @@
   }
 
   @media (max-width: 480px) {
-    .modal-backdrop {
+    dialog {
       padding: 0.5rem;
       align-items: flex-start;
       padding-top: max(1rem, env(safe-area-inset-top));
