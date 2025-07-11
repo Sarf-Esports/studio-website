@@ -213,6 +213,7 @@
     width: 100%;
     height: 100%;
     margin: 0;
+    box-sizing: border-box;
 
     &::backdrop {
       background: rgba(0, 0, 0, 0.8);
@@ -238,7 +239,8 @@
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0;
+    box-sizing: border-box;
   }
 
   .modal-header {
@@ -431,7 +433,7 @@
   // レスポンシブ対応
   @media (max-width: 768px) {
     dialog {
-      padding: 1rem;
+      padding: 0.75rem;
       align-items: flex-start;
       padding-top: max(1rem, env(safe-area-inset-top));
     }
@@ -439,7 +441,8 @@
     .modal-content {
       max-height: 95vh;
       max-height: 95dvh;
-      margin-top: 2rem;
+      margin-top: 1rem;
+      max-width: calc(100vw - 1.5rem);
     }
 
     .modal-header {
@@ -483,7 +486,8 @@
     .modal-content {
       max-height: 98vh;
       max-height: 95dvh;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
+      max-width: calc(100vw - 1rem);
     }
 
     .modal-header {
