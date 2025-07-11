@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import XLogo from "../assets/logos/x_white.svg";
+
+const ID = "revati_studio";
+---
+
+<a href={"https://x.com/" + ID} target="_blank" rel="noopener noreferrer" title={"X: @" + ID}>
+  <Image src={XLogo} alt="X" class="logo" />
+</a>
+
+<style lang="scss">
+  // この値を更新する場合は、
+  // `/src/components/music/MusicPlayer.svelte` の `module` スクリプトブロック内で定義される `MUSIC_PLAYER_BREAKPOINT` 定数も更新すること。
+  $music-player-bp: 768px;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 52px;
+    height: 48px;
+    position: fixed;
+    bottom: 56px;
+    left: 0;
+    background-color: #131010;
+    border: 2px solid #ffffff3a;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 0 22px #0000005a;
+    z-index: 224;
+  }
+
+  .logo {
+    width: 22px;
+    height: auto;
+  }
+
+  @media screen and (max-width: #{$music-player-bp - 1}) {
+    a {
+      width: 42px;
+      height: 40px;
+      bottom: 100px;
+    }
+
+    .logo {
+      width: 18px;
+    }
+  }
+</style>

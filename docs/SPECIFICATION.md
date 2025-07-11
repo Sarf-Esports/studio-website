@@ -79,4 +79,5 @@
 |    1002 | MusicPlayer ControlPanel 最小化ボタン      | [`src/components/music/MinimizeButton.svelte>style>.minimize-btn`](../src/components/music/MinimizeButton.svelte)        |
 |    1000 | MusicPlayer ControlPanel MobileProgressBar | [`src/components/music/MobileProgressBar.svelte>.mobile-progress-bar`](../src/components/music/MobileProgressBar.svelte) |
 |     255 | ヘッダー                                   | [`src/components/header/Navbar.astro>style>ul`](../src/components/header/Navbar.astro)                                   |
+|     224 | 画面追従SNSリンク | [`src/components/TwitterLink.astro>style>a`](../src/components/TwitterLink.astro) |
 |      10 | MusicPlayer ControlPanel                   | [`src/components/music/ControlPanel.svelte>style>.close-button`](../src/components/music/ControlPanel.svelte)            |
