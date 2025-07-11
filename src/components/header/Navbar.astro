@@ -41,21 +41,18 @@ const { pathname } = Astro.url;
     padding-inline: 24px;
     padding-top: 20px;
     padding-bottom: 16px;
-    position: fixed;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #131010;
-    border: 2px solid #ffffff3a;
     border-top: none;
-    $border-radius-bottom: 8px;
-    border-bottom-left-radius: $border-radius-bottom;
-    border-bottom-right-radius: $border-radius-bottom;
-    box-shadow: 0 0 22px #0000005a;
     flex-direction: row;
     justify-content: space-between;
     list-style: none;
     z-index: 255;
+    @include fixed-panel;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 
   $item-outline: 2px solid;
