@@ -233,7 +233,7 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
     max-width: 850px;
     max-height: 90vh;
-    max-height: 90dvh; /* Dynamic viewport height for mobile */
+    max-height: 90dvh;
     width: 100%;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -310,8 +310,7 @@
 
   .work-tags {
     display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
+    align-items: center;
     font-size: 0.9rem;
   }
 
@@ -319,6 +318,7 @@
     color: rgba(255, 255, 255, 0.6);
     margin-right: 0.75rem;
     min-width: 60px;
+    line-height: 1.5;
   }
 
   .meta-value {
@@ -329,6 +329,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    align-items: center;
   }
 
   .tag {
@@ -339,6 +340,7 @@
     font-size: 0.75rem;
     font-weight: 400;
     border: 1px solid rgba($color-accent, 0.3);
+    line-height: 1.2;
   }
 
   .work-assets {
@@ -372,7 +374,7 @@
 
   .asset-caption {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.5);
     margin: 0;
     line-height: 1.3;
     text-align: center;
@@ -430,7 +432,6 @@
     }
   }
 
-  // レスポンシブ対応
   @media (max-width: 768px) {
     dialog {
       padding: 0.75rem;

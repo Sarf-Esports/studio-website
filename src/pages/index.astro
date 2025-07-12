@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import Spacer from '../components/Spacer.astro';
 import Carousel from "../components/Carousel.astro";
 import CarouselItem from "../components/CarouselItem.astro";
 import WorksContainer from "../components/works/WorksContainer.svelte";
@@ -23,12 +24,13 @@ const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
 ---
 
 <Layout title="WORKS">
-  <p>
-    REVATI Studio しろねこ、白猫。<br />
-    ここらへんに各種ページのコンテンツを置く。
-  </p>
+  <Spacer height="1.3rem" />
 
-  <Carousel slideHeight="6rem" maxWidth="100vw">
+  <Carousel
+    slideHeight={{ desktop: "45vh", tablet: "28vh", mobile: "18vh" }}
+    maxWidth="100vw"
+    slideSpacing={{ desktop: "1rem", tablet: "0.75rem", mobile: "0.5rem" }}
+  >
     {
       carouselImages.map((asset) => (
         <CarouselItem>
@@ -41,6 +43,8 @@ const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
       ))
     }
   </Carousel>
+
+  <Spacer height="1rem" />
 
   <h1>Our Works</h1>
 

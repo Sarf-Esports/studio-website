@@ -1,15 +1,50 @@
 ---
+type ResponsiveStyle<T> = T | {
+  desktop: T;
+  tablet?: T;
+  mobile?: T;
+}
+
 interface Props {
   forward?: boolean;
   backward?: boolean;
   maxWidth?: string;
-  slideHeight?: string;
+  slideHeight?: ResponsiveStyle<string>;
+  slideSpacing?: ResponsiveStyle<string>;
 }
 
+const { maxWidth, slideHeight, slideSpacing } = Astro.props;
+
 const direction = Astro.props.backward ? "backward" : "forward";
+
+function getResponsiveValue<T>(value: ResponsiveStyle<T> | undefined, defaultValue: T): { desktop: T; mobile: T | undefined; tablet: T | undefined } {
+  if (!value) {
+    return { desktop: defaultValue, mobile: undefined, tablet: undefined };
+  }
+
+  if (typeof value === 'object' && value !== null && ('desktop' in value || 'mobile' in value || 'tablet' in value)) {
+    const responsiveValue = value as { desktop: T; mobile?: T; tablet?: T };
+    return {
+      desktop: responsiveValue.desktop,
+      mobile: responsiveValue.mobile,
+      tablet: responsiveValue.tablet
+    };
+  }
+
+  return { desktop: value as T, mobile: undefined, tablet: undefined };
+}
+
+const slideHeightValues = getResponsiveValue(slideHeight, "10rem");
+const slideSpacingValues = getResponsiveValue(slideSpacing, "0px");
+
 const styles = {
-  "max-width": Astro.props.maxWidth || "48rem",
-  "slide-height": Astro.props.slideHeight || "10rem",
+  "max-width": maxWidth || "48rem",
+  "slide-height-desktop": slideHeightValues.desktop,
+  "slide-height-tablet": slideHeightValues.tablet,
+  "slide-height-mobile": slideHeightValues.mobile,
+  "slide-spacing-desktop": slideSpacingValues.desktop,
+  "slide-spacing-tablet": slideSpacingValues.tablet,
+  "slide-spacing-mobile": slideSpacingValues.mobile,
 };
 ---
 
@@ -25,19 +60,36 @@ const styles = {
   .embla {
     max-width: var(--max-width);
     margin: 0 auto;
-    --slide-spacing: 0px;
     user-select: none;
     pointer-events: none;
   }
 
   .embla__viewport {
     overflow: hidden;
+    height: var(--slide-height-desktop);
+
+    @media (max-width: 1200px) {
+      height: var(--slide-height-tablet);
+    }
+
+    @media (max-width: 768px) {
+      height: var(--slide-height-mobile);
+    }
   }
 
   .embla__container {
     display: flex;
     touch-action: pan-y pinch-zoom;
-    margin-left: calc(var(--slide-spacing) * -1);
+    
+    margin-left: calc(var(--slide-spacing-desktop) * -1);
+
+    @media (max-width: 1200px) {
+      margin-left: calc(var(--slide-spacing-tablet) * -1);
+    }
+
+    @media (max-width: 768px) {
+      margin-left: calc(var(--slide-spacing-mobile) * -1);
+    }
   }
 </style>
 
@@ -67,7 +119,7 @@ const styles = {
       AutoScroll({
         direction: viewport.getAttribute("data-direction") as "forward" | "backward",
         stopOnInteraction: false,
-        speed: 0.5,
+        speed: 1,
       }),
     ]);
 
@@ -91,5 +143,6 @@ const styles = {
         currentWidth += slide.clientWidth;
       }
     }
+    carousel.reInit();
   }
 </script>

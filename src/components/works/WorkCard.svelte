@@ -161,15 +161,16 @@
   }
 
   .tag {
-    background: rgba($color-accent, 0.2);
+    background: rgba($color-accent, 0.3);
     color: rgba($color-accent, 1.0);
     padding: 0.3rem 0.6rem;
     border-radius: 6px;
     font-size: 0.75rem;
-    font-weight: 400;
-    border: 1px solid rgba($color-accent, 0.4);
+    font-weight: 500;
+    border: 1px solid rgba($color-accent, 0.5);
     backdrop-filter: blur(5px);
     white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
   }
 
   @media (max-width: 1200px) {

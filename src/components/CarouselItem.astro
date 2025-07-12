@@ -8,18 +8,36 @@
   .embla__slide {
     flex: 0 0 auto;
     min-width: 0;
-    padding-left: var(--slide-spacing);
+    padding-left: var(--slide-spacing-desktop);
     position: relative;
+
+    @media (max-width: 1200px) {
+      padding-left: var(--slide-spacing-tablet);
+    }
+
+    @media (max-width: 768px) {
+      padding-left: var(--slide-spacing-mobile);
+    }
   }
 
   .content {
-    height: var(--slide-height);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     //TODO: 枠線は暫定対応
-    border: 1px solid rgb(214, 214, 214);
+    border: 4px solid rgb(46, 46, 46);
+    border-radius: 0.5rem;
+    
+    height: var(--slide-height-desktop);
+
+    @media (max-width: 1200px) {
+      height: var(--slide-height-tablet);
+    }
+    
+    @media (max-width: 768px) {
+      height: var(--slide-height-mobile);
+    }
   }
 
   .content > :global(img) {

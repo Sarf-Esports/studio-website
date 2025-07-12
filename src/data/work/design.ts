@@ -8,7 +8,7 @@ export const DESIGN = [
     title: "REVATI ヘッダー",
     createdAt: "2024-04-01",
     tags: ["Graphic Design"],
-    authors: ["REVATI"],
+    authors: ["HIKA"],
     assets: [
       {
         type: 'image',
@@ -56,20 +56,6 @@ export const DESIGN = [
         type: 'image',
         caption: "ればっちくん",
         src: "https://i.imgur.com/ARpQ8JC.png",
-        showInCarousel: true,
-      }
-    ]
-  },
-  {
-    title: "No Image (©2023 Rinrin.rs | CC BY-SA 4.0)",
-    createdAt: "2023-10-02",
-    tags: ["Graphic Design"],
-    authors: ["Rinrin.rs"],
-    assets: [
-      {
-        type: 'image',
-        caption: "No Image",
-        src: "https://feat--168-goods-poster-carou.revati.pages.dev/images/news/thumbnails/20240301_test.png",
         showInCarousel: true,
       }
     ]

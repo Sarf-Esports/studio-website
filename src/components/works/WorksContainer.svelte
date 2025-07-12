@@ -11,12 +11,10 @@
   let activeTab = $state<TabType>('all');
   let selectedWork = $state<Work | null>(null);
 
-  // 全ての作品を取得
   function getAllWorks(): Work[] {
     return Object.values(WORKS).flat();
   }
 
-  // 選択されたタブに応じて作品をフィルタリング
   const filteredWorks = $derived.by((): Work[] => {
     if (activeTab === 'all') {
       return getAllWorks();
@@ -79,7 +77,6 @@
     overflow: hidden;
   }
 
-  // レスポンシブ対応
   @media (max-width: 768px) {
     .works-container {
       padding: 1.5rem 0.75rem;
