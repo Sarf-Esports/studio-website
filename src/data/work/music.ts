@@ -5,7 +5,7 @@ export const MUSIC = [
     title: 'BACK ONCE AGAIN',
     createdAt: '2025-07-09',
     tags: ['Music Production'],
-    authors: ['chris_gangcat'],
+    authors: ['GANG CAT'],
     assets: [
       {
         type: 'music',
@@ -18,7 +18,7 @@ export const MUSIC = [
     title: 'Kill it [ABYSSUM EP VOL.2]',
     createdAt: '2025-07-09',
     tags: ['Music Production'],
-    authors: ['chris_gangcat'],
+    authors: ['GANG CAT'],
     assets: [
       {
         type: 'music',
@@ -28,14 +28,14 @@ export const MUSIC = [
     ]
   },
   {
-    title: 'GANGCAT ONMYOWN',
+    title: 'ON MY OWN',
     createdAt: '2025-07-09',
     tags: ['Music Production'],
-    authors: ['chris_gangcat'],
+    authors: ['GANG CAT'],
     assets: [
       {
         type: 'music',
-        title: 'GANGCAT ONMYOWN',
+        title: 'ON MY OWN',
         src: '/music/gangcat-onmyown.mp3'
       }
     ]
@@ -44,12 +44,25 @@ export const MUSIC = [
     title: 'sound check',
     createdAt: '2025-07-09',
     tags: ['Music Production'],
-    authors: ['chris_gangcat'],
+    authors: ['GANG CAT'],
     assets: [
       {
         type: 'music',
         title: 'sound check',
         src: '/music/sound-check.mp3'
+      }
+    ]
+  },
+  {
+    title: 'take this!',
+    createdAt: '2025-07-09',
+    tags: ['Music Production'],
+    authors: ['GANG CAT'],
+    assets: [
+      {
+        type: 'music',
+        title: 'take this!',
+        src: '/music/take-this.mp3'
       }
     ]
   }
