@@ -84,6 +84,12 @@ const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
     scrollbar-color: $color-accent transparent;
   }
 
+  :global(:focus-visible) {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+    overflow: visible;
+  }
+
   :global(a) {
     color: $color-accent;
   }
