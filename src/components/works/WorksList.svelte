@@ -22,7 +22,7 @@
   </div>
 {:else}
   <div class="works-grid">
-    {#each works as work (work.title + work.createdAt)}
+    {#each works as work, index (work.title + '-' + work.createdAt + '-' + index)}
       <WorkCard {work} onClick={onWorkClick} />
     {/each}
   </div>

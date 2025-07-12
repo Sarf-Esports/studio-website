@@ -32,7 +32,23 @@
         work.assets.some(asset => asset.type === 'image')
       ));
 
-      categoryWorks.push(...videoWithThumbnailWorks);
+      // svelteのeachでの重複防止
+      const workMap = new Map<string, Work>();
+      
+      categoryWorks.forEach(work => {
+        const key = `${work.title}-${work.createdAt}`;
+        workMap.set(key, work);
+      });
+      
+      // 動画+サムネイル作品を追加（w/重複チェック）
+      videoWithThumbnailWorks.forEach(work => {
+        const key = `${work.title}-${work.createdAt}`;
+        if (!workMap.has(key)) {
+          workMap.set(key, work);
+        }
+      });
+      
+      return Array.from(workMap.values());
     }
     
     return categoryWorks;
