@@ -29,8 +29,8 @@
 		<div>
 			<h2>JOIN OUR TEAM</h2>
 			<p>REVATI Studio では、共に新しい価値を創造してくれるクリエイターを随時募集しています。</p>
-			<a href="/" class="btn" target="_blank" rel="noopener noreferrer">応募フォームに進む</a
-			><!-- TODO: Google フォームのリンクを設定 -->
+			<a href="https://docs.google.com/forms/d/e/1FAIpQLScA-hpI6RU3aE0WNUTaaSSac_zfAHsTCMNUdcTQzLwJd0HhOA/viewform" class="btn" target="_blank" rel="noopener noreferrer">応募フォームに進む</a
+			>
 		</div>
 	{/if}
 </div>
