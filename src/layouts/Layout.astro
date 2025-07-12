@@ -1,7 +1,8 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Header from "../components/header/Header.astro";
-// import Footer from "../components/footer/Footer.astro"; // TMP: 使わないのであれば削除
+import Footer from "../components/footer/Footer.astro";
+import TwitterLink from "../components/TwitterLink.astro";
 
 interface Props {
   title?: string;
@@ -50,19 +51,16 @@ const { title } = Astro.props;
   </head>
 
   <body>
+    <div class="header-container"><Header /></div>
     <main transition:animate="fade">
       <slot />
     </main>
-    <div class="header-container"><Header /></div>
-    <!-- <Footer />  --><!-- TMP: 使わないのであればインポート含めて削除 -->
+    <div class="footer-container"><Footer /></div>
+    <TwitterLink />
   </body>
 </html>
 
 <style lang="scss">
-  // この値を更新する場合は、
-  // `/src/components/music/MusicPlayer.svelte` の `module` スクリプトブロック内で定義される `MUSIC_PLAYER_BREAKPOINT` 定数も更新すること
-  $music-player-bp: 768;
-
   html {
     height: 100%;
     font-family: "Noto Sans JP", sans-serif;
@@ -71,26 +69,27 @@ const { title } = Astro.props;
     font-style: normal;
     font-size: 18px;
     background: $color-secondary;
-    // overflow: hidden; // スクロールなしは TOP ページのみ
   }
 
   body {
     display: grid;
-    grid-template-rows: auto 248px;
+    $header-height: 96px;
+    $footer-height: 168px;
+    grid-template-rows: $header-height auto $footer-height;
     height: 100%;
     margin: 0;
     color: $text-color;
-
-    @media screen and (max-width: #{$music-player-bp - 1}px) {
-      grid-template-rows: auto 292px;
-    }
-  }
-
-  main {
-    grid-row: 1 / 2;
   }
 
   .header-container {
+    grid-row: 1 / 2;
+  }
+
+  main {
     grid-row: 2 / 3;
+  }
+
+  .footer-container {
+    grid-row: 3 / 4;
   }
 </style>

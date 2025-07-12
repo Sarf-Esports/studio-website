@@ -9,14 +9,24 @@ const NAVIGATION_ITEMS: NavigationEntry[] = [
   { label: "ABOUT", href: "/about" },
   { label: "CONTACT", href: "/contact" },
 ];
+
+const { pathname } = Astro.url;
 ---
 
 <nav>
   <ul>
     {
-      NAVIGATION_ITEMS.map((n) => (
+      NAVIGATION_ITEMS.map((item) => (
         <li>
-          <a href={n.href}>{n.label}</a>
+          <a
+            href={item.href}
+            class:list={[
+              (item.href === pathname || item.href + "/" === pathname) &&
+                "active",
+            ]}
+          >
+            {item.label}
+          </a>
         </li>
       ))
     }
@@ -26,16 +36,70 @@ const NAVIGATION_ITEMS: NavigationEntry[] = [
 <style lang="scss">
   ul {
     display: flex;
+    width: 336px;
     margin: 0;
-    padding: 16px 0;
-    padding-left: 10px;
-    gap: 10px;
-    flex-direction: column;
+    padding-inline: 24px;
+    padding-top: 20px;
+    padding-bottom: 16px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    justify-content: space-between;
     list-style: none;
+    z-index: 255;
+    @include fixed-panel;
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
+
+  $item-outline: 2px solid;
 
   a {
     color: inherit;
+    font-weight: 900;
+    font-size: 16px;
     text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    position: relative;
+    outline: 2px solid rgba($color-accent, 0);
+    user-select: none;
+    transition: 0.2s;
+
+    &:hover,
+    &:focus-visible {
+      outline: $item-outline rgba($color-accent, 0.3);
+    }
+  }
+
+  .active {
+    color: #ffeee5;
+    background-color: rgba($color-accent, 0.125);
+    outline: $item-outline rgba($color-accent, 0.5);
+    text-shadow:
+      0 0 8px $color-accent,
+      0 0 16px $color-accent;
+    box-shadow: 0 0 24px rgba($color-accent, 0.3);
+
+    &:hover,
+    &:focus-visible {
+      outline: $item-outline $color-accent;
+      filter: brightness(1.3);
+    }
+  }
+
+  @include sp {
+    ul {
+      width: 100%;
+      padding-block: 17px;
+      justify-content: space-evenly;
+    }
+
+    a {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
   }
 </style>

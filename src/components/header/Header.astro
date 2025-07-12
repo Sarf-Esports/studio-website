@@ -2,32 +2,45 @@
 import { Image } from "astro:assets";
 import Navbar from "./Navbar.astro";
 
-import LogoWhite from "../../assets/logos/REVATI-Studio_wide_white.webp";
+import Logo from "../../assets/logos/REVATI_Studio_white.webp";
 ---
 
 <header>
+  <a href="/" class="logo-container">
+    <Image loading="eager" src={Logo} alt="" class="logo" />
+  </a>
   <Navbar />
-  <div class="logo-container">
-    <Image loading="eager" src={LogoWhite} alt="" class="logo" />
-  </div>
 </header>
 
 <style lang="scss">
+  @use "../../styles/color" as *;
+
   header {
     height: 100%;
     padding: 18px;
-    // background-color: #00000080; // TMP
     box-sizing: border-box;
   }
 
-  .logo {
-    height: 52px;
-    width: auto;
-    margin: 10px 0;
+  .logo-container {
+    display: block;
+    width: fit-content;
+    padding: 18px;
+    padding-top: 22px;
+    border-radius: 20px;
+    box-shadow:
+      inset 4px 4px 8px #0000006a,
+      inset -4px -4px 8px #ffffff10;
+  }
 
-    @media screen and (max-width: 398px) {
-      width: 100%;
-      height: auto;
+  .logo {
+    display: block;
+    height: 42px;
+    width: auto;
+  }
+
+  @include sp {
+    .logo-container {
+      display: none;
     }
   }
 </style>
