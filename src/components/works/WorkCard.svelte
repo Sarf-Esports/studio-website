@@ -166,7 +166,7 @@
     padding: 0.3rem 0.6rem;
     border-radius: 6px;
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 400;
     border: 1px solid rgba($color-accent, 0.4);
     backdrop-filter: blur(5px);
     white-space: nowrap;

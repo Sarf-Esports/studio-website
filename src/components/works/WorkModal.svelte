@@ -337,7 +337,7 @@
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 400;
     border: 1px solid rgba($color-accent, 0.3);
   }
 
@@ -413,7 +413,7 @@
     gap: 0.5rem;
     color: rgba($color-accent, 0.9);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 400;
     padding: 0.5rem 1rem;
     border: 1px solid rgba($color-accent, 0.3);
     border-radius: 6px;
