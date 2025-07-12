@@ -12,7 +12,7 @@ export interface Props extends HTMLAttributes<"div"> {
 const { statusCode, title, message } = Astro.props;
 ---
 
-<Layout title={`${statusCode} ${title} | REVATI Studio`}>
+<Layout title={`${statusCode} ${title}`}>
   <div class="container">
     <div class="logo-container">
       <Logo3d

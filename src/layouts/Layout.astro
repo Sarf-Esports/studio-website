@@ -1,15 +1,20 @@
 ---
-import { COPYRIGHT } from "../utils/variables";
+import { WEBSITE_TITLE, WEBSITE_URL, COPYRIGHT } from "../utils/variables";
 import { ClientRouter } from "astro:transitions";
 import Header from "../components/header/Header.astro";
 import Footer from "../components/footer/Footer.astro";
 import TwitterLink from "../components/TwitterLink.astro";
 
 interface Props {
-  title?: string;
+  title: string;
 }
 
 const { title } = Astro.props;
+
+const absThumbnailPath = WEBSITE_URL + '/images/Revati-Studio_header_orange.png';
+const fullTitle = `${WEBSITE_TITLE} | ${title}`;
+const DESCRIPTION = "あらゆるクリエイティブをワンストップで。";
+const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
 ---
 
 <html lang="ja">
@@ -22,7 +27,7 @@ const { title } = Astro.props;
       name="format-detection"
       content="telephone=no, address=no, email=no"
     />
-    {title && <title>{title}</title>}
+    <meta name="thumbnail" content={absThumbnailPath} />
 
     <!-- ▼ Google Fonts ▼ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,9 +38,9 @@ const { title } = Astro.props;
     />
     <!-- ▲ Google Fonts ▲ -->
 
-    <meta property="og:site_name" content="REVATI Studio" />
+    <meta property="og:site_name" content={WEBSITE_TITLE} />
     <meta property="og:locale" content="ja_JP" />
-    <meta name="twitter:site" content="REVATI Studio" />
+    <meta name="twitter:site" content={WEBSITE_URL} />
     <!-- ↓ Sass 変数 `$color-accent` -->
     <meta name="theme-color" content="#e16428" />
 
@@ -47,6 +52,19 @@ const { title } = Astro.props;
     <meta name="copyright" content={COPYRIGHT} />
 
     <slot name="head" />
+
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content={DESCRIPTION} />
+
+    <meta property="og:title" content={WEBSITE_TITLE} />
+    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+		<meta property="og:image" content={absThumbnailPath} />
+
+    <link rel="canonical" href={canonicalUrl} />
 
     <ClientRouter />
   </head>
