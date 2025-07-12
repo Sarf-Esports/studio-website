@@ -90,6 +90,11 @@ const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
     overflow: visible;
   }
 
+  :global(::selection) {
+    color: $text-color;
+    background: $color-accent;
+  }
+
   :global(a) {
     color: $color-accent;
   }
