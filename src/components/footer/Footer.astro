@@ -1,4 +1,6 @@
 ---
+import { COPYRIGHT } from "../../utils/variables";
+
 const NAVIGATION_ITEMS: {
   label: string;
   href: string;
@@ -18,7 +20,7 @@ const NAVIGATION_ITEMS: {
 ---
 
 <footer>
-  <p>© 2025 REVATI Studio</p>
+  <p>{COPYRIGHT}</p>
   <ul>
     {
       NAVIGATION_ITEMS.map((item) => (
