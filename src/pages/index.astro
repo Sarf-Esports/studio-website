@@ -4,22 +4,22 @@ import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
 import CarouselItem from "../components/CarouselItem.astro";
 import WorksContainer from "../components/works/WorksContainer.svelte";
-import DraggableWindow from "../components/DraggableWindow.astro";
-import Logo3d from "../components/Logo3d.svelte";
+// import DraggableWindow from "../components/DraggableWindow.astro";
+// import Logo3d from "../components/Logo3d.svelte";
 import { queryAssets } from '../utils';
 import type { ImageAsset } from '../types';
 
 const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
 
-// ウィンドウの最大サイズ。ビューポートが狭くなっても、このアスペクト比を保ちながら縮小する。
-const DRAGGABLE_WINDOW_MAX_SIZE = { width: 500, height: 276 };
-// 幅 (vw) に対するウィンドウの最大比率 (0 < n <= 1)
-const DRAGGABLE_WINDOW_SCALE = 0.85;
-
-const DRAGGABLE_WINDOW_ASPECT_RATIO =
-  DRAGGABLE_WINDOW_MAX_SIZE.height / DRAGGABLE_WINDOW_MAX_SIZE.width;
-const DRAGGABLE_WINDOW_WIDTH = `min(${DRAGGABLE_WINDOW_SCALE * 100}vw, ${DRAGGABLE_WINDOW_MAX_SIZE.width}px)`;
-const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${DRAGGABLE_WINDOW_ASPECT_RATIO}), ${DRAGGABLE_WINDOW_MAX_SIZE.height}px)`;
+// // ウィンドウの最大サイズ。ビューポートが狭くなっても、このアスペクト比を保ちながら縮小する。
+// const DRAGGABLE_WINDOW_MAX_SIZE = { width: 500, height: 276 };
+// // 幅 (vw) に対するウィンドウの最大比率 (0 < n <= 1)
+// const DRAGGABLE_WINDOW_SCALE = 0.85;
+//
+// const DRAGGABLE_WINDOW_ASPECT_RATIO =
+//   DRAGGABLE_WINDOW_MAX_SIZE.height / DRAGGABLE_WINDOW_MAX_SIZE.width;
+// const DRAGGABLE_WINDOW_WIDTH = `min(${DRAGGABLE_WINDOW_SCALE * 100}vw, ${DRAGGABLE_WINDOW_MAX_SIZE.width}px)`;
+// const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${DRAGGABLE_WINDOW_ASPECT_RATIO}), ${DRAGGABLE_WINDOW_MAX_SIZE.height}px)`;
 ---
 
 <Layout title="works">
@@ -46,13 +46,13 @@ const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${
 
   <WorksContainer client:load />
 
-  <DraggableWindow
+  <!-- <DraggableWindow
     title="REVATI Studio"
     width={DRAGGABLE_WINDOW_WIDTH}
     height={DRAGGABLE_WINDOW_HEIGHT}
   >
     <Logo3d client:only="svelte" />
-  </DraggableWindow>
+  </DraggableWindow> -->
 </Layout>
 
 <style lang="scss">
