@@ -50,7 +50,7 @@
   .tab-button {
     font-family: inherit;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 900;
     color: inherit;
     padding: 1rem 1.5rem;
     background: none;

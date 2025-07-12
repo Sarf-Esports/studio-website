@@ -22,7 +22,7 @@
 
 		.track-title {
 			font-size: 16px;
-			font-weight: 600;
+			font-weight: 900;
 			margin-bottom: 4px;
 			color: #f6e9e9;
 		}

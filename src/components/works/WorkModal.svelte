@@ -254,7 +254,7 @@
 
   .modal-title {
     font-size: 1.3rem;
-    font-weight: 600;
+    font-weight: 900;
     color: #fff;
     margin: 0;
   }
@@ -356,7 +356,7 @@
 
   .asset-title {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 900;
     color: #fff;
     margin: 0 0 1rem 0;
   }

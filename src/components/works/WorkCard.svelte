@@ -146,7 +146,7 @@
 
   .work-title {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 900;
     color: #fff;
     margin: 0;
     line-height: 1.3;

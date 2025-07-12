@@ -57,7 +57,7 @@
 
   .empty-title {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 900;
     color: #fff;
     margin: 0 0 0.75rem 0;
   }
