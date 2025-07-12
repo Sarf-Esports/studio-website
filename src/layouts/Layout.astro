@@ -80,6 +80,10 @@ const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
 </html>
 
 <style lang="scss">
+  :global(*) {
+    scrollbar-color: $color-accent transparent;
+  }
+
   :global(a) {
     color: $color-accent;
   }
