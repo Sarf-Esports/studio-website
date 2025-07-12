@@ -1,1 +1,1 @@
-export const COPYRIGHT = "© 20225 REVATI Studio";
+export const COPYRIGHT = "© 2025 REVATI Studio";
