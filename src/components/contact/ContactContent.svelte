@@ -109,10 +109,6 @@
 		}
 	}
 
-	a {
-		color: $color-accent;
-	}
-
 	@include sp {
 		button {
 			font-size: 19px;
