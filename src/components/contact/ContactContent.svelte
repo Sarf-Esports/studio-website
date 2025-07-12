@@ -19,8 +19,8 @@
 		<div>
 			<h2>JOIN OUR COMMUNITY</h2>
 			<p>ご依頼やご相談は、Discord サーバーにて受け付けております。</p>
-			<a href="/" class="btn" target="_blank" rel="noopener noreferrer">Discord サーバーに参加</a
-			><!-- TODO: Discord サーバーの招待リンクを設定 -->
+			<a href="https://discord.gg/uRQ7n7mjHa" class="btn" target="_blank" rel="noopener noreferrer">Discord サーバーに参加</a
+			>
 			<p>
 				Discordをご利用でない方は、<a href="mailto:{MAIL_ADDRESS}">{MAIL_ADDRESS}</a> にご連絡ください。
 			</p>
