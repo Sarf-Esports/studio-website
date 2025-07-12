@@ -8,12 +8,18 @@ import ContactContent from "../components/contact/ContactContent.svelte";
     <meta name="description" content="This is a contact page." />
   </slot>
 
-  <h1>CONTACT</h1>
-  <p>ご要件に合わせて下記よりお問い合わせください。</p>
-  <ContactContent client:only="svelte" />
+  <div class="container">
+    <h1>CONTACT</h1>
+    <p>ご要件に合わせて下記よりお問い合わせください。</p>
+    <ContactContent client:only="svelte" />
+  </div>
 </Layout>
 
 <style lang="scss">
+  .container {
+    margin-bottom: 64px;
+  }
+
   h1,
   p {
     margin-bottom: 60px;
