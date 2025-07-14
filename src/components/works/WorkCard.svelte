@@ -81,7 +81,8 @@
     transition: all 0.3s ease;
     aspect-ratio: 16/9;
 
-    &:hover {
+    &:hover,
+    &:focus {
       transform: translateY(-4px);
       box-shadow:
         0 10px 30px rgba(0, 0, 0, 0.4),
