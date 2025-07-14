@@ -48,12 +48,9 @@
   }
 </script>
 
-<div
+<button
   class="work-card"
   onclick={handleClick}
-  onkeydown={(e) => e.key === 'Enter' && handleClick()}
-  tabindex="0"
-  role="button"
 >
   <div class="work-image">
     <img src={getThumbnail(work)} alt={work.title} loading="lazy" />
@@ -70,7 +67,7 @@
       </div>
     </div>
   </div>
-</div>
+</button>
 
 <style lang="scss">
   .work-card {
@@ -80,6 +77,11 @@
     cursor: pointer;
     transition: all 0.3s ease;
     aspect-ratio: 16/9;
+    font: inherit;
+    color: inherit;
+    padding: 0;
+    background: none;
+    border: none;
 
     &:hover,
     &:focus {
