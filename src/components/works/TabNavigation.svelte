@@ -88,6 +88,10 @@
       height: 2px;
       background: $color-accent;
     }
+
+    &:focus {
+      outline: $color-accent solid 2px;
+    }
   }
 
   hr {
