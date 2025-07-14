@@ -18,59 +18,6 @@ const DESCRIPTION = "あらゆるクリエイティブをワンストップで�
 const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
 ---
 
-<style lang="scss">
-  :global(*) {
-    scrollbar-color: $color-accent transparent;
-  }
-
-  :global(:focus-visible) {
-    outline: 3px solid $color-accent;
-    outline-offset: 3px;
-    overflow: visible;
-  }
-
-  :global(::selection) {
-    color: $text-color;
-    background: $color-accent;
-  }
-
-  :global(a) {
-    color: $color-accent;
-  }
-
-  html {
-    height: 100%;
-    font-family: "Noto Sans JP", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 18px;
-    background: $color-secondary;
-  }
-
-  body {
-    display: grid;
-    $header-height: 96px;
-    $footer-height: 168px;
-    grid-template-rows: $header-height auto $footer-height;
-    height: 100%;
-    margin: 0;
-    color: $text-color;
-  }
-
-  .header-container {
-    grid-row: 1 / 2;
-  }
-
-  main {
-    grid-row: 2 / 3;
-  }
-
-  .footer-container {
-    grid-row: 3 / 4;
-  }
-</style>
-
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
@@ -132,3 +79,56 @@ const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
     <TwitterLink />
   </body>
 </html>
+
+<style lang="scss">
+  :global(*) {
+    scrollbar-color: $color-accent transparent;
+  }
+
+  :global(:focus-visible) {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+    overflow: visible;
+  }
+
+  :global(::selection) {
+    color: $text-color;
+    background: $color-accent;
+  }
+
+  :global(a) {
+    color: $color-accent;
+  }
+
+  html {
+    height: 100%;
+    font-family: "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    background: $color-secondary;
+  }
+
+  body {
+    display: grid;
+    $header-height: 96px;
+    $footer-height: 168px;
+    grid-template-rows: $header-height auto $footer-height;
+    height: 100%;
+    margin: 0;
+    color: $text-color;
+  }
+
+  .header-container {
+    grid-row: 1 / 2;
+  }
+
+  main {
+    grid-row: 2 / 3;
+  }
+
+  .footer-container {
+    grid-row: 3 / 4;
+  }
+</style>
