@@ -1,14 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import Spacer from '../components/Spacer.astro';
+import Spacer from "../components/Spacer.astro";
 import Carousel from "../components/Carousel.astro";
 import CarouselItem from "../components/CarouselItem.astro";
 import WorksContainer from "../components/works/WorksContainer.svelte";
 // import DraggableWindow from "../components/DraggableWindow.astro";
 // import Logo3d from "../components/Logo3d.svelte";
-import { queryAssets } from '../utils';
-import type { ImageAsset } from '../types';
+import { queryAssets } from "../utils";
+import type { ImageAsset } from "../types";
 
 const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
 
@@ -34,11 +34,11 @@ const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
     {
       carouselImages.map((asset) => (
         <CarouselItem>
-          {
-            typeof asset.src === "string"
-              ? <Image src={asset.src} alt={asset.caption} inferSize />
-              : <Image src={asset.src} alt={asset.caption} />
-          }
+          {typeof asset.src === "string" ? (
+            <Image src={asset.src} alt={asset.caption} inferSize />
+          ) : (
+            <Image src={asset.src} alt={asset.caption} />
+          )}
         </CarouselItem>
       ))
     }

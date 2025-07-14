@@ -1,4 +1,4 @@
-import type { ImageMetadata } from 'astro';
+import type { ImageMetadata } from "astro";
 
 /** @deprecated */
 export interface Work_old {
@@ -18,35 +18,40 @@ export interface Work {
   thumbnail?: string;
 }
 
-export type Asset = VideoAsset | ImageAsset | MusicAsset | WebsiteAsset | ExternalAsset;
+export type Asset =
+  | VideoAsset
+  | ImageAsset
+  | MusicAsset
+  | WebsiteAsset
+  | ExternalAsset;
 
-export type AssetType = 'video' | 'image' | 'music' | 'website' | 'external';
+export type AssetType = "video" | "image" | "music" | "website" | "external";
 
 export type ImageSource = string | ImageMetadata;
 
 export interface VideoAsset {
-  type: 'video';
+  type: "video";
   title: string;
   src: string;
   thumbnail?: ImageSource;
 }
 
 export interface ImageAsset {
-  type: 'image';
+  type: "image";
   src: ImageSource;
   caption: string;
   showInCarousel?: boolean;
 }
 
 export interface MusicAsset {
-  type: 'music';
+  type: "music";
   title: string;
   src: string;
   thumbnail?: ImageSource;
 }
 
 export interface WebsiteAsset {
-  type: 'website';
+  type: "website";
   title: string;
   url: string;
   clientName: string;
@@ -54,7 +59,7 @@ export interface WebsiteAsset {
 }
 
 export interface ExternalAsset {
-  type: 'external';
+  type: "external";
   url: string;
   thumbnail?: ImageSource;
 }

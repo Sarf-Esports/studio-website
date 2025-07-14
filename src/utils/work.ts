@@ -1,5 +1,5 @@
-import { WORKS } from '../data/work';
-import type { Asset, AssetType, Work, Track } from '../types';
+import { WORKS } from "../data/work";
+import type { Asset, AssetType, Work, Track } from "../types";
 
 export interface WorkEntry extends Work {
   category: keyof WORKS;
@@ -20,7 +20,11 @@ export function queryWorks(options?: WorkQueryOptions): WorkEntry[] {
 
     for (const work of categoryWorks) {
       if (options?.author && !work.authors.includes(options.author)) continue;
-      if (options?.tags && !options.tags.every(tag => work.tags.includes(tag))) continue;
+      if (
+        options?.tags &&
+        !options.tags.every((tag) => work.tags.includes(tag))
+      )
+        continue;
 
       works.push({
         ...work,
@@ -42,14 +46,18 @@ export function queryAssets(options?: AssetQueryOptions): Asset[] {
   const works = queryWorks();
   const assets: Asset[] = [];
 
-  if (!options) return works.flatMap(work => work.assets);
-  
+  if (!options) return works.flatMap((work) => work.assets);
+
   for (const work of works) {
     if (options.category && work.category !== options.category) continue;
 
     for (const asset of work.assets) {
       if (options.type && asset.type !== options.type) continue;
-      if (options.showInCarousel && !(asset.type === 'image' && asset.showInCarousel)) continue;
+      if (
+        options.showInCarousel &&
+        !(asset.type === "image" && asset.showInCarousel)
+      )
+        continue;
 
       assets.push(asset);
     }
@@ -64,10 +72,10 @@ export function getMusicList(): Track[] {
 
   for (const work of works) {
     for (const asset of work.assets) {
-      if (asset.type === 'music') {
+      if (asset.type === "music") {
         tracks.push({
           title: asset.title,
-          artist: work.authors.join(', '),
+          artist: work.authors.join(", "),
           src: asset.src,
         });
       }

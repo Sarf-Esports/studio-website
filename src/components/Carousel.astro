@@ -1,9 +1,11 @@
 ---
-type ResponsiveStyle<T> = T | {
-  desktop: T;
-  tablet?: T;
-  mobile?: T;
-}
+type ResponsiveStyle<T> =
+  | T
+  | {
+      desktop: T;
+      tablet?: T;
+      mobile?: T;
+    };
 
 interface Props {
   forward?: boolean;
@@ -17,17 +19,24 @@ const { maxWidth, slideHeight, slideSpacing } = Astro.props;
 
 const direction = Astro.props.backward ? "backward" : "forward";
 
-function getResponsiveValue<T>(value: ResponsiveStyle<T> | undefined, defaultValue: T): { desktop: T; mobile: T | undefined; tablet: T | undefined } {
+function getResponsiveValue<T>(
+  value: ResponsiveStyle<T> | undefined,
+  defaultValue: T,
+): { desktop: T; mobile: T | undefined; tablet: T | undefined } {
   if (!value) {
     return { desktop: defaultValue, mobile: undefined, tablet: undefined };
   }
 
-  if (typeof value === 'object' && value !== null && ('desktop' in value || 'mobile' in value || 'tablet' in value)) {
+  if (
+    typeof value === "object" &&
+    value !== null &&
+    ("desktop" in value || "mobile" in value || "tablet" in value)
+  ) {
     const responsiveValue = value as { desktop: T; mobile?: T; tablet?: T };
     return {
       desktop: responsiveValue.desktop,
       mobile: responsiveValue.mobile,
-      tablet: responsiveValue.tablet
+      tablet: responsiveValue.tablet,
     };
   }
 
@@ -80,7 +89,7 @@ const styles = {
   .embla__container {
     display: flex;
     touch-action: pan-y pinch-zoom;
-    
+
     margin-left: calc(var(--slide-spacing-desktop) * -1);
 
     @media (max-width: 1200px) {
@@ -94,19 +103,20 @@ const styles = {
 </style>
 
 <script>
-  import EmblaCarousel, { type EmblaCarouselType }  from "embla-carousel";
+  import EmblaCarousel, { type EmblaCarouselType } from "embla-carousel";
   import AutoScroll from "embla-carousel-auto-scroll";
 
   const carousels = new Map<HTMLElement, EmblaCarouselType>();
 
-  document.addEventListener('astro:page-load', () => {
-    const viewports = document.querySelectorAll<HTMLElement>(".embla__viewport")!;
+  document.addEventListener("astro:page-load", () => {
+    const viewports =
+      document.querySelectorAll<HTMLElement>(".embla__viewport")!;
 
     for (const [viewport, existingCarousel] of carousels) {
       existingCarousel.destroy();
       carousels.delete(viewport);
     }
-    
+
     for (const viewport of viewports) {
       const newCarousel = initCarousel(viewport);
       fitSlides(viewport, newCarousel);
@@ -117,13 +127,15 @@ const styles = {
   function initCarousel(viewport: HTMLElement) {
     const carousel = EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
       AutoScroll({
-        direction: viewport.getAttribute("data-direction") as "forward" | "backward",
+        direction: viewport.getAttribute("data-direction") as
+          | "forward"
+          | "backward",
         stopOnInteraction: false,
         speed: 1,
       }),
     ]);
 
-    carousel.on('resize', () => {
+    carousel.on("resize", () => {
       fitSlides(viewport, carousel);
     });
 
@@ -135,7 +147,10 @@ const styles = {
     const container = carousel.rootNode().querySelector(".embla__container")!;
     const slideNodes = carousel.slideNodes();
 
-    let currentWidth = [...slideNodes].reduce((acc, slide) => acc + slide.clientWidth, 0);
+    let currentWidth = [...slideNodes].reduce(
+      (acc, slide) => acc + slide.clientWidth,
+      0,
+    );
 
     while (currentWidth < viewport.clientWidth) {
       for (const slide of slideNodes) {

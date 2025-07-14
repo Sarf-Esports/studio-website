@@ -1,4 +1,4 @@
-import type { Work } from '../../types';
+import type { Work } from "../../types";
 
 export const SERVICE = [
   {
@@ -8,7 +8,7 @@ export const SERVICE = [
     authors: ["Rinrin.rs", "GEN3987", "Retoruto9900K", "しろねこ"],
     assets: [
       {
-        type: 'website',
+        type: "website",
         title: "revati.jp",
         url: "https://revati.jp",
         clientName: "REVATI",

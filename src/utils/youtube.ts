@@ -5,7 +5,7 @@
 /**
  * YouTubeサムネイルの解像度オプション
  */
-export type ThumbnailQuality = 'maxres' | 'hq' | 'mq' | 'default';
+export type ThumbnailQuality = "maxres" | "hq" | "mq" | "default";
 
 /**
  * YouTube URLのパターン
@@ -20,7 +20,7 @@ const YOUTUBE_URL_PATTERNS = [
   // Legacy video URL
   /(?:https?:\/\/)?(?:www\.)?youtube\.com\/v\/([a-zA-Z0-9_-]+)/,
   // Mobile URL
-  /(?:https?:\/\/)?m\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/
+  /(?:https?:\/\/)?m\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
 ];
 
 /**
@@ -29,7 +29,7 @@ const YOUTUBE_URL_PATTERNS = [
  * @returns 動画ID（見つからない場合はnull）
  */
 export function extractYouTubeVideoId(url: string): string | null {
-  if (!url || typeof url !== 'string') {
+  if (!url || typeof url !== "string") {
     return null;
   }
 
@@ -37,7 +37,7 @@ export function extractYouTubeVideoId(url: string): string | null {
     const match = url.match(pattern);
     if (match && match[1]) {
       // 動画IDから余分なパラメータを除去
-      const videoId = match[1].split('&')[0].split('?')[0];
+      const videoId = match[1].split("&")[0].split("?")[0];
       return videoId;
     }
   }
@@ -60,16 +60,19 @@ export function isYouTubeUrl(url: string): boolean {
  * @param quality サムネイルの品質（デフォルト: 'maxres'）
  * @returns サムネイル画像のURL
  */
-export function getYouTubeThumbnail(videoId: string, quality: ThumbnailQuality = 'maxres'): string {
+export function getYouTubeThumbnail(
+  videoId: string,
+  quality: ThumbnailQuality = "maxres",
+): string {
   if (!videoId) {
-    throw new Error('Video ID is required');
+    throw new Error("Video ID is required");
   }
 
   const qualityMap = {
-    maxres: 'maxresdefault.jpg',     // 1280x720 (最高解像度)
-    hq: 'hqdefault.jpg',             // 480x360 (高解像度)
-    mq: 'mqdefault.jpg',             // 320x180 (中解像度)
-    default: 'default.jpg'           // 120x90 (デフォルト)
+    maxres: "maxresdefault.jpg", // 1280x720 (最高解像度)
+    hq: "hqdefault.jpg", // 480x360 (高解像度)
+    mq: "mqdefault.jpg", // 320x180 (中解像度)
+    default: "default.jpg", // 120x90 (デフォルト)
   };
 
   const filename = qualityMap[quality] || qualityMap.maxres;
@@ -82,7 +85,10 @@ export function getYouTubeThumbnail(videoId: string, quality: ThumbnailQuality =
  * @param quality サムネイルの品質（デフォルト: 'maxres'）
  * @returns サムネイル画像のURL（無効なURLの場合はnull）
  */
-export function getYouTubeThumbnailFromUrl(url: string, quality: ThumbnailQuality = 'maxres'): string | null {
+export function getYouTubeThumbnailFromUrl(
+  url: string,
+  quality: ThumbnailQuality = "maxres",
+): string | null {
   const videoId = extractYouTubeVideoId(url);
   if (!videoId) {
     return null;
@@ -96,7 +102,10 @@ export function getYouTubeThumbnailFromUrl(url: string, quality: ThumbnailQualit
  * @param autoplay 自動再生を有効にするか（デフォルト: false）
  * @returns 埋め込み用URL（無効なURLの場合は元のURLを返す）
  */
-export function getYouTubeEmbedUrl(url: string, autoplay: boolean = false): string {
+export function getYouTubeEmbedUrl(
+  url: string,
+  autoplay: boolean = false,
+): string {
   const videoId = extractYouTubeVideoId(url);
   if (!videoId) {
     return url; // 無効なURLの場合は元のURLをそのまま返す
@@ -104,12 +113,12 @@ export function getYouTubeEmbedUrl(url: string, autoplay: boolean = false): stri
 
   const params = new URLSearchParams();
   if (autoplay) {
-    params.set('autoplay', '1');
+    params.set("autoplay", "1");
   }
 
   const queryString = params.toString();
   const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-  
+
   return queryString ? `${embedUrl}?${queryString}` : embedUrl;
 }
 
@@ -124,11 +133,11 @@ export function getYouTubeVideoInfo(videoId: string) {
     watchUrl: `https://www.youtube.com/watch?v=${videoId}`,
     embedUrl: `https://www.youtube.com/embed/${videoId}`,
     thumbnails: {
-      maxres: getYouTubeThumbnail(videoId, 'maxres'),
-      hq: getYouTubeThumbnail(videoId, 'hq'),
-      mq: getYouTubeThumbnail(videoId, 'mq'),
-      default: getYouTubeThumbnail(videoId, 'default')
-    }
+      maxres: getYouTubeThumbnail(videoId, "maxres"),
+      hq: getYouTubeThumbnail(videoId, "hq"),
+      mq: getYouTubeThumbnail(videoId, "mq"),
+      default: getYouTubeThumbnail(videoId, "default"),
+    },
   };
 }
 
@@ -138,15 +147,17 @@ export function getYouTubeVideoInfo(videoId: string) {
  * @param videoId YouTube動画ID
  * @returns Promise<string> 利用可能な最高品質のサムネイルURL
  */
-export async function getYouTubeThumbnailWithFallback(videoId: string): Promise<string> {
-  const qualities: ThumbnailQuality[] = ['maxres', 'hq', 'mq', 'default'];
-  
+export async function getYouTubeThumbnailWithFallback(
+  videoId: string,
+): Promise<string> {
+  const qualities: ThumbnailQuality[] = ["maxres", "hq", "mq", "default"];
+
   for (const quality of qualities) {
     const thumbnailUrl = getYouTubeThumbnail(videoId, quality);
-    
+
     try {
       // 画像が存在するかチェック
-      const response = await fetch(thumbnailUrl, { method: 'HEAD' });
+      const response = await fetch(thumbnailUrl, { method: "HEAD" });
       if (response.ok) {
         return thumbnailUrl;
       }
@@ -155,7 +166,7 @@ export async function getYouTubeThumbnailWithFallback(videoId: string): Promise<
       continue;
     }
   }
-  
+
   // すべて失敗した場合はデフォルト品質を返す
-  return getYouTubeThumbnail(videoId, 'default');
+  return getYouTubeThumbnail(videoId, "default");
 }

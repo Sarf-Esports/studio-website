@@ -11,7 +11,8 @@ interface Props {
 
 const { title } = Astro.props;
 
-const absThumbnailPath = WEBSITE_URL + '/images/Revati-Studio_header_orange.png';
+const absThumbnailPath =
+  WEBSITE_URL + "/images/Revati-Studio_header_orange.png";
 const fullTitle = `${WEBSITE_TITLE} | ${title}`;
 const DESCRIPTION = "あらゆるクリエイティブをワンストップで。";
 const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
@@ -62,7 +63,7 @@ const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-		<meta property="og:image" content={absThumbnailPath} />
+    <meta property="og:image" content={absThumbnailPath} />
 
     <link rel="canonical" href={canonicalUrl} />
 
