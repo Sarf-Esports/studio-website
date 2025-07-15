@@ -1,5 +1,7 @@
 import type { Work } from "../../types";
 
+import revatiJp from "../../assets/works/revati-jp.png";
+
 export const SERVICE = [
   {
     title: "revati.jp",
@@ -12,9 +14,8 @@ export const SERVICE = [
         title: "revati.jp",
         url: "https://revati.jp",
         clientName: "REVATI",
-        thumbnail: "https://i.imgur.com/gEmZFMK.png",
-      },
+        thumbnail: revatiJp,
+      }
     ],
-    thumbnail: "https://i.imgur.com/gEmZFMK.png",
   },
 ] satisfies Work[];
