@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Asset, Work } from '../../types';
+	import type { Asset, Work, ImageSource } from '../../types';
 	import { getYouTubeEmbedUrl } from '../../utils';
 
 	interface Props {
@@ -52,9 +52,13 @@
 		});
 	}
 
+	function getImgUrlFromSrc(src: ImageSource) {
+		return typeof src === 'string' ? src : src.src;
+	}
+
 	function getAssetUrl(asset: Asset): string {
 		if (asset.type === 'image') {
-			return typeof asset.src === 'string' ? asset.src : asset.src.src;
+			return getImgUrlFromSrc(asset.src);
 		}
 		if (asset.type === 'video' || asset.type === 'music') {
 			return asset.src;
@@ -148,6 +152,9 @@
 								</div>
 							{:else if asset.type === 'website'}
 								<div class="asset-website">
+									{#if asset.thumbnail !== undefined}
+										<img src={getImgUrlFromSrc(asset.thumbnail)} alt="" />
+									{/if}
 									<h4 class="asset-title">{asset.title}</h4>
 									<p class="asset-client">クライアント: {asset.clientName}</p>
 									<a href={asset.url} target="_blank" rel="noopener noreferrer" class="asset-link">
@@ -359,7 +366,8 @@
 		margin: 0 0 1rem 0;
 	}
 
-	.asset-image {
+	.asset-image,
+	.asset-website {
 		img {
 			width: 100%;
 			height: auto;
