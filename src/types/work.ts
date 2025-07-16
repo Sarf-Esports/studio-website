@@ -60,6 +60,7 @@ export interface WebsiteAsset {
 
 export interface ExternalAsset {
   type: "external";
+  title?: string;
   url: string;
   thumbnail?: ImageSource;
 }

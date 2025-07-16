@@ -179,7 +179,7 @@
 							{:else if asset.type === 'external'}
 								<div class="asset-external">
 									<a href={asset.url} target="_blank" rel="noopener noreferrer" class="asset-link">
-										外部リンクを開く
+										{asset.title ?? '外部リンク'}
 										<svg
 											width="16"
 											height="16"
