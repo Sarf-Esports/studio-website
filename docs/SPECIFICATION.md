@@ -10,22 +10,12 @@
 
 ## サイトマップ
 
-- WORKS (TOP)
-  - Our Works
-    - Media Production
-      - Video Production
-      - Video Editing
-    - Visual Design
-      - Illustration
-      - Graphic Design
-      - Web Design
-    - Digital Development
-      - Web Development
-      - App Development
-      - Bot Development
-- ABOUT
-- CONTACT
-  - Google Formを埋め込む
+- WORKS（ホーム）- `/`
+- ABOUT - `/about`
+- CONTACT - `/contact`
+- ライセンス情報 - `/licenses`
+- エラーページ (404) - `/404`
+- エラーページ (500) - `/500`
 
 ## デザイン
 
