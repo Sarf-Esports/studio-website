@@ -16,6 +16,10 @@ const NAVIGATION_ITEMS: {
     href: "https://revati.jp/privacy",
     isExternal: true,
   },
+  {
+    label: "ライセンス情報",
+    href: "/licenses",
+  },
 ];
 ---
 
@@ -48,9 +52,10 @@ const NAVIGATION_ITEMS: {
 
   ul {
     display: flex;
-    padding: 0;
+    padding: 0 20px;
     gap: 14px;
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   li {
@@ -61,5 +66,6 @@ const NAVIGATION_ITEMS: {
   a {
     font-size: 14px;
     color: inherit;
+    text-wrap: nowrap;
   }
 </style>
