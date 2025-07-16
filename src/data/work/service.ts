@@ -1,7 +1,6 @@
 import type { Work } from "../../types";
 
-import revatiJp from "../../assets/works/revati-jp.png";
-
+import revatiJp from "../../assets/works/revati-jp.webp";
 export const SERVICE = [
   {
     title: "revati.jp",
