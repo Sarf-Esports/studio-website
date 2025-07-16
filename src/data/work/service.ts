@@ -15,7 +15,12 @@ export const SERVICE = [
         url: "https://revati.jp",
         clientName: "REVATI",
         thumbnail: revatiJp,
-      }
+      },
+      {
+        type: "external",
+        title: "ソースコード（リポジトリ）はこちら",
+        url: "https://github.com/Sarf-Esports/website",
+      },
     ],
   },
 ] satisfies Work[];
