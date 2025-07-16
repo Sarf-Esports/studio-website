@@ -1,47 +1,65 @@
-# Astro Starter Kit: Minimal
+# REVATI Studio Website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+<img src="https://dev.revati-studio.pages.dev/images/Revati-Studio_header_orange.png" alt="" height="218" />
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+- プロダクト: https://studio.revati.jp
+- 開発: `https://{ブランチ|デプロイ}.revati-studio.pages.dev`
+	- dev ブランチ: https://dev.revati-studio.pages.dev/
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## ドキュメント
 
-## 🚀 Project Structure
+- 仕様書: [docs/SPECIFICATION.md](./docs/SPECIFICATION.md)
 
-Inside of your Astro project, you'll see the following folders and files:
+## 環境構築
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+1. リポジトリをクローンする
+1. `master` ブランチでは直接作業しないので、`dev` ブランチなどに切り替える
+	```bash
+	git switch dev
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+	# 必要に応じて、そこからトピックブランチを作成する
+	git switch -c feat/my-feature
+	```
+1. 依存関係をインストールする
+	```bash
+	npm install
+1. 開発サーバーを起動する
+	```bash
+	# 開発サーバーを起動する前に、`licenses.json` を生成する（`npm run build` では自動で実行される）
+	npm run licenses
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+	# 起動する
+	npm run dev
+	```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 使用技術
 
-## 🧞 Commands
+- フレームワーク: [Astro](https://astro.build)
+	- インテグレーション: [Svelte](https://svelte.dev)
+- 3D グラフィックス: [Three.js](https://threejs.org) + [Threlte](https://threlte.xyz/)
+- スタイルシート: [Sass](https://sass-lang.com) (SCSS)
+- 開発ツール:
+	- [npm](https://npmjs.com)
+	- [TypeScript](https://typescriptlang.org)
+	- [Prettier](https://prettier.io)
+	- [ESLint](https://eslint.org)
 
-All commands are run from the root of the project, from a terminal:
+## npm コマンド
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+環境構築や開発には以下の npm コマンドを使用する。
 
-## 👀 Want to learn more?
+| コマンド | 説明 |
+| :-- | :-- |
+| `npm run dev` | 開発サーバーを起動 (`localhost:4321`) |
+| `npm run build` | プロダクション用にプロジェクトを `./dist/` にビルド |
+| `npm run preview` | ビルドされたサイトをローカルでプレビュー |
+| `npm run licenses` | `licenses.json` を生成 |
+| `npm run fmt` | Prettier を使用してコードをフォーマット |
+| `npm run check` | エラーをチェック |
+| `npm run lnt` | ESLint を使用してコードを検査 |
+| `npm run lnt:fix` | ESLint を使用してコードを自動修正 |
+| `npm run astro ...` | `astro add` などの [CLI コマンド](https://docs.astro.build/ja/reference/cli-reference/)を実行 |
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## ライセンス
+
+このプロジェクトはプロプライエタリであり、公開されていません。
