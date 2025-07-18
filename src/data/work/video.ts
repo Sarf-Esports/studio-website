@@ -6,7 +6,7 @@ import freja250510 from "../../assets/works/250510_tmnl_freja.png";
 import apex250618 from "../../assets/works/250618_tmnl_apex.png";
 import coach250530 from "../../assets/works/250530_tmnl_coach.png";
 
-export const MOVIE = [
+export const VIDEO = [
   {
     title: "REVATI×V's Montage",
     createdAt: "2025-03-31",

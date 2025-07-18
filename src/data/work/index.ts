@@ -1,12 +1,12 @@
 import type { Work } from "../../types";
 
 import { DESIGN } from "./design";
-import { MOVIE } from "./movie";
+import { VIDEO } from "./video";
 import { MUSIC } from "./music";
 import { SERVICE } from "./service";
 
 export const WORKS = {
-  movie: MOVIE,
+  video: VIDEO,
   music: MUSIC,
   design: DESIGN,
   service: SERVICE,

@@ -22,10 +22,10 @@
 
 		const categoryWorks: Work[] = WORKS[activeTab] || [];
 
-		// デザインタブの場合、movieの動画+サムネイル作品も追加
+		// デザインタブの場合、videoの動画+サムネイル作品も追加
 		if (activeTab === 'design') {
 			const videoWithThumbnailWorks = queryWorks({
-				category: 'movie',
+				category: 'video',
 				tags: ['動画編集', 'サムネイル制作']
 			}).filter(
 				(work) =>
@@ -52,10 +52,10 @@
 			return Array.from(workMap.values());
 		}
 
-		// musicタブの場合、movieの動画+BGM作品も追加
+		// musicタブの場合、videoの動画+BGM作品も追加
     if (activeTab === 'music') {
       const videoWithBGMWorks = queryWorks({
-        category: 'movie',
+        category: 'video',
         tags: ['動画編集', 'BGM']
       }).filter(
         (work) =>
