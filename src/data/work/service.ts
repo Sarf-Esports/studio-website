@@ -1,11 +1,13 @@
 import type { Work } from "../../types";
 
 import revatiJp from "../../assets/works/revati-jp.webp";
+import revatiStudio from '../../assets/Revati-Studio_header_orange.png';
+
 export const SERVICE = [
   {
-    title: "revati.jp",
+    title: "REVATI",
     createdAt: "2023-01-21",
-    tags: ["Web Development"],
+    tags: ["Webサイト"],
     authors: ["Rinrin.rs", "GEN3987", "Retoruto9900K", "しろねこ"],
     assets: [
       {
@@ -22,4 +24,19 @@ export const SERVICE = [
       },
     ],
   },
+  {
+    title: "REVATI Studio",
+    createdAt: "2025-07-19", //TODO - リリースの日付にする
+    tags: ["Webサイト"],
+    authors: ["Retoruto9900K", "Rinrin.rs"],
+    assets: [
+      {
+        type: "website",
+        title: "studio.revati.jp",
+        url: "https://studio.revati.jp",
+        clientName: "REVATI Studio",
+        thumbnail: revatiStudio,
+      },
+    ]
+  }
 ] satisfies Work[];
