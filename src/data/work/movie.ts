@@ -10,7 +10,7 @@ export const MOVIE = [
   {
     title: "REVATI×V's Montage",
     createdAt: "2025-03-31",
-    tags: ["動画編集"],
+    tags: ["動画編集", "BGM"],
     authors: ["Reku", "Ruilu", "GANGCAT"],
     assets: [
       {
@@ -18,12 +18,17 @@ export const MOVIE = [
         title: "REVATI×V's Montage",
         src: "https://www.youtube.com/watch?v=oDSA0neUSAg",
       },
+      {
+        type: "music",
+        title: "take this!",
+        src: "/music/take-this.mp3",
+      }
     ],
   },
   {
     title: "OW部門 ロスター告知動画",
     createdAt: "2025-04-22",
-    tags: ["動画編集"],
+    tags: ["動画編集", "BGM"],
     authors: ["おしお", "Reku", "GANGCAT"],
     assets: [
       {
@@ -31,19 +36,29 @@ export const MOVIE = [
         title: "OW部門 ロスター告知動画",
         src: "https://www.youtube.com/watch?v=OcEMwCsxKQg",
       },
+      {
+        type: "music",
+        title: "BACK ONCE AGAIN",
+        src: "/music/back-once-again.mp3",
+      }
     ],
   },
   {
     title: "REVATI OW部門 Highlight",
     createdAt: "2025-05-12",
-    tags: ["動画編集"],
-    authors: ["Reku"],
+    tags: ["動画編集", "BGM"],
+    authors: ["Reku", "GANGCAT"],
     assets: [
       {
         type: "video",
         title: "REVATI OW部門 Highlight",
         src: "https://www.youtube.com/watch?v=rJ8QSISSMo8",
       },
+      {
+        type: "music",
+        title: "ON MY OWN",
+        src: "/music/gangcat-onmyown.mp3",
+      }
     ],
   },
   {
