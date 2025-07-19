@@ -1,7 +1,7 @@
 import type { Work } from "../../types";
 
 import revatiJp from "../../assets/works/revati-jp.webp";
-import revatiStudio from '../../assets/Revati-Studio_header_orange.png';
+import revatiStudio from '../../assets/works/studio-revati-jp.webp';
 
 export const SERVICE = [
   {
