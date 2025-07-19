@@ -66,4 +66,43 @@ export const MUSIC = [
       },
     ],
   },
+  {
+    title: "GIVE U UP",
+    createdAt: "2025-07-19",
+    tags: ["BGM"],
+    authors: ["GANGCAT"],
+    assets: [
+      {
+        type: "music",
+        title: "GIVE U UP",
+        src: "/music/give-u-up.mp3",
+      },
+    ],
+  },
+  {
+    title: "教えてダーリン",
+    createdAt: "2025-07-19",
+    tags: ["BGM"],
+    authors: ["GANGCAT"],
+    assets: [
+      {
+        type: "music",
+        title: "教えてダーリン",
+        src: "/music/oshiete-darling.mp3",
+      },
+    ],
+  },
+  {
+    title: "skill check",
+    createdAt: "2025-07-19",
+    tags: ["BGM"],
+    authors: ["GANGCAT"],
+    assets: [
+      {
+        type: "music",
+        title: "skill check",
+        src: "/music/skill-check.mp3",
+      },
+    ],
+  }
 ] satisfies Work[];
