@@ -1,7 +1,7 @@
 import type { Work } from "../../types";
 
-import ow250511 from "../../assets/works/250511_pstr_ow.png";
-import welcome250518 from "../../assets/works/250518_pstr_welcome.png";
+import ow250511 from "../../assets/works/250511_pstr_ow.webp";
+import welcome250518 from "../../assets/works/250518_pstr_welcome.webp";
 
 export const DESIGN = [
   {

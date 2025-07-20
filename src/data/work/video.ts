@@ -1,11 +1,11 @@
 import type { Work } from "../../types";
 
-import stadium250419 from "../../assets/works/250419_tmnl_stadium.png";
-import soldier250430 from "../../assets/works/250430_tmnl_soldier.png";
-import freja250510 from "../../assets/works/250510_tmnl_freja.png";
-import apex250618 from "../../assets/works/250618_tmnl_apex.png";
-import coach250530 from "../../assets/works/250530_tmnl_coach.png";
-import subacc250716 from "../../assets/works/250716_tmnl_subacc.png";
+import stadium250419 from "../../assets/works/250419_tmnl_stadium.webp";
+import soldier250430 from "../../assets/works/250430_tmnl_soldier.webp";
+import freja250510 from "../../assets/works/250510_tmnl_freja.webp";
+import apex250618 from "../../assets/works/250618_tmnl_apex.webp";
+import coach250530 from "../../assets/works/250530_tmnl_coach.webp";
+import subacc250716 from "../../assets/works/250716_tmnl_subacc.webp";
 
 export const VIDEO = [
   {
