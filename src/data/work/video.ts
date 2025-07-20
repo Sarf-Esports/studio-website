@@ -5,6 +5,7 @@ import soldier250430 from "../../assets/works/250430_tmnl_soldier.png";
 import freja250510 from "../../assets/works/250510_tmnl_freja.png";
 import apex250618 from "../../assets/works/250618_tmnl_apex.png";
 import coach250530 from "../../assets/works/250530_tmnl_coach.png";
+import subacc250716 from "../../assets/works/250716_tmnl_subacc.png";
 
 export const VIDEO = [
   {
@@ -181,6 +182,25 @@ export const VIDEO = [
         src: coach250530,
         showInCarousel: true,
       },
+    ],
+  },
+  {
+    title: "今話題のサブアカウント問題についてお話しします【オーバーウォッチ2】",
+    createdAt: "2025-07-16",
+    tags: ["動画編集", "サムネイル制作"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "video",
+        title: "今話題のサブアカウント問題についてお話しします【オーバーウォッチ2】",
+        src: "https://www.youtube.com/watch?v=cfdSDGF_cEg",
+      },
+      {
+        type: "image",
+        caption: "サムネイル",
+        src: subacc250716,
+        showInCarousel: true,
+      }
     ],
   },
   {
