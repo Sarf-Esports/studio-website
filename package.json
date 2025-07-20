@@ -1,9 +1,23 @@
 {
   "name": "studio-website",
+  "description": "REVATI Studio Website",
   "type": "module",
   "private": true,
   "version": "0.0.1",
   "license": "BSD-3-Clause",
+  "author": "REVATI Studio",
+  "contributors": [
+    "Rinrin.rs <rinrin0413.valley@gmail.com>",
+    "RetoRuto9900K <tutinoko2048@gmail.com>"
+  ],
+  "homepage": "https://studio.revati.jp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sarf-Esports/studio-website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sarf-Esports/studio-website/issues"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "npm run licenses && astro build",
