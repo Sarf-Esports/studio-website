@@ -1,4 +1,13 @@
-import type { Work } from "../../types";
+import type { IconImage, Work } from "../../types";
+
+import musicNoteIcon from "../../assets/icons/music-note-beamed.svg"; 
+
+const musicNoteIconImage: IconImage = {
+  icon: musicNoteIcon,
+  width: '50%',
+  height: '50%',
+  backgroundColor: "rgba(184, 184, 184, 0.7)",
+}
 
 export const MUSIC = [
   {
@@ -6,6 +15,7 @@ export const MUSIC = [
     createdAt: "2025-07-09",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",
@@ -19,6 +29,7 @@ export const MUSIC = [
     createdAt: "2025-07-09",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",
@@ -32,6 +43,7 @@ export const MUSIC = [
     createdAt: "2025-07-09",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",
@@ -45,6 +57,7 @@ export const MUSIC = [
     createdAt: "2025-07-09",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",
@@ -58,6 +71,7 @@ export const MUSIC = [
     createdAt: "2025-07-09",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",
@@ -71,6 +85,7 @@ export const MUSIC = [
     createdAt: "2025-07-19",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",
@@ -84,6 +99,7 @@ export const MUSIC = [
     createdAt: "2025-07-19",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",
@@ -97,6 +113,7 @@ export const MUSIC = [
     createdAt: "2025-07-19",
     tags: ["BGM"],
     authors: ["GANGCAT"],
+    thumbnail: musicNoteIconImage,
     assets: [
       {
         type: "music",

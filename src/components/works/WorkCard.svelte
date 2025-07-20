@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Work } from '../../types';
+	import type { Work, IconImage } from '../../types';
 	import { extractYouTubeVideoId, getYouTubeThumbnail } from '../../utils';
 
 	interface Props {
@@ -9,24 +9,52 @@
 
 	let { work, onClick }: Props = $props();
 
-	// サムネイル画像を取得する関数
-	function getThumbnail(work: Work): string {
+	function isIconImage(img: any): img is IconImage {
+		return img && typeof img === 'object' && 'icon' in img && 'backgroundColor' in img;
+	}
+
+	function getThumbnailInfo(work: Work) {
 		if (work.thumbnail) {
-			return work.thumbnail;
+			if (isIconImage(work.thumbnail)) {
+				return {
+					src: typeof work.thumbnail.icon === 'string' ? work.thumbnail.icon : work.thumbnail.icon.src,
+					isIcon: true,
+					backgroundColor: work.thumbnail.backgroundColor,
+					width: work.thumbnail.width,
+					height: work.thumbnail.height
+				};
+			}
+			return {
+				src: typeof work.thumbnail === 'string' ? work.thumbnail : work.thumbnail.src,
+				isIcon: false,
+				backgroundColor: null,
+				width: null,
+				height: null
+			};
 		}
 
 		// assetsの最初の要素のサムネイルを使用
 		const firstAsset = work.assets[0];
 		if (firstAsset && 'thumbnail' in firstAsset && firstAsset.thumbnail) {
-			return typeof firstAsset.thumbnail === 'string'
-				? firstAsset.thumbnail
-				: firstAsset.thumbnail.src;
+			return {
+				src: typeof firstAsset.thumbnail === 'string' ? firstAsset.thumbnail : firstAsset.thumbnail.src,
+				isIcon: false,
+				backgroundColor: null,
+				width: null,
+				height: null
+			};
 		}
 
 		// 画像アセットがある場合はそれを使用
 		const imageAsset = work.assets.find((asset) => asset.type === 'image');
 		if (imageAsset && imageAsset.type === 'image') {
-			return typeof imageAsset.src === 'string' ? imageAsset.src : imageAsset.src.src;
+			return {
+				src: typeof imageAsset.src === 'string' ? imageAsset.src : imageAsset.src.src,
+				isIcon: false,
+				backgroundColor: null,
+				width: null,
+				height: null
+			};
 		}
 
 		// videoアセットがある場合、YouTubeサムネイルを試行
@@ -35,13 +63,27 @@
 			const videoUrl = videoAsset.src;
 			const videoId = extractYouTubeVideoId(videoUrl);
 			if (videoId) {
-				return getYouTubeThumbnail(videoId);
+				return {
+					src: getYouTubeThumbnail(videoId),
+					isIcon: false,
+					backgroundColor: null,
+					width: null,
+					height: null
+				};
 			}
 		}
 
 		// フォールバック画像
-		return '/placeholder-image.jpg';
+		return {
+			src: '/placeholder-image.jpg',
+			isIcon: false,
+			backgroundColor: null,
+			width: null,
+			height: null
+		};
 	}
+
+	const thumbnailInfo = $derived(getThumbnailInfo(work));
 
 	function handleClick() {
 		onClick(work);
@@ -50,7 +92,21 @@
 
 <button class="work-card" onclick={handleClick}>
 	<div class="work-image">
-		<img src={getThumbnail(work)} alt={work.title} loading="lazy" />
+		{#if thumbnailInfo.isIcon}
+			<div 
+				class="icon-thumbnail" 
+				style="background-color: {thumbnailInfo.backgroundColor}"
+			>
+				<img 
+					src={thumbnailInfo.src} 
+					alt={work.title} 
+					loading="lazy"
+					style="width: {thumbnailInfo.width}; height: {thumbnailInfo.height};"
+				/>
+			</div>
+		{:else}
+			<img src={thumbnailInfo.src} alt={work.title} loading="lazy" />
+		{/if}
 		<div class="work-overlay">
 			<div class="work-overlay-content">
 				<h3 class="work-title">{work.title}</h3>
@@ -119,6 +175,23 @@
 		}
 	}
 
+	.icon-thumbnail {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+		box-sizing: border-box;
+		position: relative;
+		z-index: 1;
+
+		img {
+			object-fit: contain;
+			transition: transform 0.3s ease;
+		}
+	}
+
 	.work-overlay {
 		position: absolute;
 		top: 0;
@@ -134,6 +207,7 @@
 		transition: opacity 0.3s ease;
 		padding: 1.5rem;
 		text-align: center;
+		z-index: 10;
 	}
 
 	.work-overlay-content {

@@ -67,7 +67,7 @@ export function queryAssets(options?: AssetQueryOptions): Asset[] {
 }
 
 export function getMusicList(): Track[] {
-  const works = queryWorks();
+  const works = queryWorks({ category: "music" });
   const tracks: Track[] = [];
 
   for (const work of works) {

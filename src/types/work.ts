@@ -1,12 +1,15 @@
 import type { ImageMetadata } from "astro";
 
-/** @deprecated */
-export interface Work_old {
-  imageSrc: string;
-  title: string;
-  createdAt: string;
-  authors: string;
+export type ImageSource = string | ImageMetadata;
+
+export interface IconImage {
+  icon: ImageSource;
+  width: string;
+  height: string;
+  backgroundColor: string;
 }
+
+export type Image = ImageSource | IconImage;
 
 export interface Work {
   title: string;
@@ -15,7 +18,7 @@ export interface Work {
   authors: string[];
   assets: Asset[];
   // ここで定義されない場合、assetsの最初の要素のサムネイルを使用する
-  thumbnail?: string;
+  thumbnail?: Image;
 }
 
 export type Asset =
@@ -26,8 +29,6 @@ export type Asset =
   | ExternalAsset;
 
 export type AssetType = "video" | "image" | "music" | "website" | "external";
-
-export type ImageSource = string | ImageMetadata;
 
 export interface VideoAsset {
   type: "video";
