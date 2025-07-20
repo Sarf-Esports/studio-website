@@ -1,13 +1,13 @@
 import type { IconImage, Work } from "../../types";
 
-import musicNoteIcon from "../../assets/icons/music-note-beamed.svg"; 
+import musicNoteIcon from "../../assets/icons/music-note-beamed.svg";
 
 const musicNoteIconImage: IconImage = {
   icon: musicNoteIcon,
-  width: '50%',
-  height: '50%',
+  width: "50%",
+  height: "50%",
   backgroundColor: "rgba(184, 184, 184, 0.7)",
-}
+};
 
 export const MUSIC = [
   {
@@ -121,5 +121,5 @@ export const MUSIC = [
         src: "/music/skill-check.mp3",
       },
     ],
-  }
+  },
 ] satisfies Work[];

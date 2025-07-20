@@ -17,7 +17,8 @@
 		if (work.thumbnail) {
 			if (isIconImage(work.thumbnail)) {
 				return {
-					src: typeof work.thumbnail.icon === 'string' ? work.thumbnail.icon : work.thumbnail.icon.src,
+					src:
+						typeof work.thumbnail.icon === 'string' ? work.thumbnail.icon : work.thumbnail.icon.src,
 					isIcon: true,
 					backgroundColor: work.thumbnail.backgroundColor,
 					width: work.thumbnail.width,
@@ -37,7 +38,10 @@
 		const firstAsset = work.assets[0];
 		if (firstAsset && 'thumbnail' in firstAsset && firstAsset.thumbnail) {
 			return {
-				src: typeof firstAsset.thumbnail === 'string' ? firstAsset.thumbnail : firstAsset.thumbnail.src,
+				src:
+					typeof firstAsset.thumbnail === 'string'
+						? firstAsset.thumbnail
+						: firstAsset.thumbnail.src,
 				isIcon: false,
 				backgroundColor: null,
 				width: null,
@@ -93,13 +97,10 @@
 <button class="work-card" onclick={handleClick} style={work.border ? `border: ${work.border}` : ''}>
 	<div class="work-image">
 		{#if thumbnailInfo.isIcon}
-			<div 
-				class="icon-thumbnail" 
-				style="background-color: {thumbnailInfo.backgroundColor}"
-			>
-				<img 
-					src={thumbnailInfo.src} 
-					alt={work.title} 
+			<div class="icon-thumbnail" style="background-color: {thumbnailInfo.backgroundColor}">
+				<img
+					src={thumbnailInfo.src}
+					alt={work.title}
 					loading="lazy"
 					style="width: {thumbnailInfo.width}; height: {thumbnailInfo.height};"
 				/>

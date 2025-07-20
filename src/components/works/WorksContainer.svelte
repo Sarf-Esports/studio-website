@@ -53,35 +53,35 @@
 		}
 
 		// musicタブの場合、videoの動画+BGM作品も追加
-    if (activeTab === 'music') {
-      const videoWithBGMWorks = queryWorks({
-        category: 'video',
-        tags: ['動画編集', 'BGM']
-      }).filter(
-        (work) =>
-          work.assets.some((asset) => asset.type === 'video') &&
-          work.assets.some((asset) => asset.type === 'music')
-      );
+		if (activeTab === 'music') {
+			const videoWithBGMWorks = queryWorks({
+				category: 'video',
+				tags: ['動画編集', 'BGM']
+			}).filter(
+				(work) =>
+					work.assets.some((asset) => asset.type === 'video') &&
+					work.assets.some((asset) => asset.type === 'music')
+			);
 
-      const workMap = new Map<string, Work>();
+			const workMap = new Map<string, Work>();
 
-      // 動画BGMを優先
-      videoWithBGMWorks.forEach((work) => {
-        // 既にfilterしてるから必ず存在する
-        const audioAsset = work.assets.find((asset) => asset.type === 'music')!;
-        const key = `${audioAsset.title}`; // 同じ曲名はない前提, workの日付が異なるためタイトルのみで判別
-        workMap.set(key, work);
-      });
-      
-      categoryWorks.forEach((work) => {
-        const key = `${work.title}`;
-        if (!workMap.has(key)) {
-          workMap.set(key, work);
-        }
-      });
+			// 動画BGMを優先
+			videoWithBGMWorks.forEach((work) => {
+				// 既にfilterしてるから必ず存在する
+				const audioAsset = work.assets.find((asset) => asset.type === 'music')!;
+				const key = `${audioAsset.title}`; // 同じ曲名はない前提, workの日付が異なるためタイトルのみで判別
+				workMap.set(key, work);
+			});
 
-      return Array.from(workMap.values());
-    }
+			categoryWorks.forEach((work) => {
+				const key = `${work.title}`;
+				if (!workMap.has(key)) {
+					workMap.set(key, work);
+				}
+			});
+
+			return Array.from(workMap.values());
+		}
 
 		return categoryWorks;
 	});

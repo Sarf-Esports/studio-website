@@ -23,7 +23,7 @@ export const VIDEO = [
         type: "music",
         title: "take this!",
         src: "/music/take-this.mp3",
-      }
+      },
     ],
   },
   {
@@ -41,7 +41,7 @@ export const VIDEO = [
         type: "music",
         title: "BACK ONCE AGAIN",
         src: "/music/back-once-again.mp3",
-      }
+      },
     ],
   },
   {
@@ -59,7 +59,7 @@ export const VIDEO = [
         type: "music",
         title: "ON MY OWN",
         src: "/music/gangcat-onmyown.mp3",
-      }
+      },
     ],
   },
   {
@@ -185,14 +185,16 @@ export const VIDEO = [
     ],
   },
   {
-    title: "今話題のサブアカウント問題についてお話しします【オーバーウォッチ2】",
+    title:
+      "今話題のサブアカウント問題についてお話しします【オーバーウォッチ2】",
     createdAt: "2025-07-16",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["Reku"],
     assets: [
       {
         type: "video",
-        title: "今話題のサブアカウント問題についてお話しします【オーバーウォッチ2】",
+        title:
+          "今話題のサブアカウント問題についてお話しします【オーバーウォッチ2】",
         src: "https://www.youtube.com/watch?v=cfdSDGF_cEg",
       },
       {
@@ -200,7 +202,7 @@ export const VIDEO = [
         caption: "サムネイル",
         src: subacc250716,
         showInCarousel: true,
-      }
+      },
     ],
   },
   {

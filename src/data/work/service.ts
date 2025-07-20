@@ -1,7 +1,7 @@
 import type { Work } from "../../types";
 
 import revatiJp from "../../assets/works/revati-jp.webp";
-import revatiStudio from '../../assets/works/studio-revati-jp.webp';
+import revatiStudio from "../../assets/works/studio-revati-jp.webp";
 
 export const SERVICE = [
   {
@@ -39,5 +39,5 @@ export const SERVICE = [
       },
     ],
     border: "3px solid #494040ff",
-  }
+  },
 ] satisfies Work[];
