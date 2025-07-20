@@ -64,6 +64,19 @@
 | `npm run lnt:fix`   | ESLint を使用してコードを自動修正                                                             |
 | `npm run astro ...` | `astro add` などの [CLI コマンド](https://docs.astro.build/ja/reference/cli-reference/)を実行 |
 
-## ライセンス
+## License
 
-このプロジェクトはプロプライエタリであり、ソースコードは公開されていません。
+The source code in this repository is licensed under the **BSD 3-Clause "New" or "Revised" License**[^bsd].
+The full license text is available in the [`LICENSE`](./LICENSE) file.
+
+### Scope of the License
+
+The BSD 3-Clause License applies only to the source code (e.g., `*.astro`, `*.svelte`, `*.scss`, `*.ts` files) created to power the website.
+
+It **explicitly excludes**:
+
+- All trademarks, service marks, and logos associated with REVATI Studio.
+- All content published on the website, including text, images, audios, videos, 3D models, and other media.
+
+These materials are proprietary and are copyrighted by REVATI Studio.
+All rights are reserved. You are not granted any rights to use them.
