@@ -19,6 +19,7 @@ export interface Work {
   assets: Asset[];
   // ここで定義されない場合、assetsの最初の要素のサムネイルを使用する
   thumbnail?: Image;
+  border?: string;
 }
 
 export type Asset =

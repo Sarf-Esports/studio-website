@@ -90,7 +90,7 @@
 	}
 </script>
 
-<button class="work-card" onclick={handleClick}>
+<button class="work-card" onclick={handleClick} style={work.border ? `border: ${work.border}` : ''}>
 	<div class="work-image">
 		{#if thumbnailInfo.isIcon}
 			<div 
@@ -135,6 +135,7 @@
 		padding: 0;
 		background: none;
 		border: none;
+		box-sizing: border-box;
 
 		&:hover,
 		&:focus {

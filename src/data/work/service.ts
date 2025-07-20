@@ -37,6 +37,7 @@ export const SERVICE = [
         clientName: "REVATI Studio",
         thumbnail: revatiStudio,
       },
-    ]
+    ],
+    border: "3px solid #494040ff",
   }
 ] satisfies Work[];
