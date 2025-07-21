@@ -71,5 +71,5 @@
 |    1010 | MusicPlayer ControlPanel                   | [`src/components/music/ControlPanel.svelte>style>.close-button`](../src/components/music/ControlPanel.svelte)            |
 |     255 | ヘッダー                                   | [`src/components/header/Navbar.astro>style>ul`](../src/components/header/Navbar.astro)                                   |
 |     224 | 画面追従SNSリンク                          | [`src/components/TwitterLink.astro>style>a`](../src/components/TwitterLink.astro)                                        |
-|      10 | WorkCard オーバーレイ                       | [`src/components/works/WorkCard.svelte>style>.work-overlay`](../src/components/works/WorkCard.svelte)                   |
-|       1 | WorkCard アイコンサムネイル                 | [`src/components/works/WorkCard.svelte>style>.icon-thumbnail`](../src/components/works/WorkCard.svelte)                 |
+|      10 | WorkCard オーバーレイ                      | [`src/components/works/WorkCard.svelte>style>.work-overlay`](../src/components/works/WorkCard.svelte)                    |
+|       1 | WorkCard アイコンサムネイル                | [`src/components/works/WorkCard.svelte>style>.icon-thumbnail`](../src/components/works/WorkCard.svelte)                  |
