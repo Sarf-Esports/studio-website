@@ -14,7 +14,7 @@ export const MUSIC = [
     title: "BACK ONCE AGAIN",
     createdAt: "2025-07-09",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {
@@ -28,7 +28,7 @@ export const MUSIC = [
     title: "Kill it [ABYSSUM EP VOL.2]",
     createdAt: "2025-07-09",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {
@@ -42,7 +42,7 @@ export const MUSIC = [
     title: "ON MY OWN",
     createdAt: "2025-07-09",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {
@@ -56,7 +56,7 @@ export const MUSIC = [
     title: "sound check",
     createdAt: "2025-07-09",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {
@@ -70,7 +70,7 @@ export const MUSIC = [
     title: "take this!",
     createdAt: "2025-07-09",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {
@@ -84,7 +84,7 @@ export const MUSIC = [
     title: "GIVE U UP",
     createdAt: "2025-07-19",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {
@@ -98,7 +98,7 @@ export const MUSIC = [
     title: "教えてダーリン",
     createdAt: "2025-07-19",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {
@@ -112,7 +112,7 @@ export const MUSIC = [
     title: "skill check",
     createdAt: "2025-07-19",
     tags: ["BGM"],
-    authors: ["GANGCAT"],
+    authors: ["くりす"],
     thumbnail: musicNoteIconImage,
     assets: [
       {

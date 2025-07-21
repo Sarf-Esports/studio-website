@@ -12,7 +12,7 @@ export const VIDEO = [
     title: "REVATI×V's Montage",
     createdAt: "2025-03-31",
     tags: ["動画編集", "BGM"],
-    authors: ["Reku", "Ruilu", "GANGCAT"],
+    authors: ["Reku", "Ruilu", "くりす"],
     assets: [
       {
         type: "video",
@@ -30,7 +30,7 @@ export const VIDEO = [
     title: "OW部門 ロスター告知動画",
     createdAt: "2025-04-22",
     tags: ["動画編集", "BGM"],
-    authors: ["おしお", "Reku", "GANGCAT"],
+    authors: ["おしお", "Reku", "くりす"],
     assets: [
       {
         type: "video",
@@ -48,7 +48,7 @@ export const VIDEO = [
     title: "REVATI OW部門 Highlight",
     createdAt: "2025-05-12",
     tags: ["動画編集", "BGM"],
-    authors: ["Reku", "GANGCAT"],
+    authors: ["Reku", "くりす"],
     assets: [
       {
         type: "video",
