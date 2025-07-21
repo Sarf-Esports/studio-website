@@ -185,7 +185,7 @@
 		justify-content: center;
 		width: 40px;
 		height: 40px;
-		z-index: 10;
+		z-index: 1010;
 
 		&:hover {
 			color: #f6e9e9;

@@ -20,7 +20,7 @@
 		right: 0;
 		height: 3px;
 		background: rgba(54, 51, 51, 0.8);
-		z-index: 1000;
+		z-index: 1020;
 
 		.progress-fill {
 			height: 100%;
