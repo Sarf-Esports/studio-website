@@ -25,9 +25,15 @@
   - `#e16428`
   - `#f6e9e9`
 - フォント
-  - Noto Sans Japanese
+  - Noto Sans JP（日本語メインフォント）
     - Regular: `400`
-    - Black: `900`
+    - Medium: `500`
+    - Heavy: `900`
+  - Special Gothic Expanded One（aboutページタイトル用）
+    - Regular: `400`
+  - Montserrat（英語テキスト用）
+    - Regular: `400`
+    - ExtraBold: `800`
 
 ## 使用技術
 
