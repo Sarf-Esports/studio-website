@@ -29,7 +29,7 @@ $breakpoint: 788px;
 // - Regular: `400`
 // - ExtraBold: `800`
 @mixin font-montserrat($weight: 400) {
-	font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+  font-family: "Montserrat", "Noto Sans JP", sans-serif;
   font-weight: $weight;
 }
 
@@ -41,7 +41,6 @@ $breakpoint: 788px;
 //
 // - Regular: `400`
 @mixin font-special-gothic-expanded-one {
-  font-family: 'Special Gothic Expanded One', 'Noto Sans JP', sans-serif;
+  font-family: "Special Gothic Expanded One", "Noto Sans JP", sans-serif;
   font-weight: 400;
 }
-
