@@ -4,6 +4,7 @@ import { ClientRouter } from "astro:transitions";
 import Header from "../components/header/Header.astro";
 import Footer from "../components/footer/Footer.astro";
 import TwitterLink from "../components/TwitterLink.astro";
+import { TITLE, SUBTITLE } from "../pages/about.astro";
 
 import studioHeaderImage from "../assets/Revati-Studio_header_orange.png";
 
@@ -17,6 +18,10 @@ const absThumbnailPath = WEBSITE_URL + studioHeaderImage.src;
 const fullTitle = `${WEBSITE_TITLE} | ${title}`;
 const DESCRIPTION = "あらゆるクリエイティブをワンストップで。";
 const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
+
+const specialGothicTexts = [...new Set(`${TITLE}${SUBTITLE}`.split(""))].join(
+  "",
+);
 ---
 
 <html lang="ja">
@@ -38,8 +43,19 @@ const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
     <!-- ▼ Google Fonts ▼ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <!-- Noto Sans JP, default -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Special Gothic Expanded One, about title -->
+    <link
+      href={`https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap&text=${specialGothicTexts}`}
+      rel="stylesheet"
+    />
+    <!-- Montserrat (English) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap"
       rel="stylesheet"
     />
     <!-- ▲ Google Fonts ▲ -->

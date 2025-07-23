@@ -24,7 +24,7 @@ const NAVIGATION_ITEMS: {
 ---
 
 <footer>
-  <p>{COPYRIGHT}</p>
+  <p class="copyright">{COPYRIGHT}</p>
   <ul>
     {
       NAVIGATION_ITEMS.map((item) => (
@@ -48,6 +48,10 @@ const NAVIGATION_ITEMS: {
     padding: 8px 0;
     background-color: #131010;
     text-align: center;
+  }
+
+  .copyright {
+    font-family: "Montserrat", sans-serif;
   }
 
   ul {

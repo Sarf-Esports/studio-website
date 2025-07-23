@@ -48,9 +48,9 @@
 	}
 
 	.tab-button {
-		font-family: inherit;
+		font-family: 'Montserrat', sans-serif;
 		font-size: 1rem;
-		font-weight: 900;
+		font-weight: 800;
 		color: inherit;
 		padding: 1rem 1.5rem;
 		background: none;

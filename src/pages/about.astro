@@ -29,15 +29,18 @@ const PROCESS = [
   },
   { title: "納品", desc: "最終的な制作物をご指定の形式で納品いたします。" },
 ];
+
+export const TITLE = "REVATI Studio";
+export const SUBTITLE = "/ Creative Production";
 ---
 
 <Layout title="ABOUT">
   <div class="container">
     <section>
       <h1>
-        REVATI Studio<span class="ruby">[レバティ・スタジオ]</span><br
-          class="title-br"
-        /><span class="subtitle">/ Creative Production</span>
+        <span class="title">{TITLE}</span>
+        <span class="ruby">[レバティ・スタジオ]</span><br class="title-br" />
+        <span class="subtitle">{SUBTITLE}</span>
       </h1>
       <p>
         <span class="concept">“創造性のすべてを、ここに。“</span
@@ -90,6 +93,11 @@ const PROCESS = [
     margin-bottom: 0;
   }
 
+  .title,
+  .subtitle {
+    font-family: "Special Gothic Expanded One", sans-serif;
+  }
+
   .subtitle,
   .ruby {
     font-size: 17px;
@@ -97,13 +105,13 @@ const PROCESS = [
   }
 
   .ruby {
-    margin-left: 20px;
+    margin-left: 8px;
   }
 
   .subtitle {
     margin-left: 5px;
     color: $color-accent;
-    letter-spacing: 7px;
+    letter-spacing: 4px;
   }
 
   p {
@@ -198,7 +206,7 @@ const PROCESS = [
     }
 
     h1 {
-      font-size: 42px;
+      font-size: 39px;
       line-height: 34px;
     }
 

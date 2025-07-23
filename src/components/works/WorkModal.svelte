@@ -351,14 +351,16 @@
 	}
 
 	.tag {
-		background: rgba($color-accent, 0.2);
-		color: rgba($color-accent, 0.9);
-		padding: 0.25rem 0.5rem;
-		border-radius: 4px;
+		background: rgba($color-accent, 0.3);
+		color: rgba($color-accent, 1);
+		padding: 0.3rem 0.6rem;
+		border-radius: 6px;
 		font-size: 0.75rem;
-		font-weight: 400;
-		border: 1px solid rgba($color-accent, 0.3);
-		line-height: 1.2;
+		font-weight: 500;
+		border: 1px solid rgba($color-accent, 0.5);
+		backdrop-filter: blur(5px);
+		white-space: nowrap;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
 	}
 
 	.work-assets {
