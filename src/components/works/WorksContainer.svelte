@@ -129,6 +129,7 @@
 		.works-container {
 			padding: 1.5rem 0.75rem;
 			max-width: 100vw;
+			padding-bottom: calc(1.5rem + var(--mobile-control-height, 75px));
 		}
 	}
 
@@ -136,6 +137,7 @@
 		.works-container {
 			padding: 1rem 0.5rem;
 			max-width: 100vw;
+			padding-bottom: calc(1rem + var(--mobile-control-height, 75px));
 		}
 	}
 </style>

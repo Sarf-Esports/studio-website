@@ -51,6 +51,14 @@
 			document.dispatchEvent(resizeEvent);
 		}
 	}
+
+	function handleControlPanelClick(e: Event) {
+		e.stopPropagation();
+		
+		if (isMobile && !isMobileExpanded) {
+			handleMobileExpand();
+		}
+	}
 </script>
 
 <!-- 最小化解除ボタン -->
@@ -62,7 +70,7 @@
 	<div
 		class="control-panel {isMobile ? 'mobile' : 'desktop'}"
 		class:expanded={isMobile && isMobileExpanded}
-		onclick={isMobile && !isMobileExpanded ? handleMobileExpand : undefined}
+		onclick={handleControlPanelClick}
 		onkeydown={(e) => e.key === 'Enter' && isMobile && !isMobileExpanded && handleMobileExpand()}
 		tabindex="-1"
 		role={isMobile && !isMobileExpanded ? 'button' : undefined}
@@ -132,13 +140,14 @@
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 		border: 1px solid rgba(225, 100, 40, 0.3);
 		transition: all 0.3s ease;
+		z-index: 1010;
+		pointer-events: auto;
 
 		&.desktop {
 			position: fixed;
 			bottom: 20px;
 			right: 20px;
 			width: 360px;
-			pointer-events: auto;
 		}
 
 		&.mobile {
@@ -148,7 +157,6 @@
 			right: 0;
 			height: 75px;
 			max-height: 75px;
-			pointer-events: auto;
 			border-radius: 0;
 			padding: 4px 16px;
 			display: flex;

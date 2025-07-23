@@ -215,5 +215,6 @@
 		position: fixed;
 		pointer-events: none;
 		inset: 0;
+		z-index: 1000;
 	}
 </style>

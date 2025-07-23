@@ -74,7 +74,9 @@
 | ------: | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 |    1030 | MusicPlayer ControlPanel 最小化ボタン      | [`src/components/music/MinimizeButton.svelte>style>.minimize-btn`](../src/components/music/MinimizeButton.svelte)        |
 |    1020 | MusicPlayer ControlPanel MobileProgressBar | [`src/components/music/MobileProgressBar.svelte>.mobile-progress-bar`](../src/components/music/MobileProgressBar.svelte) |
-|    1010 | MusicPlayer ControlPanel                   | [`src/components/music/ControlPanel.svelte>style>.close-button`](../src/components/music/ControlPanel.svelte)            |
+|    1010 | MusicPlayer ControlPanel                   | [`src/components/music/ControlPanel.svelte>style>.control-panel`](../src/components/music/ControlPanel.svelte)            |
+|    1010 | MusicPlayer ControlPanel 閉じるボタン      | [`src/components/music/ControlPanel.svelte>style>.close-button`](../src/components/music/ControlPanel.svelte)            |
+|    1000 | MusicPlayer 本体                           | [`src/components/music/MusicPlayer.svelte>style>.music-player`](../src/components/music/MusicPlayer.svelte)              |
 |     255 | ヘッダー                                   | [`src/components/header/Navbar.astro>style>ul`](../src/components/header/Navbar.astro)                                   |
 |     224 | 画面追従SNSリンク                          | [`src/components/TwitterLink.astro>style>a`](../src/components/TwitterLink.astro)                                        |
 |      10 | WorkCard オーバーレイ                      | [`src/components/works/WorkCard.svelte>style>.work-overlay`](../src/components/works/WorkCard.svelte)                    |
