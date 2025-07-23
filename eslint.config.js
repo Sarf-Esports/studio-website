@@ -13,4 +13,7 @@ export default [
       // "@typescript-eslint/strict-boolean-expressions": "error",
     },
   },
+  {
+    ignores: ["src/layouts/Layout.astro"],
+  },
 ];
