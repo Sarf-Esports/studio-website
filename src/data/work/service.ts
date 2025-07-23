@@ -26,9 +26,9 @@ export const SERVICE = [
   },
   {
     title: "REVATI Studio",
-    createdAt: "2025-07-19", //TODO - リリースの日付にする
+    createdAt: "2025-07-24",
     tags: ["Webサイト"],
-    authors: ["Retoruto9900K", "Rinrin.rs"],
+    authors: ["RetoRuto9900K", "Rinrin.rs", "Studio Members"],
     assets: [
       {
         type: "website",
