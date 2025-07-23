@@ -4,9 +4,10 @@ import musicNoteIcon from "../../assets/icons/music-note-beamed.svg";
 
 const musicNoteIconImage: IconImage = {
   icon: musicNoteIcon,
-  width: "50%",
-  height: "50%",
-  backgroundColor: "rgba(184, 184, 184, 0.7)",
+  width: "40%",
+  height: "40%",
+  backgroundColor:
+    "linear-gradient(135deg, #e16428 0%, #ff7a3a 50%, #e16428 100%)",
 };
 
 export const MUSIC = [

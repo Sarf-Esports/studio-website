@@ -14,6 +14,8 @@
 	}
 
 	function getThumbnailInfo(work: Work) {
+		const isMusicWork = work.assets.some((asset) => asset.type === 'music');
+
 		if (work.thumbnail) {
 			if (isIconImage(work.thumbnail)) {
 				return {
@@ -22,7 +24,8 @@
 					isIcon: true,
 					backgroundColor: work.thumbnail.backgroundColor,
 					width: work.thumbnail.width,
-					height: work.thumbnail.height
+					height: work.thumbnail.height,
+					isMusicWork
 				};
 			}
 			return {
@@ -30,7 +33,8 @@
 				isIcon: false,
 				backgroundColor: null,
 				width: null,
-				height: null
+				height: null,
+				isMusicWork
 			};
 		}
 
@@ -45,7 +49,8 @@
 				isIcon: false,
 				backgroundColor: null,
 				width: null,
-				height: null
+				height: null,
+				isMusicWork
 			};
 		}
 
@@ -57,7 +62,8 @@
 				isIcon: false,
 				backgroundColor: null,
 				width: null,
-				height: null
+				height: null,
+				isMusicWork
 			};
 		}
 
@@ -72,7 +78,8 @@
 					isIcon: false,
 					backgroundColor: null,
 					width: null,
-					height: null
+					height: null,
+					isMusicWork
 				};
 			}
 		}
@@ -83,7 +90,8 @@
 			isIcon: false,
 			backgroundColor: null,
 			width: null,
-			height: null
+			height: null,
+			isMusicWork
 		};
 	}
 
@@ -94,16 +102,32 @@
 	}
 </script>
 
-<button class="work-card" onclick={handleClick} style={work.border ? `border: ${work.border}` : ''}>
+<button
+	class="work-card"
+	class:music-card={thumbnailInfo.isMusicWork}
+	onclick={handleClick}
+	style={work.border ? `border: ${work.border}` : ''}
+>
 	<div class="work-image">
 		{#if thumbnailInfo.isIcon}
-			<div class="icon-thumbnail" style="background-color: {thumbnailInfo.backgroundColor}">
+			<div
+				class="icon-thumbnail"
+				class:music-icon={thumbnailInfo.isMusicWork}
+				style="background: {thumbnailInfo.backgroundColor}"
+			>
 				<img
 					src={thumbnailInfo.src}
 					alt={work.title}
 					loading="lazy"
 					style="width: {thumbnailInfo.width}; height: {thumbnailInfo.height};"
 				/>
+				{#if thumbnailInfo.isMusicWork}
+					<div class="music-waves">
+						{#each Array(27) as _}
+							<span class="wave"></span>
+						{/each}
+					</div>
+				{/if}
 			</div>
 		{:else}
 			<img src={thumbnailInfo.src} alt={work.title} loading="lazy" />
@@ -161,6 +185,23 @@
 				0 0 0 2px rgba($color-accent, 0.5),
 				0 10px 30px rgba(0, 0, 0, 0.3);
 		}
+
+		&.music-card {
+			&:hover,
+			&:focus {
+				box-shadow:
+					0 10px 30px rgba(0, 0, 0, 0.4),
+					0 0 25px rgba($color-accent, 0.4),
+					0 0 50px rgba($color-accent, 0.1);
+			}
+
+			&:focus {
+				box-shadow:
+					0 0 0 2px rgba($color-accent, 0.6),
+					0 10px 30px rgba(0, 0, 0, 0.3),
+					0 0 25px rgba($color-accent, 0.4);
+			}
+		}
 	}
 
 	.work-image {
@@ -191,6 +232,29 @@
 		img {
 			object-fit: contain;
 			transition: transform 0.3s ease;
+		}
+
+		&.music-icon {
+			background-size: 200% 200%;
+			background-position: 0% 50%;
+			position: relative;
+			overflow: hidden;
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: radial-gradient(circle, #ffffff1a 0%, transparent 50%);
+				transform: rotate(45deg);
+			}
+
+			img {
+				filter: drop-shadow(0 4px 12px #00000050);
+				position: relative;
+			}
 		}
 	}
 
@@ -274,6 +338,104 @@
 		.tag {
 			font-size: 0.65rem;
 			padding: 0.2rem 0.4rem;
+		}
+	}
+
+	.music-waves {
+		position: absolute;
+		bottom: 1.4rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		gap: 0.12em;
+		align-items: flex-end;
+
+		.wave {
+			width: 4px;
+			background: #ffffff9a;
+			border-radius: 4px;
+
+			&:nth-child(1) {
+				height: 8px;
+			}
+			&:nth-child(2) {
+				height: 14px;
+			}
+			&:nth-child(3) {
+				height: 10px;
+			}
+			&:nth-child(4) {
+				height: 18px;
+			}
+			&:nth-child(5) {
+				height: 12px;
+			}
+			&:nth-child(6) {
+				height: 16px;
+			}
+			&:nth-child(7) {
+				height: 9px;
+			}
+			&:nth-child(8) {
+				height: 20px;
+			}
+			&:nth-child(9) {
+				height: 11px;
+			}
+			&:nth-child(10) {
+				height: 15px;
+			}
+			&:nth-child(11) {
+				height: 13px;
+			}
+			&:nth-child(12) {
+				height: 19px;
+			}
+			&:nth-child(13) {
+				height: 7px;
+			}
+			&:nth-child(14) {
+				height: 17px;
+			}
+			&:nth-child(15) {
+				height: 14px;
+			}
+			&:nth-child(16) {
+				height: 21px;
+			}
+			&:nth-child(17) {
+				height: 10px;
+			}
+			&:nth-child(18) {
+				height: 16px;
+			}
+			&:nth-child(19) {
+				height: 9px;
+			}
+			&:nth-child(20) {
+				height: 18px;
+			}
+			&:nth-child(21) {
+				height: 12px;
+			}
+			&:nth-child(22) {
+				height: 15px;
+			}
+			&:nth-child(23) {
+				height: 8px;
+			}
+			&:nth-child(24) {
+				height: 19px;
+			}
+			&:nth-child(25) {
+				height: 11px;
+			}
+			&:nth-child(26) {
+				height: 17px;
+			}
+			&:nth-child(27) {
+				height: 13px;
+			}
 		}
 	}
 </style>
