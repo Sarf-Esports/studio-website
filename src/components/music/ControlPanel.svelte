@@ -124,7 +124,7 @@
 
 <style lang="scss">
 	.control-panel {
-		background: rgba(54, 51, 51, 0.95);
+		background: rgba(38, 36, 36, 0.95);
 		backdrop-filter: blur(10px);
 		border-radius: 12px;
 		padding: 24px;
