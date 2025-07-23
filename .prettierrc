@@ -16,6 +16,12 @@
         "trailingComma": "none",
         "printWidth": 100
       }
+    },
+    {
+      "files": "*",
+      "options": {
+        "endOfLine": "lf"
+      }
     }
   ]
 }
