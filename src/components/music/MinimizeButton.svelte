@@ -14,6 +14,12 @@
 		aria-label="プレイヤーを開く"
 		type="button"
 	>
+		<!--
+			Bootstrap Icons - Music note beamed
+			https://icons.getbootstrap.com/icons/music-note-beamed
+			Copyright (c) 2019 The Bootstrap Authors
+			under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+		-->
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="16"
@@ -37,6 +43,12 @@
 		aria-label="最小化"
 		type="button"
 	>
+		<!--
+			Bootstrap Icons - Chevron down
+			https://icons.getbootstrap.com/icons/chevron-down
+			Copyright (c) 2019 The Bootstrap Authors
+			under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+		-->
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="16"

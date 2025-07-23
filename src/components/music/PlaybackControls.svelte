@@ -39,6 +39,12 @@
 		aria-label="前の曲"
 		disabled={!currentTrack}
 	>
+		<!--
+			Bootstrap Icons - Skip start fill
+			https://icons.getbootstrap.com/icons/skip-start-fill
+			Copyright (c) 2019 The Bootstrap Authors
+			under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+		-->
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="16"
@@ -61,6 +67,12 @@
 		disabled={!currentTrack}
 	>
 		{#if isPlaying}
+			<!--
+				Bootstrap Icons - Pause fill
+				https://icons.getbootstrap.com/icons/pause-fill
+				Copyright (c) 2019 The Bootstrap Authors
+				under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+			-->
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="16"
@@ -74,6 +86,12 @@
 				/>
 			</svg>
 		{:else}
+			<!--
+				Bootstrap Icons - Play fill
+				https://icons.getbootstrap.com/icons/play-fill
+				Copyright (c) 2019 The Bootstrap Authors
+				under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+			-->
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="16"
@@ -97,6 +115,12 @@
 		aria-label="次の曲"
 		disabled={!currentTrack}
 	>
+		<!--
+			Bootstrap Icons - Skip end fill
+			https://icons.getbootstrap.com/icons/skip-end-fill
+			Copyright (c) 2019 The Bootstrap Authors
+			under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+		-->
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			width="16"
