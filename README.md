@@ -66,7 +66,7 @@
 
 ## License
 
-The source code in this repository is licensed under the **BSD 3-Clause "New" or "Revised" License**[^bsd].
+The source code in this repository is licensed under the **BSD 3-Clause "New" or "Revised" License**.
 The full license text is available in the [`LICENSE`](./LICENSE) file.
 
 ### Scope of the License
