@@ -37,6 +37,11 @@ export const SERVICE = [
         clientName: "REVATI Studio",
         thumbnail: revatiStudio,
       },
+      {
+        type: "external",
+        title: "ソースコード（リポジトリ）はこちら",
+        url: "https://github.com/Sarf-Esports/studio-website",
+      },
     ],
     border: "3px solid #494040ff",
   },
