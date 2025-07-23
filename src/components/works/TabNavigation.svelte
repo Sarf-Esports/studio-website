@@ -48,9 +48,7 @@
 	}
 
 	.tab-button {
-		font-family: 'Montserrat', sans-serif;
 		font-size: 1rem;
-		font-weight: 800;
 		color: inherit;
 		padding: 1rem 1.5rem;
 		background: none;
@@ -60,6 +58,7 @@
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		position: relative;
+		@include font-montserrat(800);
 
 		&:hover {
 			background: rgba($color-accent, 0.1);
