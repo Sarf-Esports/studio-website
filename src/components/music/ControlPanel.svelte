@@ -54,7 +54,7 @@
 
 	function handleControlPanelClick(e: Event) {
 		e.stopPropagation();
-		
+
 		if (isMobile && !isMobileExpanded) {
 			handleMobileExpand();
 		}
