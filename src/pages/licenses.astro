@@ -47,20 +47,30 @@ const TITLE = "ライセンス情報";
             <li>
               <h2>{license.id}</h2>
               <dl>
-                {typeof license.repository === 'string' ? (
-                  <dt>Repository</dt>
-                  <dd>
-                    <a
-                      href={license.repository}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >{license.repository}</a>
-                  </dd>
-                ) : ""}
+                {typeof license.repository === "string" ? (
+                  <>
+                    <dt>Repository</dt>
+                    <dd>
+                      <a
+                        href={license.repository}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {license.repository}
+                      </a>
+                    </dd>
+                  </>
+                ) : (
+                  ""
+                )}
                 {license.publisher ? (
-                  <dt>Publisher</dt>
-                  <dd>{license.publisher}</dd>
-                ) : ""}
+                  <>
+                    <dt>Publisher</dt>
+                    <dd>{license.publisher}</dd>
+                  </>
+                ) : (
+                  ""
+                )}
                 <dt>License</dt>
                 <dd>{license.licenses}</dd>
               </dl>
@@ -107,8 +117,9 @@ const TITLE = "ライセンス情報";
     margin-block: 24px;
     padding: 20px;
     background: #272121;
-    box-shadow:  5px 5px 16px #100d0d,
-                -5px -5px 16px #3e3535;
+    box-shadow:
+      5px 5px 16px #100d0d,
+      -5px -5px 16px #3e3535;
     border-radius: 12px;
   }
 
@@ -154,7 +165,8 @@ const TITLE = "ライセンス情報";
     max-height: 512px;
     margin-top: 14px;
     padding: 24px 14px;
-    box-shadow: inset 5px 5px 16px #100d0d,
+    box-shadow:
+      inset 5px 5px 16px #100d0d,
       inset -5px -5px 16px #3e3535;
     border-radius: 8px;
     text-align: center;
@@ -175,7 +187,9 @@ const TITLE = "ライセンス情報";
     li {
       margin-block: 20px;
       padding: 14px;
-      box-shadow: 4px 4px 11px #100d0d,-4px -4px 11px #3e3535;
+      box-shadow:
+        4px 4px 11px #100d0d,
+        -4px -4px 11px #3e3535;
     }
 
     h2 {
@@ -196,7 +210,9 @@ const TITLE = "ライセンス情報";
       max-height: 320px;
       margin-top: 11px;
       padding: 18px 14px;
-      box-shadow: inset 3px 3px 12px #100d0d,inset -3px -3px 5px #3e3535;
+      box-shadow:
+        inset 3px 3px 12px #100d0d,
+        inset -3px -3px 5px #3e3535;
     }
   }
 </style>
