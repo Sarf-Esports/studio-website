@@ -1,0 +1,41 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactContent from "../components/contact/ContactContent.svelte";
+---
+
+<Layout title="CONTACT">
+  <div class="container">
+    <h1>CONTACT</h1>
+    <p>ご要件に合わせて下記よりお問い合わせください。</p>
+    <ContactContent client:load />
+  </div>
+</Layout>
+
+<style lang="scss">
+  .container {
+    margin-bottom: 64px;
+  }
+
+  h1,
+  p {
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 58px;
+    margin-bottom: 0;
+    @include font-montserrat(800);
+  }
+
+  @include sp {
+    h1 {
+      font-size: 42px;
+    }
+
+    p {
+      font-size: 15px;
+      margin-inline: 4px;
+    }
+  }
+</style>

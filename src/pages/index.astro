@@ -1,12 +1,80 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Spacer from "../components/Spacer.astro";
+import Carousel from "../components/Carousel.astro";
+import CarouselItem from "../components/CarouselItem.astro";
+import WorksContainer from "../components/works/WorksContainer.svelte";
+// import DraggableWindow from "../components/DraggableWindow.astro";
+// import Logo3d from "../components/Logo3d.svelte";
+import MusicPlayer from "../components/music/MusicPlayer.svelte";
+import { queryAssets } from "../utils";
+import type { ImageAsset } from "../types";
+
+const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
+
+// // ウィンドウの最大サイズ。ビューポートが狭くなっても、このアスペクト比を保ちながら縮小する。
+// const DRAGGABLE_WINDOW_MAX_SIZE = { width: 500, height: 276 };
+// // 幅 (vw) に対するウィンドウの最大比率 (0 < n <= 1)
+// const DRAGGABLE_WINDOW_SCALE = 0.85;
+//
+// const DRAGGABLE_WINDOW_ASPECT_RATIO =
+//   DRAGGABLE_WINDOW_MAX_SIZE.height / DRAGGABLE_WINDOW_MAX_SIZE.width;
+// const DRAGGABLE_WINDOW_WIDTH = `min(${DRAGGABLE_WINDOW_SCALE * 100}vw, ${DRAGGABLE_WINDOW_MAX_SIZE.width}px)`;
+// const DRAGGABLE_WINDOW_HEIGHT = `min(calc(${DRAGGABLE_WINDOW_SCALE * 100}vw * ${DRAGGABLE_WINDOW_ASPECT_RATIO}), ${DRAGGABLE_WINDOW_MAX_SIZE.height}px)`;
 ---
 
-<Layout title='top'>
-	<!-- Layoutのname=headのslotがある場所に挿入される -->
-	<slot slot="head">
-		<meta name="description" content="This is a top page." />
-	</slot>
-	
-	<h1>Example Top Page</h1>
+<Layout title="WORKS">
+  <Spacer height="1.3rem" />
+
+  <Carousel
+    slideHeight={{ desktop: "45vh", tablet: "30vh", mobile: "22vh" }}
+    maxWidth="100vw"
+    slideSpacing={{ desktop: "1rem", tablet: "0.7rem", mobile: "0.5rem" }}
+  >
+    {
+      carouselImages.map((asset) => (
+        <CarouselItem>
+          {typeof asset.src === "string" ? (
+            <Image src={asset.src} alt={asset.caption} inferSize />
+          ) : (
+            <Image src={asset.src} alt={asset.caption} />
+          )}
+        </CarouselItem>
+      ))
+    }
+  </Carousel>
+
+  <Spacer height="1rem" />
+
+  <h1>Our Works</h1>
+
+  <WorksContainer client:load />
+
+  <!-- <DraggableWindow
+    title="REVATI Studio"
+    width={DRAGGABLE_WINDOW_WIDTH}
+    height={DRAGGABLE_WINDOW_HEIGHT}
+  >
+    <Logo3d client:only="svelte" />
+  </DraggableWindow> -->
+
+  <MusicPlayer client:load />
 </Layout>
+
+<style lang="scss">
+  h1,
+  h2,
+  h3 {
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 40px;
+    @include font-montserrat(800);
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+</style>

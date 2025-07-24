@@ -1,0 +1,46 @@
+$breakpoint: 788px;
+
+@mixin pc {
+  @media screen and (min-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin sp {
+  @media screen and (max-width: #{$breakpoint - 1}) {
+    @content;
+  }
+}
+
+@mixin fixed-panel() {
+  position: fixed;
+  background-color: #131010;
+  border: 2px solid #ffffff3a;
+  box-shadow: 0 0 22px #0000005a;
+  border-radius: 8px;
+}
+
+// フォント "Montserrat"
+//
+// 英語テキスト用のフォント。
+//
+// ## 有効なフォントウェイト
+//
+// - Regular: `400`
+// - ExtraBold: `800`
+@mixin font-montserrat($weight: 400) {
+  font-family: "Montserrat", "Noto Sans JP", sans-serif;
+  font-weight: $weight;
+}
+
+// フォント "Special Gothic Expanded One"
+//
+// ABOUT ページ用のフォント。
+//
+// ## 有効なフォントウェイト
+//
+// - Regular: `400`
+@mixin font-special-gothic-expanded-one {
+  font-family: "Special Gothic Expanded One", "Noto Sans JP", sans-serif;
+  font-weight: 400;
+}

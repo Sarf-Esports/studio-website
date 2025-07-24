@@ -1,0 +1,182 @@
+---
+interface Props {
+  /** default=300px */
+  width?: string | number;
+  /** default=200px */
+  height?: string | number;
+  /** default="Window" */
+  title?: string;
+}
+
+const { width = "400px", height = "300px", title } = Astro.props;
+---
+
+<style
+  lang="scss"
+  define:vars={{ "window-width": width, "window-height": height }}
+>
+  $black: #101010;
+
+  .window {
+    width: var(--window-width);
+    height: var(--window-height);
+
+    background: rgba($color-background, 0.75);
+    border: 3px solid $black;
+    box-shadow: 0 2px 12px #00000080;
+    position: absolute;
+    bottom: 176px;
+    right: calc(10% - 24px);
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .window-header {
+    width: 100%;
+    height: 30px;
+    background-color: $black;
+    display: flex;
+    align-items: center;
+    cursor: move;
+    box-sizing: border-box;
+    flex-shrink: 0; /* タイトルバーが縮まないようにする */
+    justify-content: space-between; /* タイトルとボタンを両端に配置 */
+    padding: 0 8px; /* 左右のパディングを追加 */
+  }
+
+  .window-title {
+    font-weight: 900;
+    font-size: 0.8em;
+    flex-grow: 1;
+    text-align: center;
+    user-select: none;
+  }
+
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    box-sizing: border-box;
+    cursor: grab;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+</style>
+
+<div class="window" id="draggableWindow">
+  <div class="window-header" id="draggableHeader">
+    <span class="window-title">{title}</span>
+  </div>
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const windowEl = document.getElementById(
+      "draggableWindow",
+    ) as HTMLElement | null;
+    const headerEl = document.getElementById(
+      "draggableHeader",
+    ) as HTMLElement | null;
+
+    // 要素が存在していなかった場合の対策
+    if (!windowEl || !headerEl) return;
+
+    let offsetX = 0;
+    let offsetY = 0;
+    let isDragging = false;
+
+    function handleDragStart(pageX: number, pageY: number) {
+      if (!windowEl) return;
+      isDragging = true;
+
+      // 初回ドラッグ時に bottom/right から top/left へ切り替える
+      const computedStyle = getComputedStyle(windowEl);
+      if (
+        computedStyle.top === "auto" &&
+        computedStyle.position === "absolute"
+      ) {
+        const rect = windowEl.getBoundingClientRect();
+        windowEl.style.top = `${rect.top + window.scrollY}px`;
+        windowEl.style.left = `${rect.left + window.scrollX}px`;
+        windowEl.style.bottom = "auto";
+        windowEl.style.right = "auto";
+      }
+
+      offsetX = pageX - windowEl.offsetLeft;
+      offsetY = pageY - windowEl.offsetTop;
+    }
+
+    function handleDragMove(pageX: number, pageY: number) {
+      if (!isDragging || !windowEl) return;
+
+      let newLeft = pageX - offsetX;
+      let newTop = pageY - offsetY;
+
+      // 画面の左端と上端の境界
+      if (newLeft < 0) newLeft = 0;
+      if (newTop < 0) newTop = 0;
+
+      // 画面の右端と下端の境界 (ドキュメント全体)
+      const maxLeft =
+        document.documentElement.scrollWidth - windowEl.offsetWidth;
+      const maxTop =
+        document.documentElement.scrollHeight - windowEl.offsetHeight;
+
+      if (newLeft > maxLeft) {
+        newLeft = maxLeft;
+      }
+      if (newTop > maxTop) {
+        newTop = maxTop;
+      }
+
+      windowEl.style.left = newLeft + "px";
+      windowEl.style.top = newTop + "px";
+    }
+
+    function handleDragEnd() {
+      isDragging = false;
+    }
+
+    headerEl.addEventListener("mousedown", (e: MouseEvent) => {
+      handleDragStart(e.pageX, e.pageY);
+    });
+
+    document.addEventListener("mousemove", (e: MouseEvent) => {
+      handleDragMove(e.pageX, e.pageY);
+    });
+
+    document.addEventListener("mouseup", () => {
+      handleDragEnd();
+    });
+
+    headerEl.addEventListener(
+      "touchstart",
+      (e: TouchEvent) => {
+        if (e.touches.length === 0) return;
+        const touch = e.touches[0];
+        handleDragStart(touch.pageX, touch.pageY);
+        e.preventDefault();
+      },
+      { passive: false },
+    );
+
+    document.addEventListener("touchmove", (e: TouchEvent) => {
+      if (e.touches.length === 0) return;
+      const touch = e.touches[0];
+      handleDragMove(touch.pageX, touch.pageY);
+    });
+
+    document.addEventListener("touchend", () => {
+      handleDragEnd();
+    });
+  });
+</script>

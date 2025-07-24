@@ -1,23 +1,155 @@
 ---
+import { WEBSITE_TITLE, WEBSITE_URL, COPYRIGHT } from "../utils/variables";
+import { ClientRouter } from "astro:transitions";
+import Header from "../components/header/Header.astro";
+import Footer from "../components/footer/Footer.astro";
+import TwitterLink from "../components/TwitterLink.astro";
+import { TITLE, SUBTITLE } from "../pages/about.astro";
+
+import studioHeaderImage from "../assets/Revati-Studio_header_orange.png";
+
 interface Props {
-  title?: string;
+  title: string;
 }
 
 const { title } = Astro.props;
+
+const absThumbnailPath = WEBSITE_URL + studioHeaderImage.src;
+const fullTitle = `${WEBSITE_TITLE} | ${title}`;
+const DESCRIPTION = "あらゆるクリエイティブをワンストップで。";
+const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
+
+const specialGothicTexts = [...new Set(`${TITLE}${SUBTITLE}`.split(""))].join(
+  "",
+);
 ---
 
 <html lang="ja">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-    {title && <title>{title}</title>}
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta
+      name="format-detection"
+      content="telephone=no, address=no, email=no"
+    />
+    <meta name="thumbnail" content={absThumbnailPath} />
+    <meta
+      name="google-site-verification"
+      content="Y2_5HsUC4aF517HYkAql5TlhdGr3d9yRpO3VKu9uBFw"
+    />
+
+    <!-- ▼ Google Fonts ▼ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <!-- Noto Sans JP, default -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Special Gothic Expanded One, about title -->
+    <link
+      href={`https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap&text=${specialGothicTexts}`}
+      rel="stylesheet"
+    />
+    <!-- Montserrat (English) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ▲ Google Fonts ▲ -->
+
+    <meta property="og:site_name" content={WEBSITE_TITLE} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:site" content={WEBSITE_URL} />
+    <!-- ↓ Sass 変数 `$color-accent` -->
+    <meta name="theme-color" content="#e16428" />
+
+    <meta name="keywords" content="revati,revati studio" />
+    <meta
+      name="author"
+      content="Rinrin.rs <rinrin0413.valley@gmail.com>, RetoRuto9900K <tutinoko2048@gmail.com>"
+    />
+    <meta name="copyright" content={COPYRIGHT} />
 
     <slot name="head" />
-	</head>
-  
-	<body>
-    <slot />
-	</body>
+
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content={DESCRIPTION} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content={absThumbnailPath} />
+
+    <link rel="canonical" href={canonicalUrl} />
+
+    <ClientRouter />
+  </head>
+
+  <body>
+    <div class="header-container"><Header /></div>
+    <main transition:animate="fade">
+      <slot />
+    </main>
+    <div class="footer-container"><Footer /></div>
+    <TwitterLink />
+  </body>
 </html>
+
+<style lang="scss">
+  :global(*) {
+    scrollbar-color: $color-accent transparent;
+  }
+
+  :global(:focus-visible) {
+    outline: 3px solid $color-accent;
+    outline-offset: 3px;
+    overflow: visible;
+  }
+
+  :global(::selection) {
+    color: $text-color;
+    background: $color-accent;
+  }
+
+  :global(a) {
+    color: $color-accent;
+  }
+
+  html {
+    height: 100%;
+    font-family: "Noto Sans JP", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    background: $color-secondary;
+  }
+
+  body {
+    display: grid;
+    $header-height: 96px;
+    $footer-height: 208px;
+    grid-template-rows: $header-height auto $footer-height;
+    height: 100%;
+    margin: 0;
+    color: $text-color;
+  }
+
+  .header-container {
+    grid-row: 1 / 2;
+  }
+
+  main {
+    grid-row: 2 / 3;
+  }
+
+  .footer-container {
+    grid-row: 3 / 4;
+  }
+</style>

@@ -1,0 +1,276 @@
+---
+import Layout from "../layouts/Layout.astro";
+import MusicPlayer from "../components/music/MusicPlayer.svelte";
+
+const SERVICES = [
+  "映像制作・動画編集",
+  "BGM・楽曲制作",
+  "デザイン・イラスト制作",
+  "通訳・翻訳",
+  "ソフトウェア・ボット・Web 開発",
+];
+
+const PROCESS = [
+  {
+    title: "お問い合わせ",
+    desc: "まずは Discord サーバーにてお気軽にご相談ください。",
+  },
+  {
+    title: "ヒアリング・お見積もり",
+    desc: "ご要望を詳しくお伺いし、金額をご提案します。",
+  },
+  {
+    title: "制作開始",
+    desc: "ご提案内容に同意いただけましたら、制作を開始します。",
+  },
+  {
+    title: "ご確認・修正",
+    desc: "制作物をご確認いただき、必要に応じて修正を行います。",
+  },
+  { title: "納品", desc: "最終的な制作物をご指定の形式で納品いたします。" },
+];
+
+export const TITLE = "REVATI Studio";
+export const SUBTITLE = "/ Creative Production";
+---
+
+<Layout title="ABOUT">
+  <div class="container">
+    <section>
+      <h1>
+        <span class="title">{TITLE}</span>
+        <span class="ruby">[レバティ・スタジオ]</span><br class="title-br" />
+        <span class="subtitle">{SUBTITLE}</span>
+      </h1>
+      <p class="theme">
+        <span class="concept">“創造性のすべてを、ここに。“</span
+        >あらゆるクリエイティブをワンストップで
+      </p>
+      <div>
+        <h2>主要なサービス領域</h2>
+        <ul>{SERVICES.map((s) => <li class="service">{s}</li>)}</ul>
+      </div>
+      <div class="process-container">
+        <h2>手続き</h2>
+        <ul class="process">
+          {
+            PROCESS.map((step, i) => (
+              <li class="step">
+                <div class="step-num">{i + 1}</div>
+                <div class="step-content">
+                  <h3 class="step-title">{step.title}</h3>
+                  <p class="step-desc">{step.desc}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </div>
+  <MusicPlayer client:load />
+</Layout>
+
+<style lang="scss">
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  section {
+    max-width: 742px;
+    margin: 48px auto;
+    margin-bottom: 90px;
+    position: relative;
+    right: 78px;
+  }
+
+  h1 {
+    font-size: 54px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 12px;
+    margin-bottom: 0;
+  }
+
+  .title,
+  .subtitle {
+    font-weight: 400;
+    @include font-special-gothic-expanded-one;
+  }
+
+  .subtitle,
+  .ruby {
+    font-size: 17px;
+    letter-spacing: 1.5px;
+  }
+
+  .ruby {
+    margin-left: 8px;
+  }
+
+  .subtitle {
+    margin-left: 5px;
+    color: $color-accent;
+    letter-spacing: 4px;
+  }
+
+  p {
+    margin-block: 44px;
+  }
+
+  .concept {
+    display: block;
+    font-size: 28px;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 400;
+    padding: 1px 14px;
+    border-left: 6px solid $color-accent;
+  }
+
+  .service {
+    margin-block: 6px;
+  }
+
+  .process-container {
+    margin-top: 68px;
+  }
+
+  .process {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 20px;
+  }
+
+  .step {
+    display: flex;
+    margin-block: 20px;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    display: inline-flex;
+    height: 42px;
+    font-size: 26px;
+    font-weight: 900;
+    position: relative;
+    top: 7px;
+    color: $color-secondary;
+    aspect-ratio: 1;
+    background-color: $color-accent;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .step-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .step-title {
+    font-size: 22px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .step-desc {
+    font-size: 15px;
+    margin: 0;
+    opacity: 0.8;
+  }
+
+  // レイアウト制御用
+  @media screen and (max-width: 880px) {
+    .container {
+      max-width: 531px;
+      margin: 0 auto;
+    }
+
+    section {
+      max-width: initial;
+      margin: 12px 10px;
+      margin-bottom: 58px;
+      right: 0;
+    }
+
+    .ruby {
+      position: relative;
+      top: 7px;
+    }
+
+    .subtitle {
+      position: relative;
+      top: 8px;
+    }
+  }
+
+  @include sp {
+    .container {
+      max-width: 440px;
+    }
+
+    h1 {
+      font-size: 39px;
+      line-height: 34px;
+    }
+
+    .title-br {
+      display: none;
+    }
+
+    .subtitle,
+    .ruby {
+      font-size: 14px;
+    }
+
+    .ruby {
+      display: block;
+      margin-left: 8px;
+    }
+
+    .subtitle {
+      letter-spacing: 4px;
+    }
+
+    p,
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      margin-block: 62px;
+    }
+
+    .theme {
+      font-size: 17px;
+    }
+
+    .concept {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 21px;
+      padding: 0 12px;
+    }
+
+    .process-container {
+      margin-top: 54px;
+    }
+
+    .step-title {
+      font-size: 19px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+    }
+  }
+</style>

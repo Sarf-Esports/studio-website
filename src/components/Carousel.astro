@@ -1,0 +1,163 @@
+---
+type ResponsiveStyle<T> =
+  | T
+  | {
+      desktop: T;
+      tablet?: T;
+      mobile?: T;
+    };
+
+interface Props {
+  forward?: boolean;
+  backward?: boolean;
+  maxWidth?: string;
+  slideHeight?: ResponsiveStyle<string>;
+  slideSpacing?: ResponsiveStyle<string>;
+}
+
+const { maxWidth, slideHeight, slideSpacing } = Astro.props;
+
+const direction = Astro.props.backward ? "backward" : "forward";
+
+function getResponsiveValue<T>(
+  value: ResponsiveStyle<T> | undefined,
+  defaultValue: T,
+): { desktop: T; mobile: T | undefined; tablet: T | undefined } {
+  if (!value) {
+    return { desktop: defaultValue, mobile: undefined, tablet: undefined };
+  }
+
+  if (
+    typeof value === "object" &&
+    value !== null &&
+    ("desktop" in value || "mobile" in value || "tablet" in value)
+  ) {
+    const responsiveValue = value as { desktop: T; mobile?: T; tablet?: T };
+    return {
+      desktop: responsiveValue.desktop,
+      mobile: responsiveValue.mobile,
+      tablet: responsiveValue.tablet,
+    };
+  }
+
+  return { desktop: value as T, mobile: undefined, tablet: undefined };
+}
+
+const slideHeightValues = getResponsiveValue(slideHeight, "10rem");
+const slideSpacingValues = getResponsiveValue(slideSpacing, "0px");
+
+const styles = {
+  "max-width": maxWidth || "48rem",
+  "slide-height-desktop": slideHeightValues.desktop,
+  "slide-height-tablet": slideHeightValues.tablet,
+  "slide-height-mobile": slideHeightValues.mobile,
+  "slide-spacing-desktop": slideSpacingValues.desktop,
+  "slide-spacing-tablet": slideSpacingValues.tablet,
+  "slide-spacing-mobile": slideSpacingValues.mobile,
+};
+---
+
+<section class="embla">
+  <div class="embla__viewport" data-direction={direction}>
+    <div class="embla__container">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style lang="scss" define:vars={styles}>
+  .embla {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .embla__viewport {
+    overflow: hidden;
+    height: var(--slide-height-desktop);
+
+    @media (max-width: 1200px) {
+      height: var(--slide-height-tablet);
+    }
+
+    @media (max-width: 768px) {
+      height: var(--slide-height-mobile);
+    }
+  }
+
+  .embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+
+    margin-left: calc(var(--slide-spacing-desktop) * -1);
+
+    @media (max-width: 1200px) {
+      margin-left: calc(var(--slide-spacing-tablet) * -1);
+    }
+
+    @media (max-width: 768px) {
+      margin-left: calc(var(--slide-spacing-mobile) * -1);
+    }
+  }
+</style>
+
+<script>
+  import EmblaCarousel, { type EmblaCarouselType } from "embla-carousel";
+  import AutoScroll from "embla-carousel-auto-scroll";
+
+  const carousels = new Map<HTMLElement, EmblaCarouselType>();
+
+  document.addEventListener("astro:page-load", () => {
+    const viewports =
+      document.querySelectorAll<HTMLElement>(".embla__viewport")!;
+
+    for (const [viewport, existingCarousel] of carousels) {
+      existingCarousel.destroy();
+      carousels.delete(viewport);
+    }
+
+    for (const viewport of viewports) {
+      const newCarousel = initCarousel(viewport);
+      fitSlides(viewport, newCarousel);
+      carousels.set(viewport, newCarousel);
+    }
+  });
+
+  function initCarousel(viewport: HTMLElement) {
+    const carousel = EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
+      AutoScroll({
+        direction: viewport.getAttribute("data-direction") as
+          | "forward"
+          | "backward",
+        stopOnInteraction: false,
+        speed: 1,
+      }),
+    ]);
+
+    carousel.on("resize", () => {
+      fitSlides(viewport, carousel);
+    });
+
+    return carousel;
+  }
+
+  /** viewportの幅に十分満たないとスライドが回らないから複製してかさ増しする */
+  function fitSlides(viewport: HTMLElement, carousel: EmblaCarouselType) {
+    const container = carousel.rootNode().querySelector(".embla__container")!;
+    const slideNodes = carousel.slideNodes();
+
+    let currentWidth = [...slideNodes].reduce(
+      (acc, slide) => acc + slide.clientWidth,
+      0,
+    );
+
+    while (currentWidth < viewport.clientWidth) {
+      for (const slide of slideNodes) {
+        container.appendChild(slide.cloneNode(true));
+        currentWidth += slide.clientWidth;
+      }
+    }
+    carousel.reInit();
+  }
+</script>

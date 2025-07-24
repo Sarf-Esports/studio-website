@@ -1,0 +1,15 @@
+---
+// spacer component
+
+interface Props {
+  height?: string;
+  width?: string;
+}
+
+const styles = {
+  height: Astro.props.height || "0px",
+  width: Astro.props.width || "0px",
+};
+---
+
+<div class="spacer" style={styles}></div>

@@ -1,0 +1,94 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import Layout from "../layouts/Layout.astro";
+import Logo3d from "./Logo3d.svelte";
+
+export interface Props extends HTMLAttributes<"div"> {
+  statusCode: number;
+  title: string;
+  message: string;
+}
+
+const { statusCode, title, message } = Astro.props;
+---
+
+<Layout title={`${statusCode} ${title}`}>
+  <div class="container">
+    <div class="logo-container">
+      <Logo3d
+        client:only="svelte"
+        modelUrl="/models/Revati-kun.glb"
+        positionY={0.24}
+        cameraFov={0.5}
+        lightColor="#3f48cc"
+        autoRotateSpeed={10}
+      />
+    </div>
+    <h1>{statusCode} {title}</h1>
+    <p>{message}</p>
+    <a href="/">ホームへ戻る</a>
+  </div>
+</Layout>
+
+<style lang="scss">
+  .container {
+    display: flex;
+    margin-bottom: 64px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+  }
+
+  .logo-container {
+    width: 300px;
+    height: 150px;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    @include font-montserrat(800);
+  }
+
+  p {
+    margin-bottom: 2.5rem;
+  }
+
+  a {
+    color: $color-accent;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    padding: 0.8em 2em;
+    border: 2px solid $color-accent;
+    border-radius: 100vh;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $color-accent;
+      color: $text-color;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @include sp {
+    .container {
+      margin-top: 2rem;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
+</style>

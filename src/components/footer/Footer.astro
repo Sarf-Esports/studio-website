@@ -1,0 +1,75 @@
+---
+import { COPYRIGHT } from "../../utils/variables";
+
+const NAVIGATION_ITEMS: {
+  label: string;
+  href: string;
+  isExternal?: boolean;
+}[] = [
+  {
+    label: "REVATI について",
+    href: "https://revati.jp",
+    isExternal: true,
+  },
+  {
+    label: "プライバシーポリシー",
+    href: "https://revati.jp/privacy",
+    isExternal: true,
+  },
+  {
+    label: "ライセンス情報",
+    href: "/licenses",
+  },
+];
+---
+
+<footer>
+  <p class="copyright">{COPYRIGHT}</p>
+  <ul>
+    {
+      NAVIGATION_ITEMS.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            target={item.isExternal ? "_blank" : null}
+            rel={item.isExternal ? "noopener noreferrer" : null}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</footer>
+
+<style lang="scss">
+  footer {
+    height: 100%;
+    padding: 8px 0;
+    background-color: #110e0e;
+    text-align: center;
+  }
+
+  .copyright {
+    @include font-montserrat;
+  }
+
+  ul {
+    display: flex;
+    padding: 0 20px;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  li {
+    display: inline;
+    list-style: none;
+  }
+
+  a {
+    font-size: 14px;
+    color: inherit;
+    text-wrap: nowrap;
+  }
+</style>

@@ -1,0 +1,218 @@
+---
+import Layout from "../layouts/Layout.astro";
+import licenses from "../../licenses.json";
+import fs from "fs";
+import path from "path";
+
+type LicenseInfo = {
+  licenses: string;
+  repository?: string;
+  publisher?: string;
+  licenseFile?: string;
+  [key: string]: unknown;
+};
+
+const licenseData = Object.entries(licenses as Record<string, LicenseInfo>).map(
+  ([id, info]) => ({
+    id,
+    ...info,
+  }),
+);
+
+function readLicenseText(licenseFile: string | undefined) {
+  if (typeof licenseFile !== "string") return null;
+  try {
+    const licensePath = path.resolve(process.cwd(), licenseFile);
+    return fs.readFileSync(licensePath, "utf-8");
+  } catch (error) {
+    console.error(`Failed to read license file: ${licenseFile}`, error);
+    return "ライセンスファイルの読み込みに失敗しました。";
+  }
+}
+
+const TITLE = "ライセンス情報";
+---
+
+<Layout title={TITLE}>
+  <div class="container">
+    <h1>{TITLE}</h1>
+    <p>
+      本ウェブサイトの開発に使用しているライブラリとそのライセンスを以下に示します。
+    </p>
+    <ul>
+      {
+        licenseData.map((license) => {
+          const licenseText = readLicenseText(license.licenseFile);
+          return (
+            <li>
+              <h2>{license.id}</h2>
+              <dl>
+                {typeof license.repository === "string" ? (
+                  <>
+                    <dt>Repository</dt>
+                    <dd>
+                      <a
+                        href={license.repository}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {license.repository}
+                      </a>
+                    </dd>
+                  </>
+                ) : (
+                  ""
+                )}
+                {license.publisher ? (
+                  <>
+                    <dt>Publisher</dt>
+                    <dd>{license.publisher}</dd>
+                  </>
+                ) : (
+                  ""
+                )}
+                <dt>License</dt>
+                <dd>{license.licenses}</dd>
+              </dl>
+              {licenseText !== null ? (
+                <details>
+                  <summary>ライセンス本文</summary>
+                  <pre>{licenseText}</pre>
+                </details>
+              ) : (
+                ""
+              )}
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</Layout>
+
+<style lang="scss">
+  .container {
+    max-width: 668px;
+    margin: 32px auto;
+    padding: 16px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  p {
+    font-size: 17px;
+    margin: 36px auto;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    max-width: 100%;
+    margin-block: 24px;
+    padding: 20px;
+    background: $color-secondary;
+    box-shadow:
+      5px 5px 17px #0b0a0a,
+      -5px -5px 17px #2b2828;
+    border-radius: 12px;
+  }
+
+  h2 {
+    font-size: 20px;
+    margin-top: 0;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    font-size: 16px;
+    max-width: 472px;
+    margin: 0 auto;
+    gap: 6px 16px;
+    text-align: left;
+  }
+
+  dt {
+    font-weight: 900;
+  }
+
+  dd {
+    margin: 0;
+    word-break: break-all;
+  }
+
+  details {
+    max-width: 100%;
+    margin-top: 8px;
+  }
+
+  summary {
+    font-size: 18px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  pre {
+    font-size: 14px;
+    font-family: inherit;
+    max-width: 100%;
+    max-height: 512px;
+    margin-top: 14px;
+    padding: 24px 14px;
+    box-shadow:
+      inset 5px 5px 16px #0b0a0a,
+      inset -5px -5px 16px #2b2828;
+    border-radius: 8px;
+    text-align: center;
+    text-wrap: auto;
+    word-break: break-word;
+    overflow-y: scroll;
+  }
+
+  @include sp {
+    h1 {
+      font-size: 32px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    li {
+      margin-block: 20px;
+      padding: 14px;
+      box-shadow:
+        4px 4px 11px #100d0d,
+        -4px -4px 11px #3e3535;
+    }
+
+    h2 {
+      font-size: 16px;
+    }
+
+    dl {
+      grid-template-columns: 88px 1fr;
+      font-size: 14px;
+      gap: 3px 0;
+    }
+
+    summary {
+      font-size: 16px;
+    }
+
+    pre {
+      max-height: 320px;
+      margin-top: 11px;
+      padding: 18px 14px;
+      box-shadow:
+        inset 3px 3px 12px #100d0d,
+        inset -3px -3px 5px #3e3535;
+    }
+  }
+</style>

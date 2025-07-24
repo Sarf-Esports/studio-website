@@ -1,0 +1,37 @@
+---
+import { YouTube as BaseYouTube } from "astro-embed";
+
+type BaseYouTubeProps = Parameters<typeof BaseYouTube>[0];
+interface YouTubeParams {
+  // muteと一緒に使う必要あり
+  autoplay?: boolean;
+  controls?: boolean;
+  disablekb?: boolean;
+  end?: number;
+  fs?: boolean;
+  loop?: boolean;
+  mute?: boolean;
+  start?: number;
+}
+
+type Props = Omit<BaseYouTubeProps, "params"> & { params?: YouTubeParams };
+
+const params = Astro.props.params;
+// @ts-expect-error Define playlist in params
+params["playlist"] = Astro.props.id;
+
+// should be like params="start=57&end=75". booleans are converted to 0 or 1
+const stringifiedParams = Object.entries(Astro.props.params ?? {})
+  .map(([key, value]) => {
+    if (typeof value === "boolean") {
+      return `${key}=${value ? 1 : 0}`;
+    }
+    return `${key}=${value}`;
+  })
+  .join("&");
+
+const props = Astro.props as BaseYouTubeProps;
+props.params = stringifiedParams;
+---
+
+<BaseYouTube {...props} />
