@@ -13,9 +13,10 @@ interface Props {
   maxWidth?: string;
   slideHeight?: ResponsiveStyle<string>;
   slideSpacing?: ResponsiveStyle<string>;
+  random?: boolean;
 }
 
-const { maxWidth, slideHeight, slideSpacing } = Astro.props;
+const { maxWidth, slideHeight, slideSpacing, random } = Astro.props;
 
 const direction = Astro.props.backward ? "backward" : "forward";
 
@@ -58,7 +59,7 @@ const styles = {
 ---
 
 <section class="embla">
-  <div class="embla__viewport" data-direction={direction}>
+  <div class="embla__viewport" data-direction={direction} data-random={random}>
     <div class="embla__container">
       <slot />
     </div>
@@ -125,6 +126,11 @@ const styles = {
   });
 
   function initCarousel(viewport: HTMLElement) {
+    const shouldRandomize = viewport.getAttribute("data-random") === "true";
+    if (shouldRandomize) {
+      shuffleSlides(viewport);
+    }
+
     const carousel = EmblaCarousel(viewport, { loop: true, watchDrag: false }, [
       AutoScroll({
         direction: viewport.getAttribute("data-direction") as
@@ -140,6 +146,20 @@ const styles = {
     });
 
     return carousel;
+  }
+
+  function shuffleSlides(viewport: HTMLElement) {
+    const container = viewport.querySelector(".embla__container")!;
+    const slides = Array.from(container.children);
+    
+    for (let i = slides.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [slides[i], slides[j]] = [slides[j], slides[i]];
+    }
+    
+    slides.forEach(slide => container.appendChild(slide));
+
+    console.log("Slides shuffled:", slides.map(slide => slide.textContent));
   }
 
   /** viewportの幅に十分満たないとスライドが回らないから複製してかさ増しする */
