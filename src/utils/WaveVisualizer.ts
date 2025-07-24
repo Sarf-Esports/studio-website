@@ -25,11 +25,11 @@ export class WaveVisualizer {
     this.canvas.style.height = rect.height + "px";
     this.ctx.scale(dpr, dpr);
 
-    console.log(
-      `Resize detected [${this.isMobile ? "mobile" : "desktop"}]\n` +
-        `container: ${rect.width} x ${rect.height}\n` +
-        `canvas: ${this.canvas.width} x ${this.canvas.height}`,
-    );
+    // console.log(
+    //   `Resize detected [${this.isMobile ? "mobile" : "desktop"}]\n` +
+    //     `container: ${rect.width} x ${rect.height}\n` +
+    //     `canvas: ${this.canvas.width} x ${this.canvas.height}`,
+    // );
   }
 
   startVisualization(
