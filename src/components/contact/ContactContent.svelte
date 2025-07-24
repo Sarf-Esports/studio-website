@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { DISCORD_URL } from '../../utils/variables';
+	
 	const MAIL_ADDRESS = 'contact.revati@gmail.com';
 
 	let category: 'request' | 'entry' = 'request';
@@ -19,7 +21,7 @@
 		<div>
 			<h2>JOIN OUR COMMUNITY</h2>
 			<p>ご依頼やご相談は、Discord サーバーにて受け付けております。</p>
-			<a href="https://discord.gg/uRQ7n7mjHa" class="btn" target="_blank" rel="noopener noreferrer"
+			<a href={DISCORD_URL} class="btn" target="_blank" rel="noopener noreferrer"
 				>Discord サーバーに参加</a
 			>
 			<p>
