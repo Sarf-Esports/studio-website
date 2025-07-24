@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import type { Work } from '../../types';
 	import { WORKS } from '../../data';
@@ -9,17 +10,42 @@
 
 	type TabType = 'all' | keyof WORKS;
 
-	// タブの順序を定義
 	const TAB_ORDER: TabType[] = ['all', 'video', 'music', 'design', 'service'];
 
 	let activeTab = $state<TabType>('all');
 	let selectedWork = $state<Work | null>(null);
 	let previousTabIndex = $state<number>(0);
 
-	// 現在のタブのインデックスを取得
-	const currentTabIndex = $derived(TAB_ORDER.indexOf(activeTab));
+	function initializeTabFromURL() {
+		if (typeof window === 'undefined') return;
+		
+		const urlParams = new URLSearchParams(window.location.search);
+		const tabParam = urlParams.get('tab') as TabType;
+		
+		if (tabParam && TAB_ORDER.includes(tabParam)) {
+			activeTab = tabParam;
+		}
+	}
 
-	// スライド方向を決定（前のタブより右に進むか、左に戻るか）
+	function updateURL(tabId: TabType) {
+		if (typeof window === 'undefined') return;
+		
+		const url = new URL(window.location.href);
+		
+		if (tabId === 'all') {
+			url.searchParams.delete('tab');
+		} else {
+			url.searchParams.set('tab', tabId);
+		}
+		
+		window.history.replaceState({}, '', url.toString());
+	}
+
+	onMount(() => {
+		initializeTabFromURL();
+	});
+
+	const currentTabIndex = $derived(TAB_ORDER.indexOf(activeTab));
 	const slideDirection = $derived(currentTabIndex < previousTabIndex ? -300 : 300);
 
 	function getAllWorks(): Work[] {
@@ -100,6 +126,7 @@
 	function handleTabChange(tabId: TabType) {
 		previousTabIndex = currentTabIndex; // 現在のインデックスを前のインデックスとして保存
 		activeTab = tabId;
+		updateURL(tabId);
 	}
 
 	function handleWorkClick(work: Work) {
