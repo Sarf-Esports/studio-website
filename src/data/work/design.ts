@@ -5,7 +5,8 @@ import welcome250518 from "../../assets/works/250518_pstr_welcome.webp";
 
 export const DESIGN = [
   {
-    title: "REVATI ヘッダー",
+    title: "X用ヘッダー",
+    clientName: "REVATI",
     createdAt: "2024-04-01",
     tags: ["デザイン"],
     authors: ["HIKA"],
@@ -19,28 +20,30 @@ export const DESIGN = [
     ],
   },
   {
-    title: "REVATI OW部門 発表ポスター",
+    title: "OW部門 発表サムネイル",
+    clientName: "REVATI",
     createdAt: "2025-05-11",
     tags: ["デザイン"],
     authors: ["Reku"],
     assets: [
       {
         type: "image",
-        caption: "REVATI OW部門 発表ポスター",
+        caption: "REVATI OW部門 発表サムネイル",
         src: ow250511,
         showInCarousel: true,
       },
     ],
   },
   {
-    title: "REVATI 加入発表ポスター",
+    title: "加入発表サムネイル",
+    clientName: "REVATI",
     createdAt: "2025-05-18",
     tags: ["デザイン"],
     authors: ["Reku"],
     assets: [
       {
         type: "image",
-        caption: "REVATI 加入発表ポスター",
+        caption: "REVATI 加入発表サムネイル",
         src: welcome250518,
         showInCarousel: true,
       },
