@@ -31,6 +31,7 @@ const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
     slideHeight={{ desktop: "45vh", tablet: "30vh", mobile: "22vh" }}
     maxWidth="100vw"
     slideSpacing={{ desktop: "1rem", tablet: "0.7rem", mobile: "0.5rem" }}
+    random
   >
     {
       carouselImages.map((asset) => (

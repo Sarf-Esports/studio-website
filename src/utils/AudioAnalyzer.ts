@@ -56,7 +56,7 @@ export class AudioAnalyzer {
         // 現在のaudio要素を記録
         this.currentAudioElement = audioElement;
 
-        console.log("Audio nodes initialized successfully");
+        // console.log("Audio nodes initialized successfully");
       }
       return true;
     } catch (error: unknown) {

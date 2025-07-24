@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { fly } from 'svelte/transition';
 	import type { Work } from '../../types';
 	import { WORKS } from '../../data';
 	import { queryWorks } from '../../utils';
@@ -8,8 +10,43 @@
 
 	type TabType = 'all' | keyof WORKS;
 
+	const TAB_ORDER: TabType[] = ['all', 'video', 'music', 'design', 'service'];
+
 	let activeTab = $state<TabType>('all');
 	let selectedWork = $state<Work | null>(null);
+	let previousTabIndex = $state<number>(0);
+
+	function initializeTabFromURL() {
+		if (typeof window === 'undefined') return;
+
+		const urlParams = new URLSearchParams(window.location.search);
+		const tabParam = urlParams.get('tab') as TabType;
+
+		if (tabParam && TAB_ORDER.includes(tabParam)) {
+			activeTab = tabParam;
+		}
+	}
+
+	function updateURL(tabId: TabType) {
+		if (typeof window === 'undefined') return;
+
+		const url = new URL(window.location.href);
+
+		if (tabId === 'all') {
+			url.searchParams.delete('tab');
+		} else {
+			url.searchParams.set('tab', tabId);
+		}
+
+		window.history.replaceState({}, '', url.toString());
+	}
+
+	onMount(() => {
+		initializeTabFromURL();
+	});
+
+	const currentTabIndex = $derived(TAB_ORDER.indexOf(activeTab));
+	const slideDirection = $derived(currentTabIndex < previousTabIndex ? -300 : 300);
 
 	function getAllWorks(): Work[] {
 		return Object.values(WORKS).flat();
@@ -87,7 +124,9 @@
 	});
 
 	function handleTabChange(tabId: TabType) {
+		previousTabIndex = currentTabIndex; // 現在のインデックスを前のインデックスとして保存
 		activeTab = tabId;
+		updateURL(tabId);
 	}
 
 	function handleWorkClick(work: Work) {
@@ -103,7 +142,14 @@
 	<TabNavigation {activeTab} onTabChange={handleTabChange} />
 
 	<div class="works-content">
-		<WorksList works={filteredWorks} onWorkClick={handleWorkClick} />
+		{#key activeTab}
+			<div
+				in:fly={{ x: slideDirection, duration: 200, delay: 100 }}
+				out:fly={{ x: -slideDirection, duration: 150 }}
+			>
+				<WorksList works={filteredWorks} onWorkClick={handleWorkClick} />
+			</div>
+		{/key}
 	</div>
 </div>
 
