@@ -67,7 +67,7 @@ export const VIDEO = [
   },
   {
     title: "OW2の新モード『スタジアム』が超面白いって話【Overwatch2】",
-    clientName: "沈む",
+    clientName: "V's",
     createdAt: "2025-04-19",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["かずくん", "Reku"],
@@ -87,7 +87,7 @@ export const VIDEO = [
   },
   {
     title: "スタジアム駆け回るソルジャーに困惑？！【Overwatch2】",
-    clientName: "沈む",
+    clientName: "V's",
     createdAt: "2025-04-30",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["Ruilu", "Reku"],
@@ -107,7 +107,7 @@ export const VIDEO = [
   },
   {
     title: "みんなもフレイヤ使おう委員会代表【Overwatch2】",
-    clientName: "沈む",
+    clientName: "V's",
     createdAt: "2025-05-10",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["かずくん", "Reku"],
@@ -127,7 +127,7 @@ export const VIDEO = [
   },
   {
     title: "今、APEXがアツイ【Apex Legends】",
-    clientName: "沈む",
+    clientName: "V's",
     createdAt: "2025-06-18",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["かずくん", "Reku"],
