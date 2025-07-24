@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { DISCORD_URL } from '../../utils/variables';
-	
+
 	const MAIL_ADDRESS = 'contact.revati@gmail.com';
 
 	let category: 'request' | 'entry' = 'request';

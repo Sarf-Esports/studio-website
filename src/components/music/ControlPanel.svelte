@@ -64,10 +64,7 @@
 
 <!-- 最小化解除ボタン -->
 {#if !isMobile && isMinimized}
-	<div 
-		in:fly={{ y: 50, duration: 100 }} 
-		out:fly={{ y: 50, duration: 50 }}
-	>
+	<div in:fly={{ y: 50, duration: 100 }} out:fly={{ y: 50, duration: 50 }}>
 		<MinimizeButton {isMinimized} onclick={handleMinimize} />
 	</div>
 {/if}
@@ -82,14 +79,14 @@
 		role={isMobile && !isMobileExpanded ? 'button' : undefined}
 		aria-label={isMobile && !isMobileExpanded ? 'expand control panel' : undefined}
 		aria-expanded={isMobile ? isMobileExpanded : undefined}
-		in:fly={{ 
-			y: 100, 
-			duration: 200, 
-			delay: 50 
+		in:fly={{
+			y: 100,
+			duration: 200,
+			delay: 50
 		}}
-		out:fly={{ 
-			y: 100, 
-			duration: 200, 
+		out:fly={{
+			y: 100,
+			duration: 200,
 			delay: 50
 		}}
 	>

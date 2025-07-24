@@ -76,8 +76,8 @@ export const DESIGN = [
         caption: "REVATI Studio ヘッダー (2)",
         src: studioHeader2,
         showInCarousel: true,
-      }
-    ]
+      },
+    ],
   },
   {
     title: "REVATI Studio ロゴ",
@@ -91,8 +91,8 @@ export const DESIGN = [
         caption: "REVATI Studio ロゴ",
         src: studioLogo,
         showInCarousel: true,
-      }
-    ]
+      },
+    ],
   },
   {
     title: "APEX部門 発表画像",
@@ -106,8 +106,8 @@ export const DESIGN = [
         caption: "REVATI APEX部門 発表画像",
         src: apexdiv250716,
         showInCarousel: true,
-      }
-    ]
+      },
+    ],
   },
   {
     title: "試合告知画像",

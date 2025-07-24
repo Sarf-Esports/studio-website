@@ -18,10 +18,10 @@
 
 	function initializeTabFromURL() {
 		if (typeof window === 'undefined') return;
-		
+
 		const urlParams = new URLSearchParams(window.location.search);
 		const tabParam = urlParams.get('tab') as TabType;
-		
+
 		if (tabParam && TAB_ORDER.includes(tabParam)) {
 			activeTab = tabParam;
 		}
@@ -29,15 +29,15 @@
 
 	function updateURL(tabId: TabType) {
 		if (typeof window === 'undefined') return;
-		
+
 		const url = new URL(window.location.href);
-		
+
 		if (tabId === 'all') {
 			url.searchParams.delete('tab');
 		} else {
 			url.searchParams.set('tab', tabId);
 		}
-		
+
 		window.history.replaceState({}, '', url.toString());
 	}
 
@@ -143,8 +143,8 @@
 
 	<div class="works-content">
 		{#key activeTab}
-			<div 
-				in:fly={{ x: slideDirection, duration: 200, delay: 100 }} 
+			<div
+				in:fly={{ x: slideDirection, duration: 200, delay: 100 }}
 				out:fly={{ x: -slideDirection, duration: 150 }}
 			>
 				<WorksList works={filteredWorks} onWorkClick={handleWorkClick} />
