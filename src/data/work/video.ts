@@ -9,7 +9,8 @@ import subacc250716 from "../../assets/works/250716_tmnl_subacc.webp";
 
 export const VIDEO = [
   {
-    title: "REVATI×V's Montage",
+    title: "Overwatch 2 女子部門 Montage",
+    clientName: "REVATI",
     createdAt: "2025-03-31",
     tags: ["動画編集", "BGM"],
     authors: ["Reku", "Ruilu", "くりす"],
@@ -139,27 +140,29 @@ export const VIDEO = [
     ],
   },
   {
-    title: "沈む様 Youtube用ED",
+    title: "エンディング『sizumu.exe』",
+    clientName: "沈む",
     createdAt: "2025-04-28",
     tags: ["動画編集"],
     authors: ["Reku"],
     assets: [
       {
         type: "video",
-        title: "沈む様 Youtube用ED",
+        title: "エンディング『sizumu.exe』",
         src: "https://www.youtube.com/watch?v=WTSC12JGenE",
       },
     ],
   },
   {
-    title: "沈む様 配信待機画面",
+    title: "配信待機画面『ねこたたき』",
+    clientName: "沈む",
     createdAt: "2025-05-16",
     tags: ["動画編集"],
     authors: ["Reku"],
     assets: [
       {
         type: "video",
-        title: "沈む様 配信待機画面",
+        title: "配信待機画面『ねこたたき』",
         src: "https://www.youtube.com/watch?v=WjwuBdj5XdM",
       },
     ],

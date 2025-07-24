@@ -74,24 +74,29 @@
 	<dialog bind:this={dialog} onclose={handleDialogClose} onclick={handleDialogClick}>
 		<div class="modal-content">
 			<header class="modal-header">
-				<h2 id="modal-title" class="modal-title">{work.title}</h2>
-				<button class="modal-close" onclick={onClose} aria-label="モーダルを閉じる">
-					<svg
-						width="24"
-						height="24"
-						viewBox="0 0 24 24"
-						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							d="M18 6L6 18M6 6L18 18"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						/>
-					</svg>
-				</button>
+				<div class="header-top">
+					<h2 id="modal-title" class="modal-title">{work.title}</h2>
+					<button class="modal-close" onclick={onClose} aria-label="モーダルを閉じる">
+						<svg
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M18 6L6 18M6 6L18 18"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</button>
+				</div>
+				{#if work.clientName}
+					<p class="modal-client">{work.clientName}</p>
+				{/if}
 			</header>
 
 			<div class="modal-body">
@@ -168,7 +173,6 @@
 									{#if asset.thumbnail !== undefined}
 										<img src={getImgUrlFromSrc(asset.thumbnail)} alt="" />
 									{/if}
-									<p class="asset-client">クライアント: {asset.clientName}</p>
 									<a href={asset.url} target="_blank" rel="noopener noreferrer" class="asset-link">
 										サイトを見る
 										<svg
@@ -263,11 +267,17 @@
 
 	.modal-header {
 		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		flex-direction: column;
 		padding: 1.5rem 2rem;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 		flex-shrink: 0;
+	}
+
+	.header-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
 	}
 
 	.modal-title {
@@ -275,6 +285,14 @@
 		font-weight: 900;
 		color: #fff;
 		margin: 0;
+	}
+
+	.modal-client {
+		font-size: 0.9rem;
+		font-weight: 500;
+		color: #aaa;
+		margin: 0;
+		align-self: flex-start;
 	}
 
 	.modal-close {
@@ -472,12 +490,6 @@
 		}
 	}
 
-	.asset-client {
-		font-size: 0.9rem;
-		color: rgba(255, 255, 255, 0.7);
-		margin: 0 0 1rem 0;
-	}
-
 	.asset-link {
 		display: inline-flex;
 		align-items: center;
@@ -521,6 +533,10 @@
 
 		.modal-title {
 			font-size: 1.1rem;
+		}
+
+		.modal-client {
+			font-size: 0.8rem;
 		}
 
 		.modal-body {

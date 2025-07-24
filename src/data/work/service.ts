@@ -6,6 +6,7 @@ import revatiStudio from "../../assets/works/studio-revati-jp.webp";
 export const SERVICE = [
   {
     title: "REVATI",
+    clientName: "REVATI",
     createdAt: "2023-01-21",
     tags: ["Webサイト"],
     authors: ["Rinrin.rs", "GEN3987", "Retoruto9900K", "しろねこ"],
@@ -14,7 +15,6 @@ export const SERVICE = [
         type: "website",
         title: "revati.jp",
         url: "https://revati.jp",
-        clientName: "REVATI",
         thumbnail: revatiJp,
       },
       {
@@ -26,6 +26,7 @@ export const SERVICE = [
   },
   {
     title: "REVATI Studio",
+    clientName: "REVATI Studio",
     createdAt: "2025-07-24",
     tags: ["Webサイト"],
     authors: ["RetoRuto9900K", "Rinrin.rs", "Studio Members"],
@@ -34,7 +35,6 @@ export const SERVICE = [
         type: "website",
         title: "studio.revati.jp",
         url: "https://studio.revati.jp",
-        clientName: "REVATI Studio",
         thumbnail: revatiStudio,
       },
       {

@@ -20,6 +20,8 @@ export interface Work {
   // ここで定義されない場合、assetsの最初の要素のサムネイルを使用する
   thumbnail?: Image;
   border?: string;
+  // クライアント名 (敬称略)
+  clientName?: string;
 }
 
 export type Asset =
@@ -56,7 +58,6 @@ export interface WebsiteAsset {
   type: "website";
   title: string;
   url: string;
-  clientName: string;
   thumbnail?: ImageSource;
 }
 
