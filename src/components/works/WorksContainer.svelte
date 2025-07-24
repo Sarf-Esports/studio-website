@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition';
 	import type { Work } from '../../types';
 	import { WORKS } from '../../data';
 	import { queryWorks } from '../../utils';
@@ -103,7 +104,11 @@
 	<TabNavigation {activeTab} onTabChange={handleTabChange} />
 
 	<div class="works-content">
-		<WorksList works={filteredWorks} onWorkClick={handleWorkClick} />
+		{#key activeTab}
+			<div in:fade={{ duration: 200, delay: 100 }} out:fade={{ duration: 100 }}>
+				<WorksList works={filteredWorks} onWorkClick={handleWorkClick} />
+			</div>
+		{/key}
 	</div>
 </div>
 
