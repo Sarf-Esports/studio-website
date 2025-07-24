@@ -134,6 +134,9 @@
 		{/if}
 		<div class="work-overlay">
 			<div class="work-overlay-content">
+				{#if work.clientName}
+					<p class="work-client">{work.clientName}</p>
+				{/if}
 				<h3 class="work-title">{work.title}</h3>
 				{#if work.tags.length > 0}
 					<div class="work-tags">
@@ -284,6 +287,15 @@
 		width: 100%;
 	}
 
+	.work-client {
+		font-size: 0.8rem;
+		font-weight: 500;
+		color: #aaa;
+		margin: 0 0 -0.6rem 0;
+		line-height: 1.2;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+	}
+
 	.work-title {
 		font-size: 1rem;
 		font-weight: 900;
@@ -314,6 +326,10 @@
 	}
 
 	@media (max-width: 1200px) {
+		.work-client {
+			font-size: 0.75rem;
+		}
+
 		.work-title {
 			font-size: 0.9rem;
 		}

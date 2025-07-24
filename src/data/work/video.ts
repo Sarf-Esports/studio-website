@@ -9,14 +9,15 @@ import subacc250716 from "../../assets/works/250716_tmnl_subacc.webp";
 
 export const VIDEO = [
   {
-    title: "REVATI×V's Montage",
+    title: "Overwatch 2 女子部門 Montage",
+    clientName: "REVATI",
     createdAt: "2025-03-31",
     tags: ["動画編集", "BGM"],
     authors: ["Reku", "Ruilu", "くりす"],
     assets: [
       {
         type: "video",
-        title: "REVATI×V's Montage",
+        title: "Overwatch 2 女子部門 Montage",
         src: "https://www.youtube.com/watch?v=oDSA0neUSAg",
       },
       {
@@ -28,13 +29,14 @@ export const VIDEO = [
   },
   {
     title: "OW部門 ロスター告知動画",
+    clientName: "REVATI",
     createdAt: "2025-04-22",
     tags: ["動画編集", "BGM"],
     authors: ["おしお", "Reku", "くりす"],
     assets: [
       {
         type: "video",
-        title: "OW部門 ロスター告知動画",
+        title: "REVATI OW部門 ロスター告知動画",
         src: "https://www.youtube.com/watch?v=OcEMwCsxKQg",
       },
       {
@@ -45,7 +47,8 @@ export const VIDEO = [
     ],
   },
   {
-    title: "REVATI OW部門 Highlight",
+    title: "OW部門 Highlight",
+    clientName: "REVATI",
     createdAt: "2025-05-12",
     tags: ["動画編集", "BGM"],
     authors: ["Reku", "くりす"],
@@ -64,6 +67,7 @@ export const VIDEO = [
   },
   {
     title: "OW2の新モード『スタジアム』が超面白いって話【Overwatch2】",
+    clientName: "沈む",
     createdAt: "2025-04-19",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["かずくん", "Reku"],
@@ -83,6 +87,7 @@ export const VIDEO = [
   },
   {
     title: "スタジアム駆け回るソルジャーに困惑？！【Overwatch2】",
+    clientName: "沈む",
     createdAt: "2025-04-30",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["Ruilu", "Reku"],
@@ -102,6 +107,7 @@ export const VIDEO = [
   },
   {
     title: "みんなもフレイヤ使おう委員会代表【Overwatch2】",
+    clientName: "沈む",
     createdAt: "2025-05-10",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["かずくん", "Reku"],
@@ -121,6 +127,7 @@ export const VIDEO = [
   },
   {
     title: "今、APEXがアツイ【Apex Legends】",
+    clientName: "沈む",
     createdAt: "2025-06-18",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["かずくん", "Reku"],
@@ -139,33 +146,36 @@ export const VIDEO = [
     ],
   },
   {
-    title: "沈む様 Youtube用ED",
+    title: "エンディング『sizumu.exe』",
+    clientName: "沈む",
     createdAt: "2025-04-28",
     tags: ["動画編集"],
     authors: ["Reku"],
     assets: [
       {
         type: "video",
-        title: "沈む様 Youtube用ED",
+        title: "エンディング『sizumu.exe』",
         src: "https://www.youtube.com/watch?v=WTSC12JGenE",
       },
     ],
   },
   {
-    title: "沈む様 配信待機画面",
+    title: "配信待機画面『ねこたたき』",
+    clientName: "沈む",
     createdAt: "2025-05-16",
     tags: ["動画編集"],
     authors: ["Reku"],
     assets: [
       {
         type: "video",
-        title: "沈む様 配信待機画面",
+        title: "配信待機画面『ねこたたき』",
         src: "https://www.youtube.com/watch?v=WjwuBdj5XdM",
       },
     ],
   },
   {
     title: "プロのランクでキャリーするプロコーチの秘訣 [オーバーウォッチ 2]",
+    clientName: "STRIKE",
     createdAt: "2025-05-30",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["かずくん", "Reku"],
@@ -187,6 +197,7 @@ export const VIDEO = [
   {
     title:
       "今話題のサブアカウント問題についてお話しします【オーバーウォッチ2】",
+    clientName: "STRIKE",
     createdAt: "2025-07-16",
     tags: ["動画編集", "サムネイル制作"],
     authors: ["Reku"],
@@ -207,6 +218,7 @@ export const VIDEO = [
   },
   {
     title: "Nyam Gaming Cup 前哨戦 結婚をかけていざ勝負 VSばさお",
+    clientName: "きゅうりおいしい",
     createdAt: "2025-07-04",
     tags: ["動画編集"],
     authors: ["Reku"],
