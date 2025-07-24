@@ -12,7 +12,6 @@ import { queryAssets } from "../utils";
 import type { ImageAsset } from "../types";
 
 const carouselImages = queryAssets({ showInCarousel: true }) as ImageAsset[];
-console.log("Carousel images:", carouselImages.length);
 
 // // ウィンドウの最大サイズ。ビューポートが狭くなっても、このアスペクト比を保ちながら縮小する。
 // const DRAGGABLE_WINDOW_MAX_SIZE = { width: 500, height: 276 };
