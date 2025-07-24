@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fade } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import type { Work } from '../../types';
 	import { WORKS } from '../../data';
 	import { queryWorks } from '../../utils';
@@ -9,8 +9,18 @@
 
 	type TabType = 'all' | keyof WORKS;
 
+	// タブの順序を定義
+	const TAB_ORDER: TabType[] = ['all', 'video', 'music', 'design', 'service'];
+
 	let activeTab = $state<TabType>('all');
 	let selectedWork = $state<Work | null>(null);
+	let previousTabIndex = $state<number>(0);
+
+	// 現在のタブのインデックスを取得
+	const currentTabIndex = $derived(TAB_ORDER.indexOf(activeTab));
+
+	// スライド方向を決定（前のタブより右に進むか、左に戻るか）
+	const slideDirection = $derived(currentTabIndex < previousTabIndex ? -300 : 300);
 
 	function getAllWorks(): Work[] {
 		return Object.values(WORKS).flat();
@@ -88,6 +98,7 @@
 	});
 
 	function handleTabChange(tabId: TabType) {
+		previousTabIndex = currentTabIndex; // 現在のインデックスを前のインデックスとして保存
 		activeTab = tabId;
 	}
 
@@ -105,7 +116,10 @@
 
 	<div class="works-content">
 		{#key activeTab}
-			<div in:fade={{ duration: 200, delay: 100 }} out:fade={{ duration: 100 }}>
+			<div 
+				in:fly={{ x: slideDirection, duration: 200, delay: 100 }} 
+				out:fly={{ x: -slideDirection, duration: 150 }}
+			>
 				<WorksList works={filteredWorks} onWorkClick={handleWorkClick} />
 			</div>
 		{/key}

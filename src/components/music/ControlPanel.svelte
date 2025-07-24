@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { fly, scale } from 'svelte/transition';
 	import type { Track } from '../../types/music';
 	import TrackInfo from './TrackInfo.svelte';
 	import PlaybackControls from './PlaybackControls.svelte';
@@ -63,7 +64,12 @@
 
 <!-- 最小化解除ボタン -->
 {#if !isMobile && isMinimized}
-	<MinimizeButton {isMinimized} onclick={handleMinimize} />
+	<div 
+		in:fly={{ y: 50, duration: 100 }} 
+		out:fly={{ y: 50, duration: 50 }}
+	>
+		<MinimizeButton {isMinimized} onclick={handleMinimize} />
+	</div>
 {/if}
 
 {#if isMobile || !isMinimized}
@@ -76,6 +82,16 @@
 		role={isMobile && !isMobileExpanded ? 'button' : undefined}
 		aria-label={isMobile && !isMobileExpanded ? 'expand control panel' : undefined}
 		aria-expanded={isMobile ? isMobileExpanded : undefined}
+		in:fly={{ 
+			y: 100, 
+			duration: 200, 
+			delay: 50 
+		}}
+		out:fly={{ 
+			y: 100, 
+			duration: 200, 
+			delay: 50
+		}}
 	>
 		<!-- 最小化ボタン(ControlPanelの中) -->
 		{#if !isMobile && !isMinimized}
