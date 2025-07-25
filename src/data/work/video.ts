@@ -54,6 +54,30 @@ export const VIDEO = [
     authors: ["Reku", "くりす"],
     assets: [
       {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/1924837969397166400"
+      },
+      {
+        type: "tweet", 
+        tweetUrl: "https://x.com/revati_jp/status/1922638906777915619"
+      },
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/1927635958096105535"
+      },
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/1929886810043494846"
+      },
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/1932395588320219543"
+      },
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/1933449263113261102"
+      },
+      {
         type: "video",
         title: "REVATI OW部門 Highlight",
         src: "https://www.youtube.com/watch?v=rJ8QSISSMo8",

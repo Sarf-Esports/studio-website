@@ -29,9 +29,10 @@ export type Asset =
   | ImageAsset
   | MusicAsset
   | WebsiteAsset
-  | ExternalAsset;
+  | ExternalAsset
+  | TweetAsset;
 
-export type AssetType = "video" | "image" | "music" | "website" | "external";
+export type AssetType = "video" | "image" | "music" | "website" | "external" | "tweet";
 
 export interface VideoAsset {
   type: "video";
@@ -66,4 +67,9 @@ export interface ExternalAsset {
   title?: string;
   url: string;
   thumbnail?: ImageSource;
+}
+
+export interface TweetAsset {
+  type: "tweet";
+  tweetUrl: string;
 }
