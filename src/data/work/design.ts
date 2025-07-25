@@ -11,6 +11,7 @@ import game250514 from "../../assets/works/250514_tmnl_game.webp";
 import game250609 from "../../assets/works/250609_tmnl_game.webp";
 import result250514 from "../../assets/works/250514_tmnl_result.webp";
 import academy250427 from "../../assets/works/250427_tmnl_academy.webp";
+import ccdiv250725 from "../../assets/works/250725_annc_ccdiv.webp";
 
 export const DESIGN = [
   {
@@ -184,4 +185,19 @@ export const DESIGN = [
       },
     ],
   },
+  {
+    title: "REVATI 加入発表画像",
+    clientName: "REVATI",
+    createdAt: "2025-07-25",
+    tags: ["告知画像"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "image",
+        caption: "REVATI 加入発表画像",
+        src: ccdiv250725,
+        showInCarousel: true,
+      },
+    ],
+  }
 ] satisfies Work[];
