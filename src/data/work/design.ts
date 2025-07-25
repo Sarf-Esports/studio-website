@@ -1,16 +1,16 @@
 import type { Work } from "../../types";
 
-import ow250511 from "../../assets/works/250511_pstr_ow.webp";
-import welcome250518 from "../../assets/works/250518_pstr_welcome.webp";
+import ow250511 from "../../assets/works/250511_annc_ow.webp";
+import welcome250518 from "../../assets/works/250518_annc_welcome.webp";
 import studioHeader1 from "../../assets/works/250724_studio_header1.webp";
 import studioHeader2 from "../../assets/works/250724_studio_header2.webp";
 import studioLogo from "../../assets/works/250724_studio_logo.webp";
-import apexdiv250716 from "../../assets/works/250716_tmnl_apexdiv.webp";
-import game250503 from "../../assets/works/250503_tmnl_game.webp";
-import game250514 from "../../assets/works/250514_tmnl_game.webp";
-import game250609 from "../../assets/works/250609_tmnl_game.webp";
-import result250514 from "../../assets/works/250514_tmnl_result.webp";
-import academy250427 from "../../assets/works/250427_tmnl_academy.webp";
+import apexdiv250716 from "../../assets/works/250716_annc_apexdiv.webp";
+import game250503 from "../../assets/works/250503_annc_game.webp";
+import game250514 from "../../assets/works/250514_annc_game.webp";
+import game250609 from "../../assets/works/250609_annc_game.webp";
+import result250514 from "../../assets/works/250514_annc_result.webp";
+import academy250427 from "../../assets/works/250427_annc_academy.webp";
 import ccdiv250725 from "../../assets/works/250725_annc_ccdiv.webp";
 
 export const DESIGN = [
