@@ -160,7 +160,7 @@
 										<span class="asset-type-chip music">Music</span>
 										<h4 class="asset-title">{asset.title}</h4>
 									</div>
-									<audio controls>
+									<audio controls controlslist="nodownload">
 										<source src={asset.src} />
 									</audio>
 								</div>
