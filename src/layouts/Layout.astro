@@ -3,7 +3,7 @@ import { WEBSITE_TITLE, WEBSITE_URL, COPYRIGHT } from "../utils/variables";
 import { ClientRouter } from "astro:transitions";
 import Header from "../components/header/Header.astro";
 import Footer from "../components/footer/Footer.astro";
-import TwitterLink from "../components/TwitterLink.astro";
+import FixedLinks from "../components/FixedLinks.astro";
 import { TITLE, SUBTITLE } from "../pages/about.astro";
 
 import studioHeaderImage from "../assets/Revati-Studio_header_orange.png";
@@ -115,7 +115,7 @@ Web 開発だけでなく、Discord ボットやソフトウェア開発など�
       <slot />
     </main>
     <div class="footer-container"><Footer /></div>
-    <TwitterLink />
+    <FixedLinks />
   </body>
 </html>
 

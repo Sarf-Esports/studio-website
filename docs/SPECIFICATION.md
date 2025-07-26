@@ -78,6 +78,6 @@
 |    1010 | MusicPlayer ControlPanel 閉じるボタン      | [`src/components/music/ControlPanel.svelte>style>.close-button`](../src/components/music/ControlPanel.svelte)            |
 |    1000 | MusicPlayer 本体                           | [`src/components/music/MusicPlayer.svelte>style>.music-player`](../src/components/music/MusicPlayer.svelte)              |
 |     255 | ヘッダー                                   | [`src/components/header/Navbar.astro>style>ul`](../src/components/header/Navbar.astro)                                   |
-|     224 | 画面追従SNSリンク                          | [`src/components/TwitterLink.astro>style>a`](../src/components/TwitterLink.astro)                                        |
+|     224 | 画面追従リンク群                           | [`src/components/FixedLinks.astro>style>ul`](../src/components/FixedLinks.astro)                                         |
 |      10 | WorkCard オーバーレイ                      | [`src/components/works/WorkCard.svelte>style>.work-overlay`](../src/components/works/WorkCard.svelte)                    |
 |       1 | WorkCard アイコンサムネイル                | [`src/components/works/WorkCard.svelte>style>.icon-thumbnail`](../src/components/works/WorkCard.svelte)                  |
