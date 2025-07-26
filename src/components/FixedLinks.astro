@@ -41,7 +41,7 @@ const LINKS: {
             src={link.logo}
             alt={link.title}
             class="logo"
-            style={`scale: ${link.scale ?? 1}`}
+            style={`--scale: ${link.scale ?? 1}`}
           />
         </a>
       </li>
@@ -80,6 +80,7 @@ const LINKS: {
   .logo {
     width: 22px;
     height: auto;
+    scale: var(--scale, 1);
   }
 
   @media screen and (max-width: #{$music-player-bp - 1}) {
