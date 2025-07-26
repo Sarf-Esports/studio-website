@@ -1,0 +1,101 @@
+---
+import type { ImageMetadata } from "astro";
+import XLogo from "../assets/logos/x_white.svg";
+import DiscordLogo from "../assets/logos/discord-mark-blue.svg";
+import { DISCORD_URL } from "../utils/variables";
+import { Image } from "astro:assets";
+
+const ID = "revati_studio";
+
+const LINKS: {
+  href: string;
+  title: string;
+  logo: ImageMetadata;
+  scale?: number;
+}[] = [
+  {
+    href: "https://x.com/" + ID,
+    title: "X: @" + ID,
+    logo: XLogo,
+  },
+  {
+    href: DISCORD_URL,
+    title: "ご依頼やご相談は、この Discord サーバーにて受け付けております。",
+    logo: DiscordLogo,
+    scale: 1.4,
+  },
+];
+---
+
+<ul>
+  {
+    LINKS.map((link) => (
+      <li>
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          title={link.title}
+        >
+          <Image
+            src={link.logo}
+            alt={link.title}
+            class="logo"
+            style={`--scale: ${link.scale ?? 1}`}
+          />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style lang="scss">
+  // `/src/components/music/MusicPlayer.svelte` の `module` スクリプトブロック内で定義される `MUSIC_PLAYER_BREAKPOINT` 定数も更新すること。
+  $music-player-bp: 768px;
+
+  ul {
+    display: flex;
+    width: 52px;
+    margin: 0;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 56px;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    list-style: none;
+    z-index: 224;
+    @include fixed-panel;
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  li {
+    margin: 7px auto;
+  }
+
+  .logo {
+    width: 22px;
+    height: auto;
+    scale: var(--scale, 1);
+  }
+
+  @media screen and (max-width: #{$music-player-bp - 1}) {
+    ul {
+      width: 40px;
+      padding-block: 5px;
+      bottom: 128px;
+    }
+
+    li {
+      margin-block: 5px;
+    }
+
+    .logo {
+      width: 18px;
+    }
+  }
+</style>
