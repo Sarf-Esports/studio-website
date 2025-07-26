@@ -17,6 +17,7 @@ const YOUTUBE_URL_PATTERNS = [
   /(?:https?:\/\/)?(?:www\.)?youtu\.be\/([a-zA-Z0-9_-]+)/,
   // Embed URL
   /(?:https?:\/\/)?(?:www\.)?youtube\.com\/embed\/([a-zA-Z0-9_-]+)/,
+  /(?:https?:\/\/)?(?:www\.)?youtube-nocookie\.com\/embed\/([a-zA-Z0-9_-]+)/,
   // Legacy video URL
   /(?:https?:\/\/)?(?:www\.)?youtube\.com\/v\/([a-zA-Z0-9_-]+)/,
   // Mobile URL
@@ -117,7 +118,7 @@ export function getYouTubeEmbedUrl(
   }
 
   const queryString = params.toString();
-  const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+  const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`;
 
   return queryString ? `${embedUrl}?${queryString}` : embedUrl;
 }
@@ -131,7 +132,7 @@ export function getYouTubeVideoInfo(videoId: string) {
   return {
     id: videoId,
     watchUrl: `https://www.youtube.com/watch?v=${videoId}`,
-    embedUrl: `https://www.youtube.com/embed/${videoId}`,
+    embedUrl: `https://www.youtube-nocookie.com/embed/${videoId}`,
     thumbnails: {
       maxres: getYouTubeThumbnail(videoId, "maxres"),
       hq: getYouTubeThumbnail(videoId, "hq"),
