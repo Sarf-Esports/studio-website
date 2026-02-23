@@ -30,6 +30,28 @@ const PROCESS = [
   { title: "納品", desc: "最終的な制作物をご指定の形式で納品いたします。" },
 ];
 
+const FAQ = [
+  {
+    question: "見積もりは無料ですか？",
+    answer: "はい、お見積もりやご相談は無料です。",
+  },
+  {
+    question: "予算が確定していませんが、相談可能ですか？",
+    answer:
+      "可能です。ご予算に合わせて、実現可能なクオリティや構成案を逆算してご提案いたします。",
+  },
+  {
+    question: "修正回数に制限はありますか？",
+    answer:
+      "基本料金内で2回までの修正を承ります。3回目以降、または当初の要件から大幅に変更となる場合は、追加費用をいただく場合がございます。",
+  },
+  {
+    question: "個人でも依頼は可能ですか？",
+    answer:
+      "はい、もちろんです。法人・個人、活動規模を問わず、あらゆるクリエイティブのご相談を承っております。",
+  },
+];
+
 export const TITLE = "REVATI Studio";
 export const SUBTITLE = "/ Creative Studio";
 ---
@@ -66,8 +88,25 @@ export const SUBTITLE = "/ Creative Studio";
           }
         </ul>
       </div>
+      <div class="faq">
+        <h2>よくある質問</h2>
+        <div class="faq-list">
+          {
+            FAQ.map((item) => (
+              <div class="faq-item">
+                <h3 class="faq-question">{item.question}</h3>
+                <p class="faq-answer">{item.answer}</p>
+              </div>
+            ))
+          }
+        </div>
+        <div class="faq-message">
+          ジャンルの制限はございません。お客様が形にしたい想いやコンセプトを、理想的な形でデザインに落とし込みます。まずは「何を作りたいか」を、お気軽にお聞かせください。
+        </div>
+      </div>
     </section>
   </div>
+
   <MusicPlayer client:load transition:name="music-player" transition:persist />
 </Layout>
 
@@ -186,6 +225,56 @@ export const SUBTITLE = "/ Creative Studio";
     opacity: 0.8;
   }
 
+  .faq {
+    margin-top: 68px;
+  }
+
+  .faq-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq-item {
+    padding-block: 18px;
+    border-bottom: 1px solid rgba($color-accent, 0.3);
+
+    &:first-child {
+      border-top: 1px solid rgba($color-accent, 0.3);
+    }
+  }
+
+  .faq-question {
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 0 8px;
+
+    &::before {
+      content: "Q. ";
+      color: $color-accent;
+      font-weight: 700;
+    }
+  }
+
+  .faq-answer {
+    font-size: 15px;
+    margin: 0;
+    opacity: 0.8;
+    padding-left: 24px;
+
+    &::before {
+      content: "A. ";
+      font-weight: 700;
+    }
+  }
+
+  .faq-message {
+    margin-top: 28px;
+    font-size: 14px;
+    opacity: 0.65;
+    margin-bottom: 0;
+  }
+
   // レイアウト制御用
   @media screen and (max-width: 880px) {
     .container {
@@ -195,7 +284,7 @@ export const SUBTITLE = "/ Creative Studio";
 
     section {
       max-width: initial;
-      margin: 12px 10px;
+      margin: 12px 20px;
       margin-bottom: 58px;
       right: 0;
     }
@@ -271,6 +360,18 @@ export const SUBTITLE = "/ Creative Studio";
 
     .step-desc {
       font-size: 14px;
+    }
+
+    .faq-question {
+      font-size: 16px;
+    }
+
+    .faq-answer {
+      font-size: 13px;
+    }
+
+    .faq-message {
+      font-size: 13px;
     }
   }
 </style>

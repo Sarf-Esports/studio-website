@@ -1,22 +1,22 @@
 import type { Work } from "../../types";
 
-import stadium250419 from "../../assets/works/250419_tmnl_stadium.webp";
-import soldier250430 from "../../assets/works/250430_tmnl_soldier.webp";
-import freja250510 from "../../assets/works/250510_tmnl_freja.webp";
-import apex250618 from "../../assets/works/250618_tmnl_apex.webp";
-import coach250530 from "../../assets/works/250530_tmnl_coach.webp";
-import subacc250716 from "../../assets/works/250716_tmnl_subacc.webp";
-import season250504 from "../../assets/works/250504_tmnl_season.webp";
-import blizzard250518 from "../../assets/works/250518_tmnl_blizzard.webp";
-import custom250726 from "../../assets/works/250726_tmnl_custom.webp";
-import roster250809 from "../../assets/works/250809_tmnl_roster.webp";
-import roster250814 from "../../assets/works/250814_tmnl_roster.webp";
-import kirinuki250830 from "../../assets/works/250830_tmnl_kirinuki.webp";
-import kirinuki251004 from "../../assets/works/251004_tmnl_kirinuki.webp";
-import roster2026251227 from "../../assets/works/251227_tmnl_rev2026roster.webp";
-import mixtape2511130 from "../../assets/works/251130_tmnl_mixtape1.webp";
-import mixtape2512230 from "../../assets/works/251230_tmnl_mixtape2.webp";
-import mixtape260131 from "../../assets/works/260131_tmnl_mixtape3.webp";
+import stadium250419 from "../../assets/works/2025/04/250419_tmnl_stadium.webp";
+import soldier250430 from "../../assets/works/2025/04/250430_tmnl_soldier.webp";
+import freja250510 from "../../assets/works/2025/05/250510_tmnl_freja.webp";
+import apex250618 from "../../assets/works/2025/06/250618_tmnl_apex.webp";
+import coach250530 from "../../assets/works/2025/05/250530_tmnl_coach.webp";
+import subacc250716 from "../../assets/works/2025/07/250716_tmnl_subacc.webp";
+import season250504 from "../../assets/works/2025/05/250504_tmnl_season.webp";
+import blizzard250518 from "../../assets/works/2025/05/250518_tmnl_blizzard.webp";
+import custom250726 from "../../assets/works/2025/07/250726_tmnl_custom.webp";
+import roster250809 from "../../assets/works/2025/08/250809_tmnl_roster.webp";
+import roster250814 from "../../assets/works/2025/08/250814_tmnl_roster.webp";
+import kirinuki250830 from "../../assets/works/2025/08/250830_tmnl_kirinuki.webp";
+import kirinuki251004 from "../../assets/works/2025/10/251004_tmnl_kirinuki.webp";
+import roster2026251227 from "../../assets/works/2025/12/251227_tmnl_rev2026roster.webp";
+import mixtape2511130 from "../../assets/works/2025/11/251130_tmnl_mixtape1.webp";
+import mixtape2512230 from "../../assets/works/2025/12/251230_tmnl_mixtape2.webp";
+import mixtape260131 from "../../assets/works/2026/01/260131_tmnl_mixtape3.webp";
 
 export const VIDEO = [
   {
