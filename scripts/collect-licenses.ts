@@ -1,6 +1,6 @@
 import * as fs from "node:fs/promises";
 import { getDependencies, getLicenseText } from "@quantco/pnpm-licenses";
-import type { Dependency } from '../src/types';
+import type { Dependency } from "../src/types";
 
 const ALLOWED_LICENSES: string[] = [
   "0BSD",
