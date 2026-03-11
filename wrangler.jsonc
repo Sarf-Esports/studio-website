@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "studio",
+  "compatibility_date": "2026-03-11",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page", // `src/pages/404.astro`
+  },
+}
