@@ -41,7 +41,7 @@
   - TypeScript
   - SCSS
 - Three.js
-- Cloudflare Pages
+- Cloudflare Workers
 
 ## その他要件
 

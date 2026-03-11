@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { fly, scale } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 	import type { Track } from '../../types/music';
 	import TrackInfo from './TrackInfo.svelte';
 	import PlaybackControls from './PlaybackControls.svelte';
