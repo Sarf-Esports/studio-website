@@ -17,6 +17,7 @@ import roster2026251227 from "../../assets/works/2025/12/251227_tmnl_rev2026rost
 import mixtape2511130 from "../../assets/works/2025/11/251130_tmnl_mixtape1.webp";
 import mixtape2512230 from "../../assets/works/2025/12/251230_tmnl_mixtape2.webp";
 import mixtape260131 from "../../assets/works/2026/01/260131_tmnl_mixtape3.webp";
+import guess260209 from "../../assets/works/2026/02/260209_tmnl_guess1.webp";
 
 export const VIDEO = [
   {
@@ -425,6 +426,30 @@ export const VIDEO = [
       {
         type: "tweet",
         tweetUrl: "https://x.com/revati_jp/status/2017523246644785488/video/1",
+      },
+    ],
+  },
+  {
+    title: "YouTube動画・サムネイル制作",
+    clientName: "REVATI",
+    createdAt: "2026-02-09",
+    tags: ["動画編集", "サムネイル制作"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "video",
+        title: "【Guess The Rank! #1】ランク当て対決開始！【前編】",
+        src: "https://www.youtube.com/watch?v=kTQT8LXNgco",
+      },
+      {
+        type: "video",
+        title: "【Guess The Rank! #1】ランク当てついに決着！【後編】",
+        src: "https://www.youtube.com/watch?v=aLECqdpax5s",
+      },
+      {
+        type: "image",
+        caption: "サムネイル",
+        src: guess260209,
       },
     ],
   },

@@ -53,6 +53,7 @@ import team251102_5 from "../../assets/works/2025/11/251102_dsgn_team5.webp";
 import team251102_6 from "../../assets/works/2025/11/251102_dsgn_team6.webp";
 import team251102_7 from "../../assets/works/2025/11/251102_dsgn_team7.webp";
 import chillingChicken260205 from "../../assets/works/2026/02/260205_annc_chillingchicken.webp";
+import transfer260212 from "../../assets/works/2026/02/260212_annc_transfer.webp";
 
 export const DESIGN = [
   {
@@ -588,6 +589,20 @@ export const DESIGN = [
         type: "image",
         caption: "OW Academy部門 新メンバー告知画像",
         src: chillingChicken260205,
+      },
+    ],
+  },
+  {
+    title: "移籍告知画像",
+    clientName: "REVATI",
+    createdAt: "2026-02-12",
+    tags: ["デザイン"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "image",
+        caption: "移籍告知画像",
+        src: transfer260212,
       },
     ],
   },
