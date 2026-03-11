@@ -1,10 +1,10 @@
 # REVATI Studio Website
 
-<img src="https://dev.revati-studio.pages.dev/images/Revati-Studio_header_orange.png" alt="" height="218" />
+<img src="https://dev-studio.revati.workers.dev/images/Revati-Studio_header_orange.png" alt="" height="218" />
 
 - プロダクト: https://studio.revati.jp
-- 開発: `https://{ブランチ|デプロイ}.revati-studio.pages.dev`
-  - dev ブランチ: https://dev.revati-studio.pages.dev/
+- 開発: `https://{ブランチ|デプロイ}-studio.revati.workers.dev`
+  - dev ブランチ: https://dev-studio.revati.workers.dev/
 
 ## ドキュメント
 
