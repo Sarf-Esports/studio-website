@@ -12,22 +12,21 @@
 
 	const isOpen = $derived(work !== null);
 
-	// dialogの開閉を制御
+	// dialogとbodyのスクロール制御
 	$effect(() => {
-		if (dialog) {
-			if (isOpen && work) {
+		if (isOpen) {
+			document.body.style.overflow = 'hidden';
+			if (dialog) {
 				dialog.showModal();
-				document.body.style.overflow = 'hidden';
-			} else {
-				dialog.close();
-				document.body.style.overflow = '';
 			}
+		} else {
+			document.body.style.overflow = '';
 		}
 
 		return () => {
+			document.body.style.overflow = '';
 			if (dialog) {
 				dialog.close();
-				document.body.style.overflow = '';
 			}
 		};
 	});
