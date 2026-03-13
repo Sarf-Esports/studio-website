@@ -134,7 +134,7 @@
 		box-sizing: border-box;
 
 		&::backdrop {
-			background: rgba(0, 0, 0, 0.8);
+			background: rgba(black, 0.8);
 			backdrop-filter: blur(4px);
 		}
 
@@ -148,13 +148,13 @@
 	.modal-content {
 		background: rgba(20, 20, 20, 0.95);
 		border-radius: 16px;
-		border: 1px solid rgba(255, 255, 255, 0.2);
+		border: 1px solid rgba(white, 0.2);
 		max-width: 850px;
 		max-height: 90vh;
 		max-height: 90dvh;
 		width: 100%;
 		overflow: hidden;
-		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+		box-shadow: 0 20px 60px rgba(black, 0.5);
 		display: flex;
 		flex-direction: column;
 		margin: 0;
@@ -165,7 +165,7 @@
 		display: flex;
 		flex-direction: column;
 		padding: 1.5rem 2rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		border-bottom: 1px solid rgba(white, 0.1);
 		flex-shrink: 0;
 	}
 
@@ -179,14 +179,14 @@
 	.modal-title {
 		font-size: 1.3rem;
 		font-weight: 900;
-		color: #fff;
+		color: white;
 		margin: 0;
 	}
 
 	.modal-client {
 		font-size: 0.9rem;
 		font-weight: 500;
-		color: #aaa;
+		color: $color-muted;
 		margin: 0;
 		align-self: flex-start;
 	}
@@ -194,7 +194,7 @@
 	.modal-close {
 		background: none;
 		border: none;
-		color: rgba(255, 255, 255, 0.7);
+		color: rgba(white, 0.7);
 		cursor: pointer;
 		padding: 0.5rem;
 		border-radius: 8px;
@@ -204,8 +204,8 @@
 		justify-content: center;
 
 		&:hover {
-			color: #fff;
-			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			background: rgba(white, 0.1);
 		}
 
 		&:focus {
@@ -229,7 +229,7 @@
 	.work-meta {
 		margin-bottom: 2rem;
 		padding-bottom: 1.5rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		border-bottom: 1px solid rgba(white, 0.1);
 	}
 
 	.work-date,
@@ -247,14 +247,14 @@
 	}
 
 	.meta-label {
-		color: rgba(255, 255, 255, 0.6);
+		color: rgba(white, 0.6);
 		margin-right: 0.75rem;
 		min-width: 60px;
 		line-height: 1.5;
 	}
 
 	.meta-value {
-		color: rgba(255, 255, 255, 0.9);
+		color: rgba(white, 0.9);
 	}
 
 	.tags-list {
@@ -274,7 +274,7 @@
 		border: 1px solid rgba($color-accent, 0.5);
 		backdrop-filter: blur(5px);
 		white-space: nowrap;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+		text-shadow: 0 1px 2px rgba(black, 0.8);
 	}
 
 	.work-assets {
