@@ -34,6 +34,7 @@
 
 	let twitterScriptLoaded = $state(false);
 	let twitterWidgets: any = $state(null);
+	let tweetEmbedError = $state(false);
 
 	function loadTwitterScript() {
 		if (twitterScriptLoaded || typeof window === 'undefined') return Promise.resolve();
@@ -61,13 +62,21 @@
 	}
 
 	async function createTweetEmbed(element: HTMLElement, tweetUrl: string) {
+		tweetEmbedError = false;
+
 		if (!twitterWidgets) {
 			await loadTwitterScript();
-			if (!twitterWidgets) return;
+			if (!twitterWidgets) {
+				tweetEmbedError = true;
+				return;
+			}
 		}
 
 		const tweetId = extractTweetId(tweetUrl);
-		if (!tweetId) return;
+		if (!tweetId) {
+			tweetEmbedError = true;
+			return;
+		}
 
 		element.innerHTML = '';
 
@@ -81,7 +90,7 @@
 			});
 		} catch (error) {
 			console.error('Failed to create tweet embed:', error);
-			element.innerHTML = `<a href="${tweetUrl}" target="_blank" rel="noopener noreferrer" style="color: #1da1f2; text-decoration: none; display: block; text-align: center; padding: 2rem;">ツイートを見る</a>`;
+			tweetEmbedError = true;
 		}
 	}
 
@@ -95,6 +104,7 @@
 			update(newTweetUrl: string) {
 				if (newTweetUrl !== tweetUrl) {
 					clearTimeout(timeoutId);
+					tweetEmbedError = false;
 					timeoutId = setTimeout(async () => {
 						await createTweetEmbed(element, newTweetUrl);
 					}, TWEET_EMBED_DELAY);
@@ -171,12 +181,27 @@
 			<div class="asset-header">
 				<span class="asset-type-chip tweet">Tweet</span>
 			</div>
-			<div class="tweet-embed-container" use:createTweetEmbedAction={asset.tweetUrl}>
-				<!-- Twitter埋め込みがここに表示される -->
-				<div class="tweet-loading">
-					<p>ツイートを読み込み中...</p>
-					<a href={asset.tweetUrl} target="_blank" rel="noopener noreferrer"> ツイートを見る </a>
-				</div>
+			<div class="tweet-embed-container">
+				{#if tweetEmbedError}
+					<a
+						href={asset.tweetUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="tweet-fallback-link"
+					>
+						ツイートを見る
+					</a>
+				{:else}
+					<div class="tweet-embed-target" use:createTweetEmbedAction={asset.tweetUrl}>
+						<!-- Twitter埋め込みがここに表示される -->
+						<div class="tweet-loading">
+							<p>ツイートを読み込み中...</p>
+							<a href={asset.tweetUrl} target="_blank" rel="noopener noreferrer">
+								ツイートを見る
+							</a>
+						</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	{/if}
@@ -322,6 +347,10 @@
 			min-height: 200px;
 			text-align: center;
 
+			.tweet-embed-target {
+				width: 100%;
+			}
+
 			:global(.twitter-tweet) {
 				margin: 0 auto !important;
 				max-width: 550px !important;
@@ -349,6 +378,19 @@
 					&:hover {
 						text-decoration: underline;
 					}
+				}
+			}
+
+			.tweet-fallback-link {
+				color: $color-status-tweet;
+				text-decoration: none;
+				display: block;
+				text-align: center;
+				padding: 2rem;
+				font-size: 0.9rem;
+
+				&:hover {
+					text-decoration: underline;
 				}
 			}
 		}
