@@ -77,7 +77,7 @@
 			>
 				<!--
 					Google Material Symbols and Icons - List Alt
-					https://fonts.google.com/icons?selected=Material+Symbols+Outlined:list_alt:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=List+Alt&icon.size=24&icon.color=%23302d2d
+					https://fonts.google.com/icons?selected=Material+Symbols+Outlined:list_alt:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=List+Alt&icon.size=24
 					This icon is licensed under the Apache License Version 2.0: https://github.com/google/material-design-icons/blob/master/README.md
 				-->
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"
