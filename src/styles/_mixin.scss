@@ -15,8 +15,8 @@ $breakpoint: 788px;
 @mixin fixed-panel() {
   position: fixed;
   background-color: #131010;
-  border: 2px solid #ffffff3a;
-  box-shadow: 0 0 22px #0000005a;
+  border: 2px solid rgba(white, 0.23);
+  box-shadow: 0 0 22px rgba(black, 0.35);
   border-radius: 8px;
 }
 

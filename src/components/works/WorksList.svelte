@@ -64,13 +64,13 @@
 	.empty-title {
 		font-size: 1.5rem;
 		font-weight: 900;
-		color: #fff;
+		color: white;
 		margin: 0 0 0.75rem 0;
 	}
 
 	.empty-description {
 		font-size: 1rem;
-		color: rgba(255, 255, 255, 0.7);
+		color: rgba(white, 0.7);
 		margin: 0;
 		line-height: 1.6;
 	}

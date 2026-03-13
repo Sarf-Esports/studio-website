@@ -34,6 +34,7 @@
 
 	let twitterScriptLoaded = $state(false);
 	let twitterWidgets: any = $state(null);
+	let tweetEmbedError = $state(false);
 
 	function loadTwitterScript() {
 		if (twitterScriptLoaded || typeof window === 'undefined') return Promise.resolve();
@@ -61,13 +62,21 @@
 	}
 
 	async function createTweetEmbed(element: HTMLElement, tweetUrl: string) {
+		tweetEmbedError = false;
+
 		if (!twitterWidgets) {
 			await loadTwitterScript();
-			if (!twitterWidgets) return;
+			if (!twitterWidgets) {
+				tweetEmbedError = true;
+				return;
+			}
 		}
 
 		const tweetId = extractTweetId(tweetUrl);
-		if (!tweetId) return;
+		if (!tweetId) {
+			tweetEmbedError = true;
+			return;
+		}
 
 		element.innerHTML = '';
 
@@ -81,7 +90,7 @@
 			});
 		} catch (error) {
 			console.error('Failed to create tweet embed:', error);
-			element.innerHTML = `<a href="${tweetUrl}" target="_blank" rel="noopener noreferrer" style="color: #1da1f2; text-decoration: none; display: block; text-align: center; padding: 2rem;">ツイートを見る</a>`;
+			tweetEmbedError = true;
 		}
 	}
 
@@ -95,6 +104,7 @@
 			update(newTweetUrl: string) {
 				if (newTweetUrl !== tweetUrl) {
 					clearTimeout(timeoutId);
+					tweetEmbedError = false;
 					timeoutId = setTimeout(async () => {
 						await createTweetEmbed(element, newTweetUrl);
 					}, TWEET_EMBED_DELAY);
@@ -171,29 +181,52 @@
 			<div class="asset-header">
 				<span class="asset-type-chip tweet">Tweet</span>
 			</div>
-			<div class="tweet-embed-container" use:createTweetEmbedAction={asset.tweetUrl}>
-				<!-- Twitter埋め込みがここに表示される -->
-				<div class="tweet-loading">
-					<p>ツイートを読み込み中...</p>
-					<a href={asset.tweetUrl} target="_blank" rel="noopener noreferrer"> ツイートを見る </a>
-				</div>
+			<div class="tweet-embed-container">
+				{#if tweetEmbedError}
+					<a
+						href={asset.tweetUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="tweet-fallback-link"
+					>
+						ツイートを見る
+					</a>
+				{:else}
+					<div class="tweet-embed-target" use:createTweetEmbedAction={asset.tweetUrl}>
+						<!-- Twitter埋め込みがここに表示される -->
+						<div class="tweet-loading">
+							<p>ツイートを読み込み中...</p>
+							<a href={asset.tweetUrl} target="_blank" rel="noopener noreferrer">
+								ツイートを見る
+							</a>
+						</div>
+					</div>
+				{/if}
 			</div>
 		</div>
 	{/if}
 </div>
 
 <style lang="scss">
+	$color-status-image: #10b981;
+	$color-status-video: #f59e0b;
+	$color-status-music: #8b5cf6;
+	$color-status-website: #3b82f6;
+	$color-status-external: #6b7280;
+	$color-status-external-text: #9ca3af;
+	$color-status-tweet: #1da1f2;
+
 	.asset-item {
-		background: rgba(255, 255, 255, 0.02);
+		background: rgba(white, 0.02);
 		border-radius: 12px;
 		padding: 1.5rem;
-		border: 1px solid rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(white, 0.05);
 	}
 
 	.asset-title {
 		font-size: 1rem;
 		font-weight: 900;
-		color: #fff;
+		color: white;
 		margin: 0;
 	}
 
@@ -215,39 +248,39 @@
 		line-height: 1.2;
 
 		&.image {
-			background: rgba(#10b981, 0.2);
-			color: #10b981;
-			border: 1px solid rgba(#10b981, 0.3);
+			background: rgba($color-status-image, 0.2);
+			color: $color-status-image;
+			border: 1px solid rgba($color-status-image, 0.3);
 		}
 
 		&.video {
-			background: rgba(#f59e0b, 0.2);
-			color: #f59e0b;
-			border: 1px solid rgba(#f59e0b, 0.3);
+			background: rgba($color-status-video, 0.2);
+			color: $color-status-video;
+			border: 1px solid rgba($color-status-video, 0.3);
 		}
 
 		&.music {
-			background: rgba(#8b5cf6, 0.2);
-			color: #8b5cf6;
-			border: 1px solid rgba(#8b5cf6, 0.3);
+			background: rgba($color-status-music, 0.2);
+			color: $color-status-music;
+			border: 1px solid rgba($color-status-music, 0.3);
 		}
 
 		&.website {
-			background: rgba(#3b82f6, 0.2);
-			color: #3b82f6;
-			border: 1px solid rgba(#3b82f6, 0.3);
+			background: rgba($color-status-website, 0.2);
+			color: $color-status-website;
+			border: 1px solid rgba($color-status-website, 0.3);
 		}
 
 		&.external {
-			background: rgba(#6b7280, 0.2);
-			color: #9ca3af;
-			border: 1px solid rgba(#6b7280, 0.3);
+			background: rgba($color-status-external, 0.2);
+			color: $color-status-external-text;
+			border: 1px solid rgba($color-status-external, 0.3);
 		}
 
 		&.tweet {
-			background: rgba(#1da1f2, 0.2);
-			color: #1da1f2;
-			border: 1px solid rgba(#1da1f2, 0.3);
+			background: rgba($color-status-tweet, 0.2);
+			color: $color-status-tweet;
+			border: 1px solid rgba($color-status-tweet, 0.3);
 		}
 	}
 
@@ -263,7 +296,7 @@
 
 	.asset-caption {
 		font-size: 0.8rem;
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(white, 0.5);
 		margin: 0;
 		line-height: 1.3;
 		text-align: center;
@@ -314,6 +347,10 @@
 			min-height: 200px;
 			text-align: center;
 
+			.tweet-embed-target {
+				width: 100%;
+			}
+
 			:global(.twitter-tweet) {
 				margin: 0 auto !important;
 				max-width: 550px !important;
@@ -326,7 +363,7 @@
 				flex-direction: column;
 				align-items: center;
 				gap: 0.75rem;
-				color: rgba(255, 255, 255, 0.6);
+				color: rgba(white, 0.6);
 
 				p {
 					margin: 0;
@@ -334,13 +371,26 @@
 				}
 
 				a {
-					color: #1da1f2;
+					color: $color-status-tweet;
 					text-decoration: none;
 					font-size: 0.9rem;
 
 					&:hover {
 						text-decoration: underline;
 					}
+				}
+			}
+
+			.tweet-fallback-link {
+				color: $color-status-tweet;
+				text-decoration: none;
+				display: block;
+				text-align: center;
+				padding: 2rem;
+				font-size: 0.9rem;
+
+				&:hover {
+					text-decoration: underline;
 				}
 			}
 		}
