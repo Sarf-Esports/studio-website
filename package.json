@@ -24,9 +24,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "licenses": "node ./scripts/collect-licenses.ts",
-    "fmt": "prettier . --write",
-    "lnt": "prettier --check . && eslint \"src/**/*.{js,ts,astro}\"",
-    "lnt:fix": "prettier --check . && eslint \"src/**/*.{js,ts,astro}\" --fix",
+    "format": "prettier . --write",
+    "lint": "prettier --check . && eslint \"src/**/*.{js,ts,astro}\"",
+    "lint:fix": "prettier --check . && eslint \"src/**/*.{js,ts,astro}\" --fix",
     "check": "astro sync && astro check --tsconfig ./tsconfig.json"
   },
   "dependencies": {

@@ -58,10 +58,10 @@
 | `pnpm run build`     | プロダクション用にプロジェクトを `./dist/` にビルド                                           |
 | `pnpm run preview`   | ビルドされたサイトをローカルでプレビュー                                                      |
 | `pnpm run licenses`  | `licenses.json` を生成                                                                        |
-| `pnpm run fmt`       | Prettier を使用してコードをフォーマット                                                       |
+| `pnpm run format`    | Prettier を使用してコードをフォーマット                                                       |
 | `pnpm run check`     | エラーをチェック                                                                              |
-| `pnpm run lnt`       | ESLint を使用してコードを検査                                                                 |
-| `pnpm run lnt:fix`   | ESLint を使用してコードを自動修正                                                             |
+| `pnpm run lint`      | ESLint を使用してコードを検査                                                                 |
+| `pnpm run lint:fix`  | ESLint を使用してコードを自動修正                                                             |
 | `pnpm run astro ...` | `astro add` などの [CLI コマンド](https://docs.astro.build/ja/reference/cli-reference/)を実行 |
 
 ## License
