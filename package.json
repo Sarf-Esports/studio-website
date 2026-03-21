@@ -51,6 +51,7 @@
     "@quantco/pnpm-licenses": "^2.2.3",
     "@sveltejs/kit": "^2.53.4",
     "@types/node": "^25.4.0",
+    "@typescript-eslint/parser": "^8.57.1",
     "eslint": "^9.39.4",
     "eslint-plugin-astro": "^1.6.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
