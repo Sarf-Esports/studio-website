@@ -13,9 +13,9 @@ import roster250809 from "../../assets/works/2025/08/250809_tmnl_roster.webp";
 import roster250814 from "../../assets/works/2025/08/250814_tmnl_roster.webp";
 import kirinuki250830 from "../../assets/works/2025/08/250830_tmnl_kirinuki.webp";
 import kirinuki251004 from "../../assets/works/2025/10/251004_tmnl_kirinuki.webp";
-import roster2026251227 from "../../assets/works/2025/12/251227_tmnl_rev2026roster.webp";
-import mixtape2511130 from "../../assets/works/2025/11/251130_tmnl_mixtape1.webp";
-import mixtape2512230 from "../../assets/works/2025/12/251230_tmnl_mixtape2.webp";
+import roster251227 from "../../assets/works/2025/12/251227_tmnl_rev2026roster.webp";
+import mixtape251130 from "../../assets/works/2025/11/251130_tmnl_mixtape1.webp";
+import mixtape251230 from "../../assets/works/2025/12/251230_tmnl_mixtape2.webp";
 import mixtape260131 from "../../assets/works/2026/01/260131_tmnl_mixtape3.webp";
 import guess260209 from "../../assets/works/2026/02/260209_tmnl_guess1.webp";
 import roster260218 from "../../assets/works/2026/02/260218_tmnl_roster.webp";
@@ -377,7 +377,7 @@ export const VIDEO = [
       { name: "おしお", role: "動画編集・デザイン" },
       { name: "くりす", role: "音楽制作" },
     ],
-    thumbnail: roster2026251227,
+    thumbnail: roster251227,
     assets: [
       {
         type: "tweet",
@@ -396,7 +396,7 @@ export const VIDEO = [
     createdAt: "2025-11-30",
     tags: ["動画編集"],
     authors: ["おしお"],
-    thumbnail: mixtape2511130,
+    thumbnail: mixtape251130,
     assets: [
       {
         type: "tweet",
@@ -410,7 +410,7 @@ export const VIDEO = [
     createdAt: "2025-12-30",
     tags: ["動画編集"],
     authors: ["おしお"],
-    thumbnail: mixtape2512230,
+    thumbnail: mixtape251230,
     assets: [
       {
         type: "tweet",

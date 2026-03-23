@@ -33,7 +33,7 @@ import commentary251227 from "../../assets/works/2025/12/251227_dsgn_commentary.
 import participating251227 from "../../assets/works/2025/12/251227_dsgn_participating.webp";
 import prize251227 from "../../assets/works/2025/12/251227_dsgn_prize.webp";
 import pro251227 from "../../assets/works/2025/12/251227_dsgn_pro.webp";
-import roster2026251227 from "../../assets/works/2025/12/251227_dsgn_roster2026.webp";
+import roster251227 from "../../assets/works/2025/12/251227_dsgn_roster2026.webp";
 import tournament251227 from "../../assets/works/2025/12/251227_dsgn_tournament.webp";
 import tracer1v1251227 from "../../assets/works/2025/12/251227_dsgn_tracer1v1.webp";
 import vendetta251227 from "../../assets/works/2025/12/251227_dsgn_vendetta.webp";
@@ -434,7 +434,7 @@ export const DESIGN = [
       {
         type: "image",
         caption: "REVATI Roster 2026",
-        src: roster2026251227,
+        src: roster251227,
       },
       {
         type: "image",
