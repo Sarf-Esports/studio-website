@@ -60,6 +60,11 @@ const TITLE = "ライセンス情報";
 </Layout>
 
 <style lang="scss">
+  $color-shadow-low: #0b0a0a;
+  $color-shadow-high: #2b2828;
+  $color-shadow-low-mobile: #100d0d;
+  $color-shadow-high-mobile: #3e3535;
+
   .container {
     max-width: 668px;
     margin: 32px auto;
@@ -88,8 +93,8 @@ const TITLE = "ライセンス情報";
     padding-bottom: 26px;
     background: $color-secondary;
     box-shadow:
-      5px 5px 17px #0b0a0a,
-      -5px -5px 17px #2b2828;
+      5px 5px 17px $color-shadow-low,
+      -5px -5px 17px $color-shadow-high;
     border-radius: 12px;
   }
 
@@ -136,8 +141,8 @@ const TITLE = "ライセンス情報";
     margin-top: 14px;
     padding: 24px 14px;
     box-shadow:
-      inset 5px 5px 16px #0b0a0a,
-      inset -5px -5px 16px #2b2828;
+      inset 5px 5px 16px $color-shadow-low,
+      inset -5px -5px 16px $color-shadow-high;
     border-radius: 8px;
     text-align: center;
     text-wrap: auto;
@@ -159,8 +164,8 @@ const TITLE = "ライセンス情報";
       padding: 14px;
       padding-bottom: 16px;
       box-shadow:
-        4px 4px 11px #100d0d,
-        -4px -4px 11px #3e3535;
+        4px 4px 11px $color-shadow-low-mobile,
+        -4px -4px 11px $color-shadow-high-mobile;
     }
 
     h2 {
@@ -182,8 +187,8 @@ const TITLE = "ライセンス情報";
       margin-top: 11px;
       padding: 18px 14px;
       box-shadow:
-        inset 3px 3px 12px #100d0d,
-        inset -3px -3px 5px #3e3535;
+        inset 3px 3px 12px $color-shadow-low-mobile,
+        inset -3px -3px 5px $color-shadow-high-mobile;
     }
   }
 </style>

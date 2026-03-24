@@ -156,7 +156,7 @@
 		border-radius: 12px;
 		padding: 24px;
 		color: $color-background;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+		box-shadow: 0 4px 20px rgba(black, 0.3);
 		border: 1px solid rgba($color-accent, 0.3);
 		transition: all 0.3s ease;
 		z-index: 1010;

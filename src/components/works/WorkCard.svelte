@@ -188,7 +188,7 @@
 		&:focus {
 			transform: translateY(-4px);
 			box-shadow:
-				0 10px 30px rgba(0, 0, 0, 0.4),
+				0 10px 30px rgba(black, 0.4),
 				0 0 20px rgba($color-accent, 0.2);
 
 			.work-overlay {
@@ -205,14 +205,14 @@
 			outline: none;
 			box-shadow:
 				0 0 0 2px rgba($color-accent, 0.5),
-				0 10px 30px rgba(0, 0, 0, 0.3);
+				0 10px 30px rgba(black, 0.3);
 		}
 
 		&.music-card {
 			&:hover,
 			&:focus {
 				box-shadow:
-					0 10px 30px rgba(0, 0, 0, 0.4),
+					0 10px 30px rgba(black, 0.4),
 					0 0 25px rgba($color-accent, 0.4),
 					0 0 50px rgba($color-accent, 0.1);
 			}
@@ -220,7 +220,7 @@
 			&:focus {
 				box-shadow:
 					0 0 0 2px rgba($color-accent, 0.6),
-					0 10px 30px rgba(0, 0, 0, 0.3),
+					0 10px 30px rgba(black, 0.3),
 					0 0 25px rgba($color-accent, 0.4);
 			}
 		}
@@ -269,12 +269,12 @@
 				left: -50%;
 				width: 200%;
 				height: 200%;
-				background: radial-gradient(circle, #ffffff1a 0%, transparent 50%);
+				background: radial-gradient(circle, rgba(white, 0.1) 0%, transparent 50%);
 				transform: rotate(45deg);
 			}
 
 			img {
-				filter: drop-shadow(0 4px 12px #00000050);
+				filter: drop-shadow(0 4px 12px rgba(black, 0.31));
 				position: relative;
 			}
 		}
@@ -286,7 +286,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+		background: linear-gradient(135deg, rgba(black, 0.8) 0%, rgba(black, 0.6) 100%);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -309,19 +309,19 @@
 	.work-client {
 		font-size: 0.8rem;
 		font-weight: 500;
-		color: #aaa;
+		color: $color-muted;
 		margin: 0 0 -0.6rem 0;
 		line-height: 1.2;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+		text-shadow: 0 1px 2px rgba(black, 0.8);
 	}
 
 	.work-title {
 		font-size: 1rem;
 		font-weight: 900;
-		color: #fff;
+		color: white;
 		margin: 0;
 		line-height: 1.3;
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+		text-shadow: 0 2px 4px rgba(black, 0.5);
 		// 3行より多い場合は省略
 		display: -webkit-box;
 		line-clamp: 3;
@@ -347,7 +347,7 @@
 		border: 1px solid rgba($color-accent, 0.5);
 		backdrop-filter: blur(5px);
 		white-space: nowrap;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+		text-shadow: 0 1px 2px rgba(black, 0.8);
 	}
 
 	@media (max-width: 1200px) {
@@ -393,7 +393,7 @@
 
 		.wave {
 			width: 4px;
-			background: #ffffff9a;
+			background: rgba(white, 0.6);
 			border-radius: 4px;
 
 			&:nth-child(1) {

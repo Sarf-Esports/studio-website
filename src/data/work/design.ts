@@ -33,7 +33,7 @@ import commentary251227 from "../../assets/works/2025/12/251227_dsgn_commentary.
 import participating251227 from "../../assets/works/2025/12/251227_dsgn_participating.webp";
 import prize251227 from "../../assets/works/2025/12/251227_dsgn_prize.webp";
 import pro251227 from "../../assets/works/2025/12/251227_dsgn_pro.webp";
-import roster2026251227 from "../../assets/works/2025/12/251227_dsgn_roster2026.webp";
+import roster251227 from "../../assets/works/2025/12/251227_dsgn_roster2026.webp";
 import tournament251227 from "../../assets/works/2025/12/251227_dsgn_tournament.webp";
 import tracer1v1251227 from "../../assets/works/2025/12/251227_dsgn_tracer1v1.webp";
 import vendetta251227 from "../../assets/works/2025/12/251227_dsgn_vendetta.webp";
@@ -54,6 +54,10 @@ import team251102_6 from "../../assets/works/2025/11/251102_dsgn_team6.webp";
 import team251102_7 from "../../assets/works/2025/11/251102_dsgn_team7.webp";
 import chillingChicken260205 from "../../assets/works/2026/02/260205_annc_chillingchicken.webp";
 import transfer260212 from "../../assets/works/2026/02/260212_annc_transfer.webp";
+import kv260305_1 from "../../assets/works/2026/03/260305_dsgn_kv1.webp";
+import kv260305_2 from "../../assets/works/2026/03/260305_dsgn_kv2.webp";
+import leave260308 from "../../assets/works/2026/03/260308_annc_leave.webp";
+import o2revati260324 from "../../assets/works/2026/03/260324_annc_o2-revati.webp";
 
 export const DESIGN = [
   {
@@ -430,7 +434,7 @@ export const DESIGN = [
       {
         type: "image",
         caption: "REVATI Roster 2026",
-        src: roster2026251227,
+        src: roster251227,
       },
       {
         type: "image",
@@ -603,6 +607,53 @@ export const DESIGN = [
         type: "image",
         caption: "移籍告知画像",
         src: transfer260212,
+      },
+    ],
+  },
+  {
+    title: "大会 キービジュアル",
+    clientName: "REVATI",
+    createdAt: "2026-03-05",
+    tags: ["デザイン"],
+    authors: ["HIKA"],
+    assets: [
+      {
+        type: "image",
+        caption: "キービジュアル 1",
+        src: kv260305_1,
+      },
+      {
+        type: "image",
+        caption: "キービジュアル 2",
+        src: kv260305_2,
+      },
+    ],
+  },
+  {
+    title: "脱退発表画像",
+    clientName: "REVATI",
+    createdAt: "2026-03-08",
+    tags: ["デザイン"],
+    authors: ["Reku"],
+    thumbnail: leave260308,
+    assets: [
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/2030569218794828228?s=20",
+      },
+    ],
+  },
+  {
+    title: "協業告知画像",
+    clientName: "REVATI",
+    createdAt: "2026-03-24",
+    tags: ["デザイン"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "image",
+        caption: "協業告知画像",
+        src: o2revati260324,
       },
     ],
   },
