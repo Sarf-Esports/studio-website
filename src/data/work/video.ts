@@ -479,8 +479,9 @@ export const VIDEO = [
     thumbnail: mixtape260228,
     assets: [
       {
-        type: "tweet",
-        tweetUrl: "https://x.com/revati_jp/status/2027670115425177671?s=20",
+        type: "video",
+        title: "REVATI Mixtape Vol.4",
+        src: "https://www.youtube.com/watch?v=nMuakG4DjHE",
       },
     ],
   },
