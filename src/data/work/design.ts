@@ -58,6 +58,8 @@ import kv260305_1 from "../../assets/works/2026/03/260305_dsgn_kv1.webp";
 import kv260305_2 from "../../assets/works/2026/03/260305_dsgn_kv2.webp";
 import leave260308 from "../../assets/works/2026/03/260308_annc_leave.webp";
 import o2revati260324 from "../../assets/works/2026/03/260324_annc_o2-revati.webp";
+import joins260326 from "../../assets/works/2026/03/260326_annc_joins.webp";
+import roster260327 from "../../assets/works/2026/03/260327_annc_roster.webp";
 
 export const DESIGN = [
   {
@@ -654,6 +656,34 @@ export const DESIGN = [
         type: "image",
         caption: "協業告知画像",
         src: o2revati260324,
+      },
+    ],
+  },
+  {
+    title: "メンバー加入告知画像",
+    clientName: "REVATI",
+    createdAt: "2026-03-26",
+    tags: ["デザイン"],
+    authors: ["HIKA"],
+    assets: [
+      {
+        type: "image",
+        caption: "メンバー加入告知画像",
+        src: joins260326,
+      },
+    ],
+  },
+  {
+    title: "ロスター告知画像",
+    clientName: "REVATI",
+    createdAt: "2026-03-27",
+    tags: ["デザイン"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "image",
+        caption: "ロスター告知画像",
+        src: roster260327,
       },
     ],
   },
