@@ -514,5 +514,5 @@ export const VIDEO = [
         src: "https://x.com/revati_jp/status/2038904132250013781?s=20",
       },
     ],
-  }
+  },
 ] satisfies Work[];
