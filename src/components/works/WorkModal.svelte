@@ -448,6 +448,10 @@
 		.modal-footer {
 			padding: 0.6rem 1rem;
 		}
+
+		.work-assets {
+			gap: 1rem;
+		}
 	}
 
 	@media (max-width: 480px) {
