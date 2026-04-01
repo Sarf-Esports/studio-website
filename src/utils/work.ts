@@ -58,6 +58,10 @@ export interface WorkQueryOptions {
   tags?: string[];
 }
 
+export interface WorkSlugEntry extends WorkEntry {
+  slug: string;
+}
+
 export function queryWorks(options?: WorkQueryOptions): WorkEntry[] {
   const works: WorkEntry[] = [];
 
@@ -85,6 +89,125 @@ export function queryWorks(options?: WorkQueryOptions): WorkEntry[] {
   }
 
   return works;
+}
+
+const CREATED_AT_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+function formatCreatedAtToYYMMDD(createdAt: string): string {
+  const matched = CREATED_AT_PATTERN.exec(createdAt);
+  if (matched !== null) {
+    const year = matched[1].slice(2);
+    return `${year}${matched[2]}${matched[3]}`;
+  }
+
+  const digits = createdAt.replace(/[^\d]/g, "");
+  if (digits.length >= 8) {
+    return `${digits.slice(2, 4)}${digits.slice(4, 6)}${digits.slice(6, 8)}`;
+  }
+  if (digits.length >= 6) {
+    return digits.slice(0, 6);
+  }
+
+  return "000000";
+}
+
+function normalizeTitleForSlug(title: string): string {
+  const normalized = title
+    .normalize("NFKC")
+    .trim()
+    .toLowerCase()
+    .replace(/[\u3000\s]+/g, "-")
+    .replace(/[\\/|]+/g, "-")
+    .replace(/[?&=#%<>{}()+,.;:!~^'"`]/g, "")
+    .replace(/\[|\]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  return normalized.length > 0 ? normalized : "work";
+}
+
+function getBaseWorkSlug(work: Work): string {
+  const normalizedTitle = normalizeTitleForSlug(work.title);
+  const yymmdd = formatCreatedAtToYYMMDD(work.createdAt);
+  return `${normalizedTitle}-${yymmdd}`;
+}
+
+function createWorkLookupKey(work: Work): string {
+  const authors = work.authors
+    .map((author) =>
+      typeof author === "string" ? author : `${author.name}:${author.role}`,
+    )
+    .join("|");
+
+  return `${work.title}::${work.createdAt}::${work.clientName ?? ""}::${authors}`;
+}
+
+function getWorkEntrySortKey(work: WorkEntry): string {
+  return `${work.category}::${createWorkLookupKey(work)}`;
+}
+
+function buildWorkSlugEntries(): WorkSlugEntry[] {
+  const works = queryWorks();
+  const groupedWorks = new Map<string, WorkEntry[]>();
+
+  for (const work of works) {
+    const baseSlug = getBaseWorkSlug(work);
+    const entries = groupedWorks.get(baseSlug);
+
+    if (entries === undefined) {
+      groupedWorks.set(baseSlug, [work]);
+    } else {
+      entries.push(work);
+    }
+  }
+
+  const slugEntries: WorkSlugEntry[] = [];
+
+  for (const [baseSlug, grouped] of groupedWorks) {
+    const sorted = grouped
+      .slice()
+      .sort((a, b) =>
+        getWorkEntrySortKey(a).localeCompare(getWorkEntrySortKey(b), "ja"),
+      );
+
+    sorted.forEach((work, index) => {
+      const slug = index === 0 ? baseSlug : `${baseSlug}-${index}`; // 重複がある場合は末尾に連番を付与
+      slugEntries.push({
+        ...work,
+        slug,
+      });
+    });
+  }
+
+  return slugEntries;
+}
+
+const WORK_SLUG_ENTRIES = buildWorkSlugEntries();
+const WORK_SLUG_MAP = new Map<string, WorkSlugEntry>();
+const WORK_LOOKUP_KEY_MAP = new Map<string, WorkSlugEntry[]>();
+for (const work of WORK_SLUG_ENTRIES) {
+  WORK_SLUG_MAP.set(work.slug, work);
+
+  const lookupKey = createWorkLookupKey(work);
+  const entries = WORK_LOOKUP_KEY_MAP.get(lookupKey);
+  if (entries === undefined) {
+    WORK_LOOKUP_KEY_MAP.set(lookupKey, [work]);
+  } else {
+    entries.push(work);
+  }
+}
+
+export function getWorkSlug(work: Work): string | undefined {
+  const lookupKey = createWorkLookupKey(work);
+  const candidates = WORK_LOOKUP_KEY_MAP.get(lookupKey);
+
+  if (!candidates || candidates.length === 0) return;
+
+  return candidates[0].slug;
+}
+
+export function findWorkBySlug(slug: string): WorkSlugEntry | null {
+  return WORK_SLUG_MAP.get(slug) ?? null;
 }
 
 export interface AssetQueryOptions {
