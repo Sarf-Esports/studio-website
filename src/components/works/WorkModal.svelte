@@ -157,7 +157,12 @@
 					{#if isCopyTooltipVisible}
 						<span class="copy-tooltip" role="status" aria-live="polite">Copied!</span>
 					{/if}
-
+					<!--
+						Bootstrap Icons - Link 45deg
+						https://icons.getbootstrap.com/icons/link-45deg
+						Copyright (c) 2019 The Bootstrap Authors
+						under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+					-->
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="24"
