@@ -155,7 +155,7 @@
 					onclick={handleCopyLink}
 				>
 					{#if isCopyTooltipVisible}
-						<span class="copy-tooltip" role="status" aria-live="polite">Copied!</span>
+						<span class="copy-tooltip" role="status" aria-live="polite">コピーしました！</span>
 					{/if}
 					<!--
 						Bootstrap Icons - Link 45deg
