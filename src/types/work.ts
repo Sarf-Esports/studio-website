@@ -13,6 +13,7 @@ export type Image = ImageSource | IconImage;
 
 export interface Work {
   title: string;
+  /** @example 2026-03-27 */
   createdAt: string;
   tags: string[];
   authors: (string | { name: string; role: string })[];

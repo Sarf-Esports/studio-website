@@ -9,6 +9,8 @@
 
 	let { work, onClose }: Props = $props();
 	let dialog = $state<HTMLDialogElement>();
+	let isCopyTooltipVisible = $state(false);
+	let copyTooltipTimer: ReturnType<typeof setTimeout> | undefined = undefined;
 
 	const isOpen = $derived(work !== null);
 
@@ -41,6 +43,33 @@
 			onClose();
 		}
 	}
+
+	async function handleCopyLink() {
+		try {
+			await navigator.clipboard.writeText(window.location.href);
+		} catch {
+			return;
+		}
+
+		isCopyTooltipVisible = true;
+
+		if (copyTooltipTimer !== undefined) {
+			clearTimeout(copyTooltipTimer);
+		}
+
+		copyTooltipTimer = setTimeout(() => {
+			isCopyTooltipVisible = false;
+			copyTooltipTimer = undefined;
+		}, 1400);
+	}
+
+	$effect(() => {
+		return () => {
+			if (copyTooltipTimer !== undefined) {
+				clearTimeout(copyTooltipTimer);
+			}
+		};
+	});
 
 	function formatDate(dateString: string): string {
 		const date = new Date(dateString);
@@ -117,6 +146,40 @@
 					{/each}
 				</div>
 			</div>
+
+			<footer class="modal-footer">
+				<button
+					type="button"
+					class="copy-link"
+					aria-label="ページリンクをコピー"
+					onclick={handleCopyLink}
+				>
+					{#if isCopyTooltipVisible}
+						<span class="copy-tooltip" role="status" aria-live="polite">コピーしました！</span>
+					{/if}
+					<!--
+						Bootstrap Icons - Link 45deg
+						https://icons.getbootstrap.com/icons/link-45deg
+						Copyright (c) 2019 The Bootstrap Authors
+						under the MIT License: https://github.com/twbs/icons/blob/main/LICENSE
+					-->
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="currentColor"
+						class="bi bi-link-45deg"
+						viewBox="0 0 16 16"
+					>
+						<path
+							d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"
+						/>
+						<path
+							d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"
+						/>
+					</svg>
+				</button>
+			</footer>
 		</div>
 	</dialog>
 {/if}
@@ -150,7 +213,7 @@
 		border-radius: 16px;
 		border: 1px solid rgba(white, 0.2);
 		max-width: 850px;
-		max-height: 90vh;
+		max-height: 90vh; // dvh非対応ブラウザ向けのフォールバック
 		max-height: 90dvh;
 		width: 100%;
 		overflow: hidden;
@@ -224,6 +287,80 @@
 		overflow-x: hidden;
 		flex: 1;
 		min-height: 0;
+	}
+
+	.modal-footer {
+		display: flex;
+		justify-content: flex-end;
+		padding: 0.7rem 2rem;
+		border-top: 1px solid rgba(white, 0.1);
+		flex-shrink: 0;
+	}
+
+	.copy-link {
+		position: relative;
+		background: none;
+		border: none;
+		color: rgba(white, 0.7);
+		cursor: pointer;
+		padding: 0.3rem;
+		border-radius: 8px;
+		transition: all 0.2s ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&:hover {
+			color: white;
+			background: rgba(white, 0.1);
+		}
+
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 0 2px rgba($color-accent, 0.5);
+		}
+
+		svg {
+			display: block;
+		}
+	}
+
+	.copy-tooltip {
+		position: absolute;
+		right: calc(100% + 0.5rem);
+		top: 50%;
+		transform: translateY(-50%);
+		padding: 0.3rem 0.55rem;
+		border-radius: 6px;
+		border: 1px solid rgba(white, 0.2);
+		color: white;
+		font-size: 0.75rem;
+		line-height: 1;
+		white-space: nowrap;
+		pointer-events: none;
+		animation: copy-tooltip-fade 1.4s ease forwards;
+	}
+
+	@keyframes copy-tooltip-fade {
+		0% {
+			opacity: 0;
+			transform: translate(-0.2rem, -50%);
+		}
+
+		15% {
+			opacity: 1;
+			transform: translate(0, -50%);
+		}
+
+		80% {
+			opacity: 1;
+			transform: translate(0, -50%);
+		}
+
+		100% {
+			opacity: 0;
+			transform: translate(-0.1rem, -50%);
+		}
 	}
 
 	.work-meta {
@@ -312,6 +449,14 @@
 		.modal-body {
 			padding: 1.5rem;
 		}
+
+		.modal-footer {
+			padding: 0.6rem 1rem;
+		}
+
+		.work-assets {
+			gap: 1rem;
+		}
 	}
 
 	@media (max-width: 480px) {
@@ -334,6 +479,10 @@
 
 		.modal-body {
 			padding: 1rem;
+		}
+
+		.modal-footer {
+			padding: 0.5rem 1rem;
 		}
 	}
 </style>

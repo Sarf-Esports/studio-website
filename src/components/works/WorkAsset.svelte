@@ -298,7 +298,7 @@
 		font-size: 0.8rem;
 		color: rgba(white, 0.5);
 		margin: 0;
-		line-height: 1.3;
+		line-height: 1.2;
 		text-align: center;
 	}
 

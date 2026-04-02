@@ -21,6 +21,7 @@ import guess260209 from "../../assets/works/2026/02/260209_tmnl_guess1.webp";
 import roster260218 from "../../assets/works/2026/02/260218_tmnl_roster.webp";
 import mixtape260228 from "../../assets/works/2026/02/260228_tmnl_mixtape4.webp";
 import times260313 from "../../assets/works/2026/03/260313_tmnl_times.webp";
+import mixtape260331 from "../../assets/works/2026/03/260331_tmnl_mixtape5.webp";
 
 export const VIDEO = [
   {
@@ -496,6 +497,20 @@ export const VIDEO = [
       {
         type: "tweet",
         tweetUrl: "https://x.com/revati_jp/status/2032381164401660160?s=20",
+      },
+    ],
+  },
+  {
+    title: "REVATI Mixtape Vol.5",
+    clientName: "REVATI",
+    createdAt: "2026-03-31",
+    tags: ["動画編集"],
+    authors: ["おしお"],
+    thumbnail: mixtape260331,
+    assets: [
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/2038904132250013781?s=20",
       },
     ],
   },

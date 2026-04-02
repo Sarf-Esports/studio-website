@@ -3,7 +3,7 @@
 	import { fly } from 'svelte/transition';
 	import type { Work } from '../../types';
 	import { WORKS } from '../../data';
-	import { queryWorks } from '../../utils';
+	import { findWorkBySlug, getWorkSlug, queryWorks } from '../../utils';
 	import TabNavigation from './TabNavigation.svelte';
 	import WorksList from './WorksList.svelte';
 	import WorkModal from './WorkModal.svelte';
@@ -22,33 +22,51 @@
 	let selectedWork = $state<Work | null>(null);
 	let previousTabIndex = $state<number>(0);
 
-	function initializeTabFromURL() {
-		if (typeof window === 'undefined') return;
-
-		const urlParams = new URLSearchParams(window.location.search);
-		const tabParam = urlParams.get('tab') as TabType;
-
-		if (tabParam && TAB_ORDER.includes(tabParam)) {
-			activeTab = tabParam;
-		}
-	}
-
-	function updateURL(tabId: TabType) {
+	function updateURL(options: { tabId?: TabType; workSlug?: string | null }) {
 		if (typeof window === 'undefined') return;
 
 		const url = new URL(window.location.href);
 
-		if (tabId === 'all') {
-			url.searchParams.delete('tab');
-		} else {
-			url.searchParams.set('tab', tabId);
+		if ('tabId' in options && options.tabId !== undefined) {
+			if (options.tabId === 'all') {
+				url.searchParams.delete('tab');
+			} else {
+				url.searchParams.set('tab', options.tabId);
+			}
+		}
+
+		if ('workSlug' in options) {
+			if (typeof options.workSlug === 'string' && options.workSlug.length > 0) {
+				url.searchParams.set('work', options.workSlug);
+			} else {
+				url.searchParams.delete('work');
+			}
 		}
 
 		window.history.replaceState({}, '', url.toString());
 	}
 
 	onMount(() => {
-		initializeTabFromURL();
+		if (typeof window === 'undefined') return;
+
+		const urlParams = new URLSearchParams(window.location.search);
+		const tabParam = urlParams.get('tab') as TabType;
+		const workParam = urlParams.get('work'); // slug
+
+		if (tabParam && TAB_ORDER.includes(tabParam)) {
+			activeTab = tabParam;
+		}
+
+		if (typeof workParam === 'string' && workParam.length > 0) {
+			const resolvedWork = findWorkBySlug(workParam);
+
+			if (resolvedWork !== null) {
+				selectedWork = resolvedWork;
+				updateURL({ workSlug: resolvedWork.slug });
+			} else {
+				updateURL({ workSlug: null });
+			}
+		}
 	});
 
 	const currentTabIndex = $derived(TAB_ORDER.indexOf(activeTab));
@@ -132,15 +150,19 @@
 	function handleTabChange(tabId: TabType) {
 		previousTabIndex = currentTabIndex; // 現在のインデックスを前のインデックスとして保存
 		activeTab = tabId;
-		updateURL(tabId);
+		updateURL({ tabId });
 	}
 
 	function handleWorkClick(work: Work) {
 		selectedWork = work;
+
+		const workSlug = getWorkSlug(work);
+		updateURL({ workSlug });
 	}
 
 	function handleCloseModal() {
 		selectedWork = null;
+		updateURL({ workSlug: null });
 	}
 </script>
 
