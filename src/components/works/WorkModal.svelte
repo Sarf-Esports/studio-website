@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Work } from '../../types';
+	import { getWorkSlug } from '../../utils';
 	import WorkAsset from './WorkAsset.svelte';
 
 	interface Props {
@@ -45,8 +46,14 @@
 	}
 
 	async function handleCopyLink() {
+		if (!work) return;
+
+		const origin = window.location.origin;
+		const slug = getWorkSlug(work);
+		if (!slug) return;
+
 		try {
-			await navigator.clipboard.writeText(window.location.href);
+			await navigator.clipboard.writeText(`${origin}/works/${slug}`);
 		} catch {
 			return;
 		}

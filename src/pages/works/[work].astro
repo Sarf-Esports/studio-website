@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+  extractYouTubeVideoId,
+  findWorkBySlug,
+  getYouTubeThumbnail,
+  getThumbnailSource,
+} from "../../utils";
+import type { Work } from "../../types";
+
+export const prerender = false;
+
+const { work: workSlug } = Astro.params;
+if (!workSlug) return Astro.rewrite("/");
+
+const work = findWorkBySlug(decodeURIComponent(workSlug));
+if (!work) return Astro.rewrite("/");
+
+const origin = Astro.url.origin;
+const redirectPath = `/?work=${workSlug}`;
+const redirectUrl = origin + redirectPath;
+const pageUrl = origin + Astro.url.pathname;
+
+function toAbsoluteUrl(src: string): string {
+  if (src.startsWith("http://") || src.startsWith("https://")) return src;
+  if (src.startsWith("/")) return origin + src;
+  return origin + `/${src.replace(/^\.?\//, "")}`;
+}
+
+function tryGetYouTubeThumbnail(work: Work) {
+  const videoAsset = work.assets.find((asset) => asset.type === "video");
+  if (videoAsset?.type !== "video") return;
+  const videoId = extractYouTubeVideoId(videoAsset.src);
+  if (!videoId) return;
+  return getYouTubeThumbnail(videoId, "hq");
+}
+
+const thumbnail = getThumbnailSource(work);
+
+const ogImage =
+  thumbnail === null
+    ? tryGetYouTubeThumbnail(work)
+    : typeof thumbnail === "string"
+      ? toAbsoluteUrl(thumbnail)
+      : new URL(thumbnail.src, origin).toString();
+
+const pageTitle = `WORKS - ${work.title}`;
+const description = `製作者: ${Array.isArray(work.authors) ? work.authors.join(", ") : work.authors}`;
+
+type LayoutMeta = Parameters<typeof Layout>[0]["meta"];
+const meta: LayoutMeta = {
+  description,
+  thumbnail: ogImage,
+  canonicalUrl: redirectUrl,
+};
+---
+
+<Layout title={pageTitle} {meta}>
+  <slot slot="head">
+    <meta property="og:url" content={pageUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={work.title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="canonical" href={pageUrl} />
+
+    <meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+  </slot>
+
+  <p>リダイレクトしています...</p>
+  <p><a href={redirectPath}>続行</a></p>
+</Layout>
+
+<style lang="scss">
+  p {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+  }
+</style>
