@@ -15,6 +15,7 @@ const ALLOWED_LICENSES: string[] = [
   "ISC",
   "LGPL-3.0-or-later",
   "MIT",
+  "MIT OR Apache-2.0",
   "MIT OR CC0-1.0",
   "OFL-1.1",
   "Python-2.0",
