@@ -40,7 +40,17 @@ for (const dependency of dependencies) {
     );
     process.exit(1);
   }
-  const { licenseText } = await getLicenseText(dependency);
+
+  let licenseText: string | undefined;
+  try {
+    const result = await getLicenseText(dependency);
+    licenseText = result.licenseText;
+  } catch {
+    console.warn(
+      `License text not found for ${dependency.name}@${dependency.version}. Skipping license text.`,
+    );
+  }
+
   if (dependency.homepage && !isSafeHomepageURL(dependency.homepage)) {
     console.error(
       `Unsafe homepage URL found: "${dependency.homepage}" (${dependency.name}@${dependency.version})`,
