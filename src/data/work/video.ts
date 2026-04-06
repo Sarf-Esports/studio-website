@@ -22,6 +22,7 @@ import roster260218 from "../../assets/works/2026/02/260218_tmnl_roster.webp";
 import mixtape260228 from "../../assets/works/2026/02/260228_tmnl_mixtape4.webp";
 import times260313 from "../../assets/works/2026/03/260313_tmnl_times.webp";
 import mixtape260331 from "../../assets/works/2026/03/260331_tmnl_mixtape5.webp";
+import teaser260401 from "../../assets/works/2026/04/260401_tmnl_teaser.webp";
 
 export const VIDEO = [
   {
@@ -511,6 +512,24 @@ export const VIDEO = [
       {
         type: "tweet",
         tweetUrl: "https://x.com/revati_jp/status/2038904132250013781?s=20",
+      },
+    ],
+  },
+  {
+    title: "大会ティザームービー",
+    clientName: "REVATI",
+    createdAt: "2026-04-01",
+    tags: ["動画編集", "音楽制作", "デザイン"],
+    authors: [
+      { name: "おしお", role: "動画編集" },
+      { name: "くりす", role: "音楽制作" },
+      { name: "HIKA", role: "ビジュアルデザイン" },
+    ],
+    thumbnail: teaser260401,
+    assets: [
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/2039270065779151275",
       },
     ],
   },
