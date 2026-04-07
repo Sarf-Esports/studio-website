@@ -49,10 +49,8 @@
 		if (!work) return;
 
 		const origin = window.location.origin;
-		const slug = getWorkSlug(work);
-		if (!slug) return;
-
 		try {
+			const slug = getWorkSlug(work);
 			await navigator.clipboard.writeText(`${origin}/works/${slug}`);
 		} catch {
 			return;

@@ -52,7 +52,7 @@ const ogImage =
       : new URL(thumbnail.src, WEBSITE_URL).toString();
 
 const pageTitle = `WORKS - ${work.title}`;
-const description = `製作者: ${Array.isArray(work.authors) ? work.authors.join(", ") : work.authors}`;
+const description = `製作者: ${work.authors.map((a) => (typeof a === "string" ? a : a.name)).join(", ")}`;
 
 type LayoutMeta = Parameters<typeof Layout>[0]["meta"];
 const meta: LayoutMeta = {
