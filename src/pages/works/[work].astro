@@ -1,20 +1,28 @@
 ---
+import type { GetStaticPaths } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import {
   extractYouTubeVideoId,
-  findWorkBySlug,
   getYouTubeThumbnail,
   getThumbnailSource,
+  queryWorks,
+  findWorkBySlug,
 } from "../../utils";
 import type { Work } from "../../types";
 
-export const prerender = false;
+export const getStaticPaths = (() => {
+  const works = queryWorks();
+  return works.map((work) => ({
+    params: { work: work.slug },
+  }));
+}) satisfies GetStaticPaths;
 
-const { work: workSlug } = Astro.params;
-if (!workSlug) return Astro.rewrite("/");
+const workSlug = Astro.params.work;
 
-const work = findWorkBySlug(decodeURIComponent(workSlug));
-if (!work) return Astro.rewrite("/");
+const work = findWorkBySlug(workSlug);
+if (!work) {
+  throw new Error(`Work not found for slug: ${workSlug}`);
+}
 
 const origin = Astro.url.origin;
 const redirectPath = `/?work=${workSlug}`;
