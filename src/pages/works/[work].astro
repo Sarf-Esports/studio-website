@@ -7,6 +7,7 @@ import {
   getThumbnailSource,
   queryWorks,
   findWorkBySlug,
+  WEBSITE_URL,
 } from "../../utils";
 import type { Work } from "../../types";
 
@@ -24,15 +25,13 @@ if (!work) {
   throw new Error(`Work not found for slug: ${workSlug}`);
 }
 
-const origin = Astro.url.origin;
 const redirectPath = `/?work=${workSlug}`;
-const redirectUrl = origin + redirectPath;
-const pageUrl = origin + Astro.url.pathname;
+const redirectUrl = new URL(redirectPath, WEBSITE_URL).toString();
 
 function toAbsoluteUrl(src: string): string {
   if (src.startsWith("http://") || src.startsWith("https://")) return src;
-  if (src.startsWith("/")) return origin + src;
-  return origin + `/${src.replace(/^\.?\//, "")}`;
+  if (src.startsWith("/")) return WEBSITE_URL + src;
+  return WEBSITE_URL + `/${src.replace(/^\.?\//, "")}`;
 }
 
 function tryGetYouTubeThumbnail(work: Work) {
@@ -50,13 +49,14 @@ const ogImage =
     ? tryGetYouTubeThumbnail(work)
     : typeof thumbnail === "string"
       ? toAbsoluteUrl(thumbnail)
-      : new URL(thumbnail.src, origin).toString();
+      : new URL(thumbnail.src, WEBSITE_URL).toString();
 
 const pageTitle = `WORKS - ${work.title}`;
 const description = `製作者: ${Array.isArray(work.authors) ? work.authors.join(", ") : work.authors}`;
 
 type LayoutMeta = Parameters<typeof Layout>[0]["meta"];
 const meta: LayoutMeta = {
+  title: work.title,
   description,
   thumbnail: ogImage,
   canonicalUrl: redirectUrl,
@@ -65,16 +65,7 @@ const meta: LayoutMeta = {
 
 <Layout title={pageTitle} {meta}>
   <slot slot="head">
-    <meta property="og:url" content={pageUrl} />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={work.title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-
-    <link rel="canonical" href={pageUrl} />
-
-    <meta http-equiv="refresh" content={`0;url=${redirectUrl}`} />
+    <meta http-equiv="refresh" content={`0;url=${redirectPath}`} />
   </slot>
 
   <p>リダイレクトしています...</p>

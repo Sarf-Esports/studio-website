@@ -17,6 +17,7 @@ import "@fontsource/special-gothic-expanded-one";
 interface Props {
   title: string;
   meta?: {
+    title?: string;
     description?: string;
     thumbnail?: string;
     canonicalUrl?: string;
@@ -79,7 +80,7 @@ Web 開発だけでなく、Discord ボットやソフトウェア開発など�
     <meta name="copyright" content={COPYRIGHT} />
 
     <title>{fullTitle}</title>
-    <meta name="title" content={fullTitle} />
+    <meta name="title" content={meta?.title ?? fullTitle} />
     <meta name="description" content={meta?.description ?? DESCRIPTION} />
 
     <meta property="og:title" content={title} />
