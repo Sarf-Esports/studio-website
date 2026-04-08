@@ -31,9 +31,6 @@
   },
   "dependencies": {
     "@astrojs/svelte": "^8.0.4",
-    "@fontsource/montserrat": "^5.2.8",
-    "@fontsource/noto-sans-jp": "^5.2.9",
-    "@fontsource/special-gothic-expanded-one": "^5.2.3",
     "@threlte/core": "^8.5.4",
     "@threlte/extras": "^9.13.3",
     "astro": "^6.1.4",

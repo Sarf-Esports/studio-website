@@ -11,15 +11,6 @@ importers:
       '@astrojs/svelte':
         specifier: ^8.0.4
         version: 8.0.4(@types/node@25.5.0)(astro@6.1.4(@types/node@25.5.0)(rollup@4.60.1)(sass@1.98.0)(typescript@5.9.3)(yaml@2.8.3))(sass@1.98.0)(svelte@5.55.1)(typescript@5.9.3)(yaml@2.8.3)
-      '@fontsource/montserrat':
-        specifier: ^5.2.8
-        version: 5.2.8
-      '@fontsource/noto-sans-jp':
-        specifier: ^5.2.9
-        version: 5.2.9
-      '@fontsource/special-gothic-expanded-one':
-        specifier: ^5.2.3
-        version: 5.2.3
       '@threlte/core':
         specifier: ^8.5.4
         version: 8.5.4(svelte@5.55.1)(three@0.182.0)
@@ -604,15 +595,6 @@ packages:
   '@eslint/plugin-kit@0.4.1':
     resolution: {integrity: sha512-43/qtrDUokr7LJqoF2c3+RInu/t4zfrpYdoSDfYyhg52rwLV6TnOvdG4fXm7IkSB3wErkcmJS9iEhjVtOSEjjA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
-  '@fontsource/montserrat@5.2.8':
-    resolution: {integrity: sha512-xTjLxSbSfCycDB0pwmNsfNvdfWPaDaRQ2LC6yt/ZI7SdvXG52zHnzNYC/09mzuAuWNJyShkteutfCoDgym56hQ==}
-
-  '@fontsource/noto-sans-jp@5.2.9':
-    resolution: {integrity: sha512-6yVGiofnrnbiJjU8ch4JGSs2HqyozxMvsVyVmFwOnDH3u//qQKLqmKM4n0lqN0637uaJNzUW9nIJqbbMgHVQzw==}
-
-  '@fontsource/special-gothic-expanded-one@5.2.3':
-    resolution: {integrity: sha512-CZnpTXJ0EZUDMrqHQTpetgf3f7VXiUbePUG/oKB2Lz+jhe/EWu4qwpEmI+0Vni+MXQ7hCQlGiC1LVH/UbDQwVw==}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -3861,12 +3843,6 @@ snapshots:
     dependencies:
       '@eslint/core': 0.17.0
       levn: 0.4.1
-
-  '@fontsource/montserrat@5.2.8': {}
-
-  '@fontsource/noto-sans-jp@5.2.9': {}
-
-  '@fontsource/special-gothic-expanded-one@5.2.3': {}
 
   '@humanfs/core@0.19.1': {}
 
