@@ -41,6 +41,8 @@ $breakpoint: 788px;
 //
 // - Regular: `400`
 @mixin font-special-gothic-expanded-one {
-  font-family: var(--font-special-gothic-expanded-one), var(--font-noto-sans-jp), sans-serif;
+  font-family:
+    var(--font-special-gothic-expanded-one), var(--font-noto-sans-jp),
+    sans-serif;
   font-weight: 400;
 }

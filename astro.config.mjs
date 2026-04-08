@@ -23,7 +23,7 @@ export default defineConfig({
       name: "Special Gothic Expanded One",
       cssVariable: "--font-special-gothic-expanded-one",
       weights: [400],
-    }
+    },
   ],
   vite: {
     css: {
