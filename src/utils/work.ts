@@ -62,8 +62,8 @@ export interface WorkSlugEntry extends WorkEntry {
   slug: string;
 }
 
-export function queryWorks(options?: WorkQueryOptions): WorkEntry[] {
-  const works: WorkEntry[] = [];
+export function queryWorks(options?: WorkQueryOptions): WorkSlugEntry[] {
+  const works: WorkSlugEntry[] = [];
 
   for (const category in WORKS) {
     if (options?.category && options.category !== category) continue;
@@ -84,6 +84,7 @@ export function queryWorks(options?: WorkQueryOptions): WorkEntry[] {
       works.push({
         ...work,
         category: category as keyof WORKS,
+        slug: getWorkSlug(work),
       });
     }
   }
@@ -147,17 +148,20 @@ function getWorkEntrySortKey(work: WorkEntry): string {
 }
 
 function buildWorkSlugEntries(): WorkSlugEntry[] {
-  const works = queryWorks();
   const groupedWorks = new Map<string, WorkEntry[]>();
 
-  for (const work of works) {
-    const baseSlug = getBaseWorkSlug(work);
-    const entries = groupedWorks.get(baseSlug);
+  for (const category in WORKS) {
+    const works = WORKS[category as keyof WORKS];
+    for (const work of works) {
+      const baseSlug = getBaseWorkSlug(work);
+      const entries = groupedWorks.get(baseSlug);
 
-    if (entries === undefined) {
-      groupedWorks.set(baseSlug, [work]);
-    } else {
-      entries.push(work);
+      const workEntry = { ...work, category: category as keyof WORKS };
+      if (entries === undefined) {
+        groupedWorks.set(baseSlug, [workEntry]);
+      } else {
+        entries.push(workEntry);
+      }
     }
   }
 
@@ -197,11 +201,12 @@ for (const work of WORK_SLUG_ENTRIES) {
   }
 }
 
-export function getWorkSlug(work: Work): string | undefined {
+export function getWorkSlug(work: Work): string {
   const lookupKey = createWorkLookupKey(work);
   const candidates = WORK_LOOKUP_KEY_MAP.get(lookupKey);
 
-  if (!candidates || candidates.length === 0) return;
+  if (!candidates || candidates.length === 0)
+    throw new Error(`Failed to find slug for work: ${work.title}`);
 
   return candidates[0].slug;
 }
