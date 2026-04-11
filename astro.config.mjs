@@ -11,6 +11,7 @@ export default defineConfig({
       name: "Noto Sans JP",
       cssVariable: "--font-noto-sans-jp",
       weights: [400, 500, 900],
+      subsets: ["japanese", "latin"],
     },
     {
       provider: fontProviders.fontsource(),
