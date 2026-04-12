@@ -30,13 +30,10 @@
     "check": "astro sync && astro check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
-    "@astrojs/svelte": "^7.2.5",
-    "@fontsource/montserrat": "^5.2.8",
-    "@fontsource/noto-sans-jp": "^5.2.9",
-    "@fontsource/special-gothic-expanded-one": "^5.2.3",
+    "@astrojs/svelte": "^8.0.4",
     "@threlte/core": "^8.5.4",
     "@threlte/extras": "^9.13.3",
-    "astro": "^5.18.0",
+    "astro": "^6.1.4",
     "embla-carousel": "^8.6.0",
     "embla-carousel-auto-scroll": "^8.6.0",
     "sass": "^1.98.0",

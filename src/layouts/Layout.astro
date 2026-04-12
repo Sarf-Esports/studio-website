@@ -1,18 +1,12 @@
 ---
-import { WEBSITE_TITLE, WEBSITE_URL, COPYRIGHT } from "../utils";
+import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
+import { WEBSITE_TITLE, WEBSITE_URL, COPYRIGHT } from "../utils";
 import Header from "../components/header/Header.astro";
 import Footer from "../components/footer/Footer.astro";
 import FixedLinks from "../components/FixedLinks.astro";
 
 import studioHeaderImage from "../assets/Revati-Studio_header_orange.png";
-
-import "@fontsource/noto-sans-jp/400.css";
-import "@fontsource/noto-sans-jp/500.css";
-import "@fontsource/noto-sans-jp/900.css";
-import "@fontsource/montserrat/400.css";
-import "@fontsource/montserrat/800.css";
-import "@fontsource/special-gothic-expanded-one";
 
 interface Props {
   title: string;
@@ -95,6 +89,10 @@ Web 開発だけでなく、Discord ボットやソフトウェア開発など�
 
     <link rel="canonical" href={canonicalUrl} />
 
+    <Font cssVariable="--font-noto-sans-jp" />
+    <Font cssVariable="--font-montserrat" />
+    <Font cssVariable="--font-special-gothic-expanded-one" />
+
     <slot name="head" />
 
     <ClientRouter />
@@ -132,7 +130,7 @@ Web 開発だけでなく、Discord ボットやソフトウェア開発など�
 
   html {
     height: 100%;
-    font-family: "Noto Sans JP", sans-serif;
+    font-family: var(--font-noto-sans-jp), sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;

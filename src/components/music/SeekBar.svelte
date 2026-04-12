@@ -51,7 +51,7 @@
 		gap: 12px;
 
 		.time {
-			font-family: 'Montserrat', sans-serif;
+			@include font-montserrat;
 			font-size: 12px;
 			color: rgba($color-background, 0.7);
 			min-width: 35px;
