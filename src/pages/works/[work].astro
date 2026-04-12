@@ -1,0 +1,81 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import {
+  extractYouTubeVideoId,
+  getYouTubeThumbnail,
+  getThumbnailSource,
+  queryWorks,
+  findWorkBySlug,
+  WEBSITE_URL,
+} from "../../utils";
+import type { Work } from "../../types";
+
+export const getStaticPaths = (() => {
+  const works = queryWorks();
+  return works.map((work) => ({
+    params: { work: work.slug },
+  }));
+}) satisfies GetStaticPaths;
+
+const workSlug = Astro.params.work;
+
+const work = findWorkBySlug(workSlug);
+if (!work) {
+  throw new Error(`Work not found for slug: ${workSlug}`);
+}
+
+const redirectPath = `/?work=${workSlug}`;
+const redirectUrl = new URL(redirectPath, WEBSITE_URL).toString();
+
+function toAbsoluteUrl(src: string): string {
+  if (src.startsWith("http://") || src.startsWith("https://")) return src;
+  if (src.startsWith("/")) return WEBSITE_URL + src;
+  return WEBSITE_URL + `/${src.replace(/^\.?\//, "")}`;
+}
+
+function tryGetYouTubeThumbnail(work: Work) {
+  const videoAsset = work.assets.find((asset) => asset.type === "video");
+  if (videoAsset?.type !== "video") return;
+  const videoId = extractYouTubeVideoId(videoAsset.src);
+  if (!videoId) return;
+  return getYouTubeThumbnail(videoId, "hq");
+}
+
+const thumbnail = getThumbnailSource(work);
+
+const ogImage =
+  thumbnail === null
+    ? tryGetYouTubeThumbnail(work)
+    : typeof thumbnail === "string"
+      ? toAbsoluteUrl(thumbnail)
+      : new URL(thumbnail.src, WEBSITE_URL).toString();
+
+const pageTitle = `WORKS - ${work.title}`;
+const description = `製作者: ${work.authors.map((a) => (typeof a === "string" ? a : a.name)).join(", ")}`;
+
+type LayoutMeta = Parameters<typeof Layout>[0]["meta"];
+const meta: LayoutMeta = {
+  title: work.title,
+  description,
+  thumbnail: ogImage,
+  canonicalUrl: redirectUrl,
+};
+---
+
+<Layout title={pageTitle} {meta}>
+  <slot slot="head">
+    <meta http-equiv="refresh" content={`0;url=${redirectPath}`} />
+  </slot>
+
+  <p>リダイレクトしています...</p>
+  <p><a href={redirectPath}>続行</a></p>
+</Layout>
+
+<style lang="scss">
+  p {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+  }
+</style>

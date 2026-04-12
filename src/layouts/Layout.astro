@@ -1,29 +1,29 @@
 ---
-import { WEBSITE_TITLE, WEBSITE_URL, COPYRIGHT } from "../utils";
+import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
+import { WEBSITE_TITLE, WEBSITE_URL, COPYRIGHT } from "../utils";
 import Header from "../components/header/Header.astro";
 import Footer from "../components/footer/Footer.astro";
 import FixedLinks from "../components/FixedLinks.astro";
 
 import studioHeaderImage from "../assets/Revati-Studio_header_orange.png";
 
-import "@fontsource/noto-sans-jp/400.css";
-import "@fontsource/noto-sans-jp/500.css";
-import "@fontsource/noto-sans-jp/900.css";
-import "@fontsource/montserrat/400.css";
-import "@fontsource/montserrat/800.css";
-import "@fontsource/special-gothic-expanded-one";
-
 interface Props {
   title: string;
+  meta?: {
+    title?: string;
+    description?: string;
+    thumbnail?: string;
+    canonicalUrl?: string;
+  };
 }
 
-const { title } = Astro.props;
+const { title, meta } = Astro.props;
 
-const absThumbnailPath = WEBSITE_URL + studioHeaderImage.src;
+const absThumbnailPath = meta?.thumbnail ?? WEBSITE_URL + studioHeaderImage.src;
 const fullTitle = `${WEBSITE_TITLE} | ${title}`;
 const DESCRIPTION = "あらゆるクリエイティブをワンストップで。";
-const canonicalUrl = WEBSITE_URL + Astro.url.pathname;
+const canonicalUrl = meta?.canonicalUrl ?? WEBSITE_URL + Astro.url.pathname;
 ---
 
 <!--
@@ -73,20 +73,27 @@ Web 開発だけでなく、Discord ボットやソフトウェア開発など�
     />
     <meta name="copyright" content={COPYRIGHT} />
 
-    <slot name="head" />
-
     <title>{fullTitle}</title>
-    <meta name="title" content={fullTitle} />
-    <meta name="description" content={DESCRIPTION} />
+    <meta name="title" content={meta?.title ?? fullTitle} />
+    <meta name="description" content={meta?.description ?? DESCRIPTION} />
 
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:title" content={meta?.title ?? fullTitle} />
+    <meta
+      property="og:description"
+      content={meta?.description ?? DESCRIPTION}
+    />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="og:image" content={absThumbnailPath} />
 
     <link rel="canonical" href={canonicalUrl} />
+
+    <Font cssVariable="--font-noto-sans-jp" />
+    <Font cssVariable="--font-montserrat" />
+    <Font cssVariable="--font-special-gothic-expanded-one" />
+
+    <slot name="head" />
 
     <ClientRouter />
   </head>
@@ -123,7 +130,7 @@ Web 開発だけでなく、Discord ボットやソフトウェア開発など�
 
   html {
     height: 100%;
-    font-family: "Noto Sans JP", sans-serif;
+    font-family: var(--font-noto-sans-jp), sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
