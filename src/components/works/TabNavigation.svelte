@@ -35,7 +35,7 @@
 <style lang="scss">
 	.tab-navigation {
 		width: 100%;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
 		text-align: center;
 	}
 
