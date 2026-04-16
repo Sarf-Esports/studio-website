@@ -43,11 +43,7 @@
 		actions: FilterActions;
 	}
 
-	let {
-		state: filterState,
-		options: filterOptions,
-		actions: filterActions
-	}: Props = $props();
+	let { state: filterState, options: filterOptions, actions: filterActions }: Props = $props();
 
 	let isExpanded = $state<boolean>(false);
 	let openDropdown = $state<DropdownKey>(null);
@@ -283,7 +279,9 @@
 							aria-expanded={openDropdown === 'client'}
 						>
 							<span class="trigger-value">
-								{filterState.selectedClientName.length > 0 ? filterState.selectedClientName : 'すべて'}
+								{filterState.selectedClientName.length > 0
+									? filterState.selectedClientName
+									: 'すべて'}
 							</span>
 							<span class="chevron">▾</span>
 						</button>
@@ -312,7 +310,8 @@
 										onclick={() => selectClientName(option)}
 									>
 										<span>{option}</span>
-										<span class="option-count">{filterOptions.clientNameCountMap[option] ?? 0}</span>
+										<span class="option-count">{filterOptions.clientNameCountMap[option] ?? 0}</span
+										>
 									</button>
 								{/each}
 							</div>
@@ -331,7 +330,9 @@
 							aria-expanded={openDropdown === 'author'}
 						>
 							<span class="trigger-value"
-								>{filterState.selectedAuthor.length > 0 ? filterState.selectedAuthor : 'すべて'}</span
+								>{filterState.selectedAuthor.length > 0
+									? filterState.selectedAuthor
+									: 'すべて'}</span
 							>
 							<span class="chevron">▾</span>
 						</button>
@@ -681,7 +682,7 @@
 
 		.reset-field {
 			grid-column: 1;
-      padding-top: 0.5rem;
+			padding-top: 0.5rem;
 		}
 
 		.reset-field .reset-button {
