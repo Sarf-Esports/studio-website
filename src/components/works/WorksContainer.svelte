@@ -28,6 +28,7 @@
 	let selectedAuthor = $state<string>('');
 	let selectedTag = $state<string>('');
 	let sortOption = $state<SortOption>('date-desc');
+	let filterPanelExpandSignal = $state<number>(0);
 
 	function updateURL(options: { tabId?: TabType; workSlug?: string | null }) {
 		if (typeof window === 'undefined') return;
@@ -344,22 +345,47 @@
 		selectedTag = value;
 	}
 
+	function resetFilters() {
+		searchQuery = '';
+		selectedClientName = '';
+		selectedAuthor = '';
+		selectedTag = '';
+	}
+
+	function handleTagClickInModal(tag: string) {
+		resetFilters();
+		selectedTag = tag;
+		selectedWork = null;
+		filterPanelExpandSignal += 1;
+		updateURL({ workSlug: null });
+	}
+
+	function handleAuthorClickInModal(authorName: string) {
+		resetFilters();
+		selectedAuthor = authorName;
+		selectedWork = null;
+		filterPanelExpandSignal += 1;
+		updateURL({ workSlug: null });
+	}
+
 	function handleSortOptionChange(value: SortOption) {
 		sortOption = value;
 	}
 
 	function handleResetFilters() {
-		searchQuery = '';
-		selectedClientName = '';
-		selectedAuthor = '';
-		selectedTag = '';
+		resetFilters();
 		sortOption = 'date-desc';
 	}
 </script>
 
 <div class="works-container">
 	<TabNavigation {activeTab} onTabChange={handleTabChange} />
-	<WorksFilterBar state={filterState} options={filterOptions} actions={filterActions} />
+	<WorksFilterBar
+		state={filterState}
+		options={filterOptions}
+		actions={filterActions}
+		expandSignal={filterPanelExpandSignal}
+	/>
 
 	<div class="works-content">
 		{#key activeTab}
@@ -373,7 +399,12 @@
 	</div>
 </div>
 
-<WorkModal work={selectedWork} onClose={handleCloseModal} />
+<WorkModal
+	work={selectedWork}
+	onClose={handleCloseModal}
+	onTagClick={handleTagClickInModal}
+	onAuthorClick={handleAuthorClickInModal}
+/>
 
 <style lang="scss">
 	.works-container {

@@ -41,13 +41,20 @@
 		state: FilterState;
 		options: FilterOptions;
 		actions: FilterActions;
+		expandSignal?: number;
 	}
 
-	let { state: filterState, options: filterOptions, actions: filterActions }: Props = $props();
+	let {
+		state: filterState,
+		options: filterOptions,
+		actions: filterActions,
+		expandSignal = 0
+	}: Props = $props();
 
 	let isExpanded = $state<boolean>(false);
 	let openDropdown = $state<DropdownKey>(null);
 	let rootElement = $state<HTMLElement>();
+	let previousExpandSignal = $state<number>(0);
 
 	const currentSortType = $derived<SortType>(
 		filterState.sortOption.startsWith('date') ? 'date' : 'title'
@@ -161,6 +168,15 @@
 			document.removeEventListener('click', handleDocumentClick);
 			document.removeEventListener('keydown', handleDocumentKeydown);
 		};
+	});
+
+	$effect(() => {
+		const currentExpandSignal = expandSignal;
+		if (currentExpandSignal === previousExpandSignal) return;
+
+		isExpanded = true;
+		openDropdown = null;
+		previousExpandSignal = currentExpandSignal;
 	});
 </script>
 
