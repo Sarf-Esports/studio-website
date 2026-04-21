@@ -25,5 +25,8 @@
 	stroke-width="2"
 	stroke-linecap="round"
 	stroke-linejoin="round"
-	class={className}><path d="M12 5v14" /><path d="m19 12-7 7-7-7" /></svg
+	class={className}
 >
+	<path d="M12 5v14" />
+	<path d="m19 12-7 7-7-7" />
+</svg>

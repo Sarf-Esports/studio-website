@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fade, slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition';
 	import ArrowDownIcon from '../icons/ArrowDownIcon.svelte';
 	import ArrowUpIcon from '../icons/ArrowUpIcon.svelte';
 	import SearchIcon from '../icons/SearchIcon.svelte';
@@ -221,7 +221,7 @@
 				{#if openDropdown === 'sort'}
 					<div
 						class="dropdown-menu"
-						role="listbox"
+						role="group"
 						aria-label="並び替えの種類"
 						onwheel={handleDropdownWheel}
 						transition:slide={{ duration: 100 }}
@@ -304,7 +304,7 @@
 						{#if openDropdown === 'client'}
 							<div
 								class="dropdown-menu"
-								role="listbox"
+								role="group"
 								aria-label="クライアント選択"
 								onwheel={handleDropdownWheel}
 								transition:slide={{ duration: 100 }}
@@ -355,7 +355,7 @@
 						{#if openDropdown === 'author'}
 							<div
 								class="dropdown-menu"
-								role="listbox"
+								role="group"
 								aria-label="製作者選択"
 								onwheel={handleDropdownWheel}
 								transition:slide={{ duration: 100 }}
@@ -403,7 +403,7 @@
 						{#if openDropdown === 'tag'}
 							<div
 								class="dropdown-menu"
-								role="listbox"
+								role="group"
 								aria-label="タグ選択"
 								onwheel={handleDropdownWheel}
 								transition:slide={{ duration: 100 }}
