@@ -2,6 +2,7 @@ import type { Work } from "../../types";
 
 import revatiJp from "../../assets/works/2023/01/230121_revati-jp.webp";
 import revatiStudio from "../../assets/works/2025/07/250724_studio-revati-jp.webp";
+import revatiTournament from "../../assets/works/2026/04/260423_tmnl_tournament-website.webp";
 
 export const SERVICE = [
   {
@@ -9,7 +10,7 @@ export const SERVICE = [
     clientName: "REVATI",
     createdAt: "2023-01-21",
     tags: ["Webサイト"],
-    authors: ["Rinrin.rs", "GEN3987", "Retoruto9900K", "しろねこ"],
+    authors: ["Rinrin.rs", "GEN3987", "RetoRuto9900K", "しろねこ"],
     assets: [
       {
         type: "website",
@@ -88,6 +89,32 @@ export const SERVICE = [
           "VARRELが特殊なイラリー構成とラマットラのサイド攻撃でTeam Falconsを圧倒した方法とは？",
         src: "http://youtube.com/watch?v=jH3qhqwsPwo",
       },
+    ],
+  },
+  {
+    title: "REVATI Tournaments",
+    clientName: "REVATI",
+    createdAt: "2026-04-23",
+    tags: ["Webサイト"],
+    authors: [
+      { name: "Rinrin.rs", role: "サイト制作" },
+      { name: "RetoRuto9900K", role: "サイト制作" },
+      { name: "Reku", role: "デザイン" },
+      { name: "HIKA", role: "デザイン" },
+      { name: "ちゃちゃまる", role: "デザイン" },
+    ],
+    assets: [
+      {
+        type: "website",
+        title: "tournament.revati.jp",
+        url: "https://tournament.revati.jp",
+        thumbnail: revatiTournament,
+      },
+      // {
+      //   type: "external",
+      //   title: "ソースコード（リポジトリ）はこちら",
+      //   url: "https://github.com/revati-jp/tournament-website",
+      // },
     ],
   },
 ] satisfies Work[];
