@@ -606,7 +606,7 @@
 		top: calc(100% + 0.25rem);
 		left: 0;
 		right: 0;
-		max-height: 260px;
+		max-height: 200px;
 		overflow: auto;
 		overscroll-behavior: contain;
 		padding: 0.3rem;
