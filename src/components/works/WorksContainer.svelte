@@ -5,12 +5,16 @@
 	import { WORKS } from '../../data';
 	import { findWorkBySlug, getWorkSlug, queryWorks } from '../../utils';
 	import TabNavigation from './TabNavigation.svelte';
-	import WorksFilterBar from './WorksFilterBar.svelte';
+	import WorksFilterBar, {
+		type FilterActions,
+		type FilterOptions,
+		type FilterState,
+		type SortMode
+	} from './WorksFilterBar.svelte';
 	import WorksList from './WorksList.svelte';
 	import WorkModal from './WorkModal.svelte';
 
 	type TabType = 'all' | keyof WORKS;
-	type SortOption = 'date-desc' | 'date-asc' | 'title-asc' | 'title-desc';
 
 	interface Props {
 		thumbnailUrlMap?: Record<string, string>;
@@ -27,7 +31,7 @@
 	let selectedClientName = $state<string>('');
 	let selectedAuthor = $state<string>('');
 	let selectedTag = $state<string>('');
-	let sortOption = $state<SortOption>('date-desc');
+	let sortMode = $state<SortMode>('date-desc');
 	let filterPanelExpandSignal = $state<number>(0);
 
 	function updateURL(options: { tabId?: TabType; workSlug?: string | null }) {
@@ -88,10 +92,10 @@
 		return typeof author === 'string' ? author : author.name;
 	}
 
-	function sortWorks(works: Work[], option: SortOption): Work[] {
+	function sortWorks(works: Work[], mode: SortMode): Work[] {
 		const sorted = works.slice();
 
-		switch (option) {
+		switch (mode) {
 			case 'date-asc':
 				sorted.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 				break;
@@ -240,15 +244,15 @@
 
 	const totalWorksCount = $derived(tabWorks.length);
 
-	const filterState = $derived({
+	const filterState = $derived<FilterState>({
 		searchQuery,
 		selectedClientName,
 		selectedAuthor,
 		selectedTag,
-		sortOption
+		sortMode
 	});
 
-	const filterOptions = $derived({
+	const filterOptions = $derived<FilterOptions>({
 		clientNameOptions,
 		authorOptions,
 		tagOptions,
@@ -258,12 +262,12 @@
 		totalWorksCount
 	});
 
-	const filterActions = {
+	const filterActions: FilterActions = {
 		onSearchQueryChange: handleSearchQueryChange,
 		onClientNameChange: handleClientNameChange,
 		onAuthorChange: handleAuthorChange,
 		onTagChange: handleTagChange,
-		onSortOptionChange: handleSortOptionChange,
+		onSortModeChange: handleSortModeChange,
 		onResetFilters: handleResetFilters
 	};
 
@@ -308,7 +312,7 @@
 			results = results.filter((work) => work.tags.includes(selectedTag));
 		}
 
-		return sortWorks(results, sortOption);
+		return sortWorks(results, sortMode);
 	});
 
 	function handleTabChange(tabId: TabType) {
@@ -368,13 +372,13 @@
 		updateURL({ workSlug: null });
 	}
 
-	function handleSortOptionChange(value: SortOption) {
-		sortOption = value;
+	function handleSortModeChange(value: SortMode) {
+		sortMode = value;
 	}
 
 	function handleResetFilters() {
 		resetFilters();
-		sortOption = 'date-desc';
+		sortMode = 'date-desc';
 	}
 </script>
 

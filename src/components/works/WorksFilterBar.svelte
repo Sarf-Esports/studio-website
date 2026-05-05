@@ -5,20 +5,20 @@
 	import ArrowUpIcon from '../icons/ArrowUpIcon.svelte';
 	import SearchIcon from '../icons/SearchIcon.svelte';
 
-	type SortOption = 'date-desc' | 'date-asc' | 'title-asc' | 'title-desc';
 	type SortType = 'date' | 'title';
 	type SortDirection = 'asc' | 'desc';
+	export type SortMode = `${SortType}-${SortDirection}`;
 	type DropdownKey = 'client' | 'author' | 'tag' | 'sort' | null;
 
-	interface FilterState {
+	export interface FilterState {
 		searchQuery: string;
 		selectedClientName: string;
 		selectedAuthor: string;
 		selectedTag: string;
-		sortOption: SortOption;
+		sortMode: SortMode;
 	}
 
-	interface FilterOptions {
+	export interface FilterOptions {
 		clientNameOptions: string[];
 		authorOptions: string[];
 		tagOptions: string[];
@@ -28,12 +28,12 @@
 		totalWorksCount: number;
 	}
 
-	interface FilterActions {
+	export interface FilterActions {
 		onSearchQueryChange: (value: string) => void;
 		onClientNameChange: (value: string) => void;
 		onAuthorChange: (value: string) => void;
 		onTagChange: (value: string) => void;
-		onSortOptionChange: (value: SortOption) => void;
+		onSortModeChange: (value: SortMode) => void;
 		onResetFilters: () => void;
 	}
 
@@ -57,20 +57,16 @@
 	let previousExpandSignal = $state<number>(0);
 
 	const currentSortType = $derived<SortType>(
-		filterState.sortOption.startsWith('date') ? 'date' : 'title'
+		filterState.sortMode.startsWith('date') ? 'date' : 'title'
 	);
 	const currentSortDirection = $derived<SortDirection>(
-		filterState.sortOption.endsWith('asc') ? 'asc' : 'desc'
+		filterState.sortMode.endsWith('asc') ? 'asc' : 'desc'
 	);
 	const isSortAsc = $derived(currentSortDirection === 'asc');
 	const sortLabel = $derived(currentSortType === 'date' ? '日付順' : '名前順');
 
-	function getSortOption(type: SortType, direction: SortDirection): SortOption {
-		if (type === 'date') {
-			return direction === 'asc' ? 'date-asc' : 'date-desc';
-		}
-
-		return direction === 'asc' ? 'title-asc' : 'title-desc';
+	function toSortMode(type: SortType, direction: SortDirection): SortMode {
+		return `${type}-${direction}`;
 	}
 
 	function handleSearchInput(event: Event) {
@@ -113,9 +109,9 @@
 	function selectSortType(type: SortType) {
 		if (currentSortType === type) {
 			const nextDirection: SortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
-			filterActions.onSortOptionChange(getSortOption(type, nextDirection));
+			filterActions.onSortModeChange(toSortMode(type, nextDirection));
 		} else {
-			filterActions.onSortOptionChange(getSortOption(type, 'desc'));
+			filterActions.onSortModeChange(toSortMode(type, 'desc'));
 		}
 
 		openDropdown = null;
