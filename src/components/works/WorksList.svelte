@@ -19,7 +19,6 @@
 		<div class="empty-content">
 			<div class="empty-icon">📂</div>
 			<h3 class="empty-title">作品がありません</h3>
-			<p class="empty-description">このカテゴリにはまだ作品が登録されていません。</p>
 		</div>
 	</div>
 {:else}
@@ -39,7 +38,6 @@
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
 		gap: 1rem;
-		padding: 1rem 0;
 	}
 
 	.empty-state {
@@ -66,13 +64,6 @@
 		font-weight: 900;
 		color: white;
 		margin: 0 0 0.75rem 0;
-	}
-
-	.empty-description {
-		font-size: 1rem;
-		color: rgba(white, 0.7);
-		margin: 0;
-		line-height: 1.6;
 	}
 
 	@media (max-width: 1200px) {
@@ -104,10 +95,6 @@
 
 		.empty-title {
 			font-size: 1.25rem;
-		}
-
-		.empty-description {
-			font-size: 0.9rem;
 		}
 	}
 </style>

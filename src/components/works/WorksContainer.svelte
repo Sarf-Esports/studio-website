@@ -5,6 +5,12 @@
 	import { WORKS } from '../../data';
 	import { findWorkBySlug, getWorkSlug, queryWorks } from '../../utils';
 	import TabNavigation from './TabNavigation.svelte';
+	import WorksFilterBar, {
+		type FilterActions,
+		type FilterOptions,
+		type FilterState,
+		type SortMode
+	} from './WorksFilterBar.svelte';
 	import WorksList from './WorksList.svelte';
 	import WorkModal from './WorkModal.svelte';
 
@@ -21,6 +27,12 @@
 	let activeTab = $state<TabType>('all');
 	let selectedWork = $state<Work | null>(null);
 	let previousTabIndex = $state<number>(0);
+	let searchQuery = $state<string>('');
+	let selectedClientName = $state<string>('');
+	let selectedAuthor = $state<string>('');
+	let selectedTag = $state<string>('');
+	let sortMode = $state<SortMode>('date-desc');
+	let filterPanelExpandSignal = $state<number>(0);
 
 	function updateURL(options: { tabId?: TabType; workSlug?: string | null }) {
 		if (typeof window === 'undefined') return;
@@ -76,7 +88,41 @@
 		return Object.values(WORKS).flat();
 	}
 
-	const filteredWorks = $derived.by((): Work[] => {
+	function getAuthorName(author: Work['authors'][number]): string {
+		return typeof author === 'string' ? author : author.name;
+	}
+
+	function sortOptionsByCount(options: string[], countMap: Record<string, number>): string[] {
+		return [...options].sort((a, b) => {
+			const diff = (countMap[b] ?? 0) - (countMap[a] ?? 0);
+			if (diff !== 0) return diff;
+			return a.localeCompare(b, 'ja');
+		});
+	}
+
+	function sortWorks(works: Work[], mode: SortMode): Work[] {
+		const sorted = works.slice();
+
+		switch (mode) {
+			case 'date-asc':
+				sorted.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+				break;
+			case 'title-asc':
+				sorted.sort((a, b) => a.title.localeCompare(b.title, 'ja'));
+				break;
+			case 'title-desc':
+				sorted.sort((a, b) => b.title.localeCompare(a.title, 'ja'));
+				break;
+			case 'date-desc':
+			default:
+				sorted.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+				break;
+		}
+
+		return sorted;
+	}
+
+	const tabWorks = $derived.by((): Work[] => {
 		let categoryWorks: Work[];
 
 		if (activeTab === 'all') {
@@ -142,9 +188,139 @@
 			categoryWorks = Array.from(workMap.values());
 		}
 
-		categoryWorks.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
 		return categoryWorks;
+	});
+
+	const clientNameCountMap = $derived.by((): Record<string, number> => {
+		const clientNameCounts = new Map<string, number>();
+
+		tabWorks.forEach((work) => {
+			if (typeof work.clientName !== 'string' || work.clientName.length === 0) return;
+
+			const currentCount = clientNameCounts.get(work.clientName) ?? 0;
+			clientNameCounts.set(work.clientName, currentCount + 1);
+		});
+
+		return Object.fromEntries(clientNameCounts.entries());
+	});
+
+	const clientNameOptions = $derived.by((): string[] =>
+		sortOptionsByCount(Object.keys(clientNameCountMap), clientNameCountMap)
+	);
+
+	const authorCountMap = $derived.by((): Record<string, number> => {
+		const authorCounts = new Map<string, number>();
+
+		tabWorks.forEach((work) => {
+			const uniqueWorkAuthors = new Set<string>();
+
+			work.authors.forEach((author) => {
+				uniqueWorkAuthors.add(getAuthorName(author));
+			});
+
+			uniqueWorkAuthors.forEach((authorName) => {
+				const currentCount = authorCounts.get(authorName) ?? 0;
+				authorCounts.set(authorName, currentCount + 1);
+			});
+		});
+
+		return Object.fromEntries(authorCounts.entries());
+	});
+
+	const authorOptions = $derived.by((): string[] =>
+		sortOptionsByCount(Object.keys(authorCountMap), authorCountMap)
+	);
+
+	const tagCountMap = $derived.by((): Record<string, number> => {
+		const tagCounts = new Map<string, number>();
+
+		tabWorks.forEach((work) => {
+			const uniqueWorkTags = new Set<string>(work.tags);
+
+			uniqueWorkTags.forEach((tag) => {
+				const currentCount = tagCounts.get(tag) ?? 0;
+				tagCounts.set(tag, currentCount + 1);
+			});
+		});
+
+		return Object.fromEntries(tagCounts.entries());
+	});
+
+	const tagOptions = $derived.by((): string[] =>
+		sortOptionsByCount(Object.keys(tagCountMap), tagCountMap)
+	);
+
+	const totalWorksCount = $derived(tabWorks.length);
+
+	const filterState = $derived<FilterState>({
+		searchQuery,
+		selectedClientName,
+		selectedAuthor,
+		selectedTag,
+		sortMode
+	});
+
+	const filterOptions = $derived<FilterOptions>({
+		clientNameOptions,
+		authorOptions,
+		tagOptions,
+		clientNameCountMap,
+		authorCountMap,
+		tagCountMap,
+		totalWorksCount
+	});
+
+	const filterActions: FilterActions = {
+		onSearchQueryChange: handleSearchQueryChange,
+		onClientNameChange: handleClientNameChange,
+		onAuthorChange: handleAuthorChange,
+		onTagChange: handleTagChange,
+		onSortModeChange: handleSortModeChange,
+		onResetFilters: handleResetFilters
+	};
+
+	$effect(() => {
+		const hasSelectedClient = clientNameOptions.includes(selectedClientName);
+		if (selectedClientName.length > 0 && hasSelectedClient === false) {
+			selectedClientName = '';
+		}
+
+		const hasSelectedAuthor = authorOptions.includes(selectedAuthor);
+		if (selectedAuthor.length > 0 && hasSelectedAuthor === false) {
+			selectedAuthor = '';
+		}
+
+		const hasSelectedTag = tagOptions.includes(selectedTag);
+		if (selectedTag.length > 0 && hasSelectedTag === false) {
+			selectedTag = '';
+		}
+	});
+
+	const filteredWorks = $derived.by((): Work[] => {
+		let results = tabWorks;
+
+		const normalizedSearchQuery = searchQuery.trim().toLocaleLowerCase();
+		if (normalizedSearchQuery.length > 0) {
+			results = results.filter((work) =>
+				work.title.toLocaleLowerCase().includes(normalizedSearchQuery)
+			);
+		}
+
+		if (selectedClientName.length > 0) {
+			results = results.filter((work) => work.clientName === selectedClientName);
+		}
+
+		if (selectedAuthor.length > 0) {
+			results = results.filter((work) =>
+				work.authors.some((author) => getAuthorName(author) === selectedAuthor)
+			);
+		}
+
+		if (selectedTag.length > 0) {
+			results = results.filter((work) => work.tags.includes(selectedTag));
+		}
+
+		return sortWorks(results, sortMode);
 	});
 
 	function handleTabChange(tabId: TabType) {
@@ -164,10 +340,64 @@
 		selectedWork = null;
 		updateURL({ workSlug: null });
 	}
+
+	function handleSearchQueryChange(value: string) {
+		searchQuery = value;
+	}
+
+	function handleClientNameChange(value: string) {
+		selectedClientName = value;
+	}
+
+	function handleAuthorChange(value: string) {
+		selectedAuthor = value;
+	}
+
+	function handleTagChange(value: string) {
+		selectedTag = value;
+	}
+
+	function resetFilters() {
+		searchQuery = '';
+		selectedClientName = '';
+		selectedAuthor = '';
+		selectedTag = '';
+	}
+
+	function handleTagClickInModal(tag: string) {
+		resetFilters();
+		selectedTag = tag;
+		selectedWork = null;
+		filterPanelExpandSignal += 1;
+		updateURL({ workSlug: null });
+	}
+
+	function handleAuthorClickInModal(authorName: string) {
+		resetFilters();
+		selectedAuthor = authorName;
+		selectedWork = null;
+		filterPanelExpandSignal += 1;
+		updateURL({ workSlug: null });
+	}
+
+	function handleSortModeChange(value: SortMode) {
+		sortMode = value;
+	}
+
+	function handleResetFilters() {
+		resetFilters();
+		sortMode = 'date-desc';
+	}
 </script>
 
 <div class="works-container">
 	<TabNavigation {activeTab} onTabChange={handleTabChange} />
+	<WorksFilterBar
+		state={filterState}
+		options={filterOptions}
+		actions={filterActions}
+		expandSignal={filterPanelExpandSignal}
+	/>
 
 	<div class="works-content">
 		{#key activeTab}
@@ -181,7 +411,12 @@
 	</div>
 </div>
 
-<WorkModal work={selectedWork} onClose={handleCloseModal} />
+<WorkModal
+	work={selectedWork}
+	onClose={handleCloseModal}
+	onTagClick={handleTagClickInModal}
+	onAuthorClick={handleAuthorClickInModal}
+/>
 
 <style lang="scss">
 	.works-container {
@@ -194,7 +429,7 @@
 	}
 
 	.works-content {
-		margin-top: 2rem;
+		margin-top: 1rem;
 		width: 100%;
 		overflow: hidden;
 	}
