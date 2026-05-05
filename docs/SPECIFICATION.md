@@ -79,6 +79,7 @@
 |    1000 | MusicPlayer 本体                           | [`src/components/music/MusicPlayer.svelte>style>.music-player`](../src/components/music/MusicPlayer.svelte)              |
 |     255 | ヘッダー                                   | [`src/components/header/Navbar.astro>style>ul`](../src/components/header/Navbar.astro)                                   |
 |     224 | 画面追従リンク群                           | [`src/components/FixedLinks.astro>style>ul`](../src/components/FixedLinks.astro)                                         |
+|      20 | WorksFilterBar ドロップダウン              | [`src/components/works/WorksFilterBar.svelte>style>.dropdown-menu`](../src/components/works/WorksFilterBar.svelte)       |
 |      10 | WorkCard オーバーレイ                      | [`src/components/works/WorkCard.svelte>style>.work-overlay`](../src/components/works/WorkCard.svelte)                    |
 |       1 | WorkCard アイコンサムネイル                | [`src/components/works/WorkCard.svelte>style>.icon-thumbnail`](../src/components/works/WorkCard.svelte)                  |
 
