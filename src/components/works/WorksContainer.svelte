@@ -92,6 +92,14 @@
 		return typeof author === 'string' ? author : author.name;
 	}
 
+	function sortOptionsByCount(options: string[], countMap: Record<string, number>): string[] {
+		return [...options].sort((a, b) => {
+			const diff = (countMap[b] ?? 0) - (countMap[a] ?? 0);
+			if (diff !== 0) return diff;
+			return a.localeCompare(b, 'ja');
+		});
+	}
+
 	function sortWorks(works: Work[], mode: SortMode): Work[] {
 		const sorted = works.slice();
 
@@ -197,7 +205,7 @@
 	});
 
 	const clientNameOptions = $derived.by((): string[] =>
-		Object.keys(clientNameCountMap).sort((a, b) => a.localeCompare(b, 'ja'))
+		sortOptionsByCount(Object.keys(clientNameCountMap), clientNameCountMap)
 	);
 
 	const authorCountMap = $derived.by((): Record<string, number> => {
@@ -220,7 +228,7 @@
 	});
 
 	const authorOptions = $derived.by((): string[] =>
-		Object.keys(authorCountMap).sort((a, b) => a.localeCompare(b, 'ja'))
+		sortOptionsByCount(Object.keys(authorCountMap), authorCountMap)
 	);
 
 	const tagCountMap = $derived.by((): Record<string, number> => {
@@ -239,7 +247,7 @@
 	});
 
 	const tagOptions = $derived.by((): string[] =>
-		Object.keys(tagCountMap).sort((a, b) => a.localeCompare(b, 'ja'))
+		sortOptionsByCount(Object.keys(tagCountMap), tagCountMap)
 	);
 
 	const totalWorksCount = $derived(tabWorks.length);
