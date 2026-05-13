@@ -60,6 +60,9 @@ import leave260308 from "../../assets/works/2026/03/260308_annc_leave.webp";
 import o2revati260324 from "../../assets/works/2026/03/260324_annc_o2-revati.webp";
 import joins260326 from "../../assets/works/2026/03/260326_annc_joins.webp";
 import roster260327 from "../../assets/works/2026/03/260327_annc_roster.webp";
+import academy260420 from "../../assets/works/2026/04/260420_annc_academy.webp";
+import join260420 from "../../assets/works/2026/04/260420_annc_join.webp";
+import leave260428 from "../../assets/works/2026/04/260428_annc_leave.webp";
 
 export const DESIGN = [
   {
@@ -684,6 +687,48 @@ export const DESIGN = [
         type: "image",
         caption: "ロスター告知画像",
         src: roster260327,
+      },
+    ],
+  },
+  {
+    title: "解散/脱退告知画像",
+    clientName: "REVATI",
+    createdAt: "2026-04-20",
+    tags: ["デザイン"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "image",
+        caption: "解散/脱退告知画像",
+        src: academy260420,
+      },
+    ],
+  },
+  {
+    title: "加入告知画像",
+    clientName: "REVATI",
+    createdAt: "2026-04-20",
+    tags: ["デザイン"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "image",
+        caption: "加入告知画像",
+        src: join260420,
+      },
+    ],
+  },
+  {
+    title: "脱退発表画像",
+    clientName: "REVATI",
+    createdAt: "2026-04-28",
+    tags: ["デザイン"],
+    authors: ["rei"],
+    assets: [
+      {
+        type: "image",
+        caption: "脱退発表画像",
+        src: leave260428,
       },
     ],
   },

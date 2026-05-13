@@ -165,4 +165,18 @@ export const MUSIC = [
       },
     ],
   },
+  {
+    title: "電子之囃子",
+    createdAt: "2026-05-11",
+    tags: ["BGM"],
+    authors: ["くりす"],
+    thumbnail: musicNoteIconImage,
+    assets: [
+      {
+        type: "music",
+        title: "電子之囃子",
+        src: "/music/denshi-no-hayashi.mp3",
+      },
+    ],
+  },
 ] satisfies Work[];
