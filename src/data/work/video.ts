@@ -23,6 +23,8 @@ import mixtape260228 from "../../assets/works/2026/02/260228_tmnl_mixtape4.webp"
 import times260313 from "../../assets/works/2026/03/260313_tmnl_times.webp";
 import mixtape260331 from "../../assets/works/2026/03/260331_tmnl_mixtape5.webp";
 import teaser260401 from "../../assets/works/2026/04/260401_tmnl_teaser.webp";
+import rejoin260511 from "../../assets/works/2026/05/260507_tmnl_rejoin.webp";
+import roster260511 from "../../assets/works/2026/05/260511_tmnl_roster.webp";
 
 export const VIDEO = [
   {
@@ -519,7 +521,7 @@ export const VIDEO = [
     title: "大会ティザームービー",
     clientName: "REVATI",
     createdAt: "2026-04-01",
-    tags: ["動画編集", "音楽制作", "デザイン"],
+    tags: ["動画編集", "BGM", "デザイン"],
     authors: [
       { name: "おしお", role: "動画編集" },
       { name: "くりす", role: "音楽制作" },
@@ -530,6 +532,42 @@ export const VIDEO = [
       {
         type: "tweet",
         tweetUrl: "https://x.com/revati_jp/status/2039270065779151275",
+      },
+    ],
+  },
+  {
+    title: "再加入告知映像",
+    clientName: "REVATI",
+    createdAt: "2026-05-07",
+    tags: ["動画編集", "デザイン"],
+    authors: ["Reku"],
+    thumbnail: rejoin260511,
+    assets: [
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/2052312492572090744",
+      },
+    ],
+  },
+  {
+    title: "ロスター告知映像",
+    clientName: "REVATI",
+    createdAt: "2026-05-11",
+    tags: ["動画編集", "デザイン", "BGM"],
+    authors: [
+      { name: "rei", role: "動画編集" },
+      { name: "くりす", role: "BGM制作" },
+    ],
+    thumbnail: roster260511,
+    assets: [
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/2053771388687937675",
+      },
+      {
+        type: "music",
+        title: "電子之囃子",
+        src: "/music/denshi-no-hayashi.mp3",
       },
     ],
   },

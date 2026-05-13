@@ -6,9 +6,11 @@
 	interface Props {
 		work: Work | null;
 		onClose: () => void;
+		onTagClick: (tag: string) => void;
+		onAuthorClick: (authorName: string) => void;
 	}
 
-	let { work, onClose }: Props = $props();
+	let { work, onClose, onTagClick, onAuthorClick }: Props = $props();
 	let dialog = $state<HTMLDialogElement>();
 	let isCopyTooltipVisible = $state(false);
 	let copyTooltipTimer: ReturnType<typeof setTimeout> | undefined = undefined;
@@ -84,6 +86,22 @@
 			day: 'numeric'
 		});
 	}
+
+	function handleTagClick(tag: string) {
+		onTagClick(tag);
+	}
+
+	function getAuthorName(author: Work['authors'][number]): string {
+		return typeof author === 'string' ? author : author.name;
+	}
+
+	function getAuthorLabel(author: Work['authors'][number]): string {
+		return typeof author === 'string' ? author : `${author.name} (${author.role})`;
+	}
+
+	function handleAuthorClick(author: Work['authors'][number]) {
+		onAuthorClick(getAuthorName(author));
+	}
 </script>
 
 {#if work}
@@ -125,11 +143,21 @@
 					{#if work.authors.length > 0}
 						<div class="work-authors">
 							<span class="meta-label">制作者:</span>
-							<span class="meta-value"
-								>{work.authors
-									.map((a) => (typeof a === 'string' ? a : `${a.name} (${a.role})`))
-									.join(', ')}</span
-							>
+							<div class="authors-list meta-value">
+								{#each work.authors as author, index}
+									<button
+										type="button"
+										class="author-link"
+										onclick={() => handleAuthorClick(author)}
+										aria-label={`この制作者で絞り込む: ${getAuthorName(author)}`}
+									>
+										{getAuthorLabel(author)}
+									</button>
+									{#if index < work.authors.length - 1}
+										<span class="author-separator">, </span>
+									{/if}
+								{/each}
+							</div>
 						</div>
 					{/if}
 
@@ -138,7 +166,14 @@
 							<span class="meta-label">タグ:</span>
 							<div class="tags-list">
 								{#each work.tags as tag}
-									<span class="tag">{tag}</span>
+									<button
+										type="button"
+										class="tag"
+										onclick={() => handleTagClick(tag)}
+										aria-label={`このタグで絞り込む: ${tag}`}
+									>
+										{tag}
+									</button>
 								{/each}
 							</div>
 						</div>
@@ -406,17 +441,70 @@
 		align-items: center;
 	}
 
+	.authors-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0;
+		align-items: center;
+		line-height: 1.5;
+	}
+
 	.tag {
+		appearance: none;
 		background: rgba($color-accent, 0.3);
 		color: rgba($color-accent, 1);
 		padding: 0.3rem 0.6rem;
 		border-radius: 6px;
 		font-size: 0.75rem;
+		font-family: inherit;
 		font-weight: 500;
 		border: 1px solid rgba($color-accent, 0.5);
 		backdrop-filter: blur(5px);
 		white-space: nowrap;
 		text-shadow: 0 1px 2px rgba(black, 0.8);
+		cursor: pointer;
+
+		&:hover {
+			background: rgba($color-accent, 0.42);
+		}
+
+		&:focus-visible {
+			outline: none;
+			box-shadow:
+				0 0 0 2px rgba(white, 0.24),
+				0 0 0 4px rgba($color-accent, 0.55);
+		}
+	}
+
+	.author-link {
+		all: unset;
+		display: inline;
+		color: rgba(white, 0.9);
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+		line-height: inherit;
+		text-align: left;
+
+		cursor: pointer;
+
+		&:hover {
+			color: rgba(white, 0.75);
+			text-decoration: underline;
+			text-underline-offset: 0.1em;
+		}
+
+		&:focus-visible {
+			outline: none;
+			text-decoration: underline;
+			text-underline-offset: 0.1em;
+		}
+	}
+
+	.author-separator {
+		color: rgba(white, 0.9);
+		white-space: pre;
+		margin-right: 0.4rem;
 	}
 
 	.work-assets {
