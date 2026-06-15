@@ -25,6 +25,8 @@ import mixtape260331 from "../../assets/works/2026/03/260331_tmnl_mixtape5.webp"
 import teaser260401 from "../../assets/works/2026/04/260401_tmnl_teaser.webp";
 import rejoin260511 from "../../assets/works/2026/05/260507_tmnl_rejoin.webp";
 import roster260511 from "../../assets/works/2026/05/260511_tmnl_roster.webp";
+import mixtape260430 from "../../assets/works/2026/04/260430_tmnl_mixtape6.webp";
+import mixtape260531 from "../../assets/works/2026/05/260531_tmnl_mixtape7.webp";
 
 export const VIDEO = [
   {
@@ -568,6 +570,48 @@ export const VIDEO = [
         type: "music",
         title: "電子之囃子",
         src: "/music/denshi-no-hayashi.mp3",
+      },
+    ],
+  },
+  {
+    title: "REVATI Mixtape Vol.6",
+    clientName: "REVATI",
+    createdAt: "2026-04-30",
+    tags: ["動画編集"],
+    authors: ["おしお"],
+    thumbnail: mixtape260430,
+    assets: [
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/2049775769681879153",
+      },
+    ],
+  },
+  {
+    title: "YouTube動画・サムネイル制作",
+    clientName: "REVATI",
+    createdAt: "2026-05-19",
+    tags: ["動画編集", "サムネイル制作"],
+    authors: ["Reku"],
+    assets: [
+      {
+        type: "video",
+        title: "【Guess The Pro】一般人に紛れたOWプロは誰だ！？",
+        src: "https://www.youtube.com/watch?v=eJzE6_4N87U",
+      },
+    ],
+  },
+  {
+    title: "REVATI Mixtape Vol.7",
+    clientName: "REVATI",
+    createdAt: "2026-05-31",
+    tags: ["動画編集"],
+    authors: ["おしお"],
+    thumbnail: mixtape260531,
+    assets: [
+      {
+        type: "tweet",
+        tweetUrl: "https://x.com/revati_jp/status/2061010817307533354",
       },
     ],
   },
