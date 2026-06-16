@@ -179,4 +179,18 @@ export const MUSIC = [
       },
     ],
   },
+  {
+    title: "Make Me Up",
+    createdAt: "2026-05-05",
+    tags: ["BGM"],
+    authors: ["くりす"],
+    thumbnail: musicNoteIconImage,
+    assets: [
+      {
+        type: "music",
+        title: "Make Me Up",
+        src: "/music/make-me-up.mp3",
+      },
+    ],
+  },
 ] satisfies Work[];

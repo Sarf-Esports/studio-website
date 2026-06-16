@@ -143,19 +143,24 @@
 					{#if work.authors.length > 0}
 						<div class="work-authors">
 							<span class="meta-label">制作者:</span>
-							<div class="authors-list meta-value">
+							<div
+								class="authors-list meta-value"
+								class:authors-list-grid={work.authors.length >= 3}
+							>
 								{#each work.authors as author, index}
-									<button
-										type="button"
-										class="author-link"
-										onclick={() => handleAuthorClick(author)}
-										aria-label={`この制作者で絞り込む: ${getAuthorName(author)}`}
-									>
-										{getAuthorLabel(author)}
-									</button>
-									{#if index < work.authors.length - 1}
-										<span class="author-separator">, </span>
-									{/if}
+									<div class="author-item">
+										<button
+											type="button"
+											class="author-link"
+											onclick={() => handleAuthorClick(author)}
+											aria-label={`この制作者で絞り込む: ${getAuthorName(author)}`}
+										>
+											{getAuthorLabel(author)}
+										</button>
+										{#if work.authors.length < 3 && index < work.authors.length - 1}
+											<span class="author-separator">, </span>
+										{/if}
+									</div>
 								{/each}
 							</div>
 						</div>
@@ -442,11 +447,29 @@
 	}
 
 	.authors-list {
+		min-width: 70%;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0;
 		align-items: center;
 		line-height: 1.5;
+	}
+
+	.authors-list-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 1.5rem;
+		row-gap: 0.25rem;
+		align-items: start;
+
+		.author-item::before {
+			content: '• ';
+			margin-right: 0.3rem;
+		}
+
+		@include sp {
+			grid-template-columns: repeat(1, max-content);
+		}
 	}
 
 	.tag {

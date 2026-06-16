@@ -64,6 +64,29 @@ import academy260420 from "../../assets/works/2026/04/260420_annc_academy.webp";
 import join260420 from "../../assets/works/2026/04/260420_annc_join.webp";
 import leave260428 from "../../assets/works/2026/04/260428_annc_leave.webp";
 
+import present260505 from "../../assets/works/2026/05/260505_dsgn_present.webp";
+import rules260505 from "../../assets/works/2026/05/260505_dsgn_rules.webp";
+import cast260505_1 from "../../assets/works/2026/05/260505_dsgn_cast1.webp";
+import cast260505_2 from "../../assets/works/2026/05/260505_dsgn_cast2.webp";
+import matchup260505 from "../../assets/works/2026/05/260505_dsgn_matchup.webp";
+import streamUI260505_1 from "../../assets/works/2026/05/260505_dsgn_stream-ui1.webp";
+import streamUI260505_2 from "../../assets/works/2026/05/260505_dsgn_stream-ui2.webp";
+import winningPrize260505 from "../../assets/works/2026/05/260505_dsgn_winning-prize.webp";
+import mvpPrize260505 from "../../assets/works/2026/05/260505_dsgn_mvp-prize.webp";
+import watchParty260505_1 from "../../assets/works/2026/05/260505_dsgn_watch-party1.webp";
+import watchParty260505_2 from "../../assets/works/2026/05/260505_dsgn_watch-party2.webp";
+import kv260505_1 from "../../assets/works/2026/05/260505_dsgn_kv1.webp";
+import kv260505_2 from "../../assets/works/2026/05/260505_dsgn_kv2.webp";
+import sponsor260505_1 from "../../assets/works/2026/05/260505_dsgn_sponsor1.webp";
+import sponsor260505_2 from "../../assets/works/2026/05/260505_dsgn_sponsor2.webp";
+import sponsor260505_3 from "../../assets/works/2026/05/260505_dsgn_sponsor3.webp";
+import sponsor260505_4 from "../../assets/works/2026/05/260505_dsgn_sponsor4.webp";
+import schedule260505 from "../../assets/works/2026/05/260505_dsgn_schedule.webp";
+import teams260505 from "../../assets/works/2026/05/260505_dsgn_teams.webp";
+import tournamentTable260505 from "../../assets/works/2026/05/260505_dsgn_tournament-table.webp";
+import interview260505 from "../../assets/works/2026/05/260505_dsgn_interview.webp";
+import waiting260505 from "../../assets/works/2026/05/260505_tmnl_waiting-screen.webp";
+
 export const DESIGN = [
   {
     title: "ヘッダー",
@@ -729,6 +752,143 @@ export const DESIGN = [
         type: "image",
         caption: "脱退発表画像",
         src: leave260428,
+      },
+    ],
+  },
+  {
+    title: "大会各種クリエイティブ制作",
+    clientName: "REVATI",
+    createdAt: "2026-05-05",
+    tags: ["デザイン", "動画編集", "BGM"],
+    authors: [
+      { name: "Reku", role: "デザイン" },
+      { name: "HIKA", role: "デザイン" },
+      { name: "rei", role: "デザイン" },
+      { name: "ちゃちゃまる", role: "映像・デザイン" },
+      { name: "おしお", role: "映像" },
+      { name: "くりす", role: "音楽" },
+    ],
+    thumbnail: waiting260505,
+    assets: [
+      {
+        type: "image",
+        caption: "キービジュアル①",
+        src: kv260505_1,
+      },
+      {
+        type: "image",
+        caption: "キービジュアル②",
+        src: kv260505_2,
+      },
+      {
+        type: "video",
+        title: "待機画面",
+        src: "https://youtu.be/1RUG2xf4rTo",
+      },
+      {
+        type: "video",
+        title: "トランジション映像",
+        src: "https://youtu.be/RfzyNYSxtwE",
+      },
+      {
+        type: "music",
+        title: "Make Me Up",
+        src: "/music/make-me-up.mp3",
+      },
+      {
+        type: "image",
+        caption: "配信UI①",
+        src: streamUI260505_1,
+      },
+      {
+        type: "image",
+        caption: "配信UI②",
+        src: streamUI260505_2,
+      },
+      {
+        type: "image",
+        caption: "実況解説紹介①",
+        src: cast260505_1,
+      },
+      {
+        type: "image",
+        caption: "実況解説紹介②",
+        src: cast260505_2,
+      },
+      {
+        type: "image",
+        caption: "ウォッチパーティー紹介①",
+        src: watchParty260505_1,
+      },
+      {
+        type: "image",
+        caption: "ウォッチパーティー紹介②",
+        src: watchParty260505_2,
+      },
+      {
+        type: "image",
+        caption: "スポンサー紹介①",
+        src: sponsor260505_1,
+      },
+      {
+        type: "image",
+        caption: "スポンサー紹介②",
+        src: sponsor260505_2,
+      },
+      {
+        type: "image",
+        caption: "スポンサー紹介③",
+        src: sponsor260505_3,
+      },
+      {
+        type: "image",
+        caption: "スポンサー紹介④",
+        src: sponsor260505_4,
+      },
+      {
+        type: "image",
+        caption: "トーナメント表",
+        src: tournamentTable260505,
+      },
+      {
+        type: "image",
+        caption: "ルール紹介",
+        src: rules260505,
+      },
+      {
+        type: "image",
+        caption: "チーム紹介",
+        src: teams260505,
+      },
+      {
+        type: "image",
+        caption: "対戦カード",
+        src: matchup260505,
+      },
+      {
+        type: "image",
+        caption: "プレイヤーインタビュー",
+        src: interview260505,
+      },
+      {
+        type: "image",
+        caption: "タイムスケジュール",
+        src: schedule260505,
+      },
+      {
+        type: "image",
+        caption: "優勝賞品",
+        src: winningPrize260505,
+      },
+      {
+        type: "image",
+        caption: "MVP賞",
+        src: mvpPrize260505,
+      },
+      {
+        type: "image",
+        caption: "プレゼント企画告知画像",
+        src: present260505,
       },
     ],
   },
