@@ -85,6 +85,7 @@ import schedule260505 from "../../assets/works/2026/05/260505_dsgn_schedule.webp
 import teams260505 from "../../assets/works/2026/05/260505_dsgn_teams.webp";
 import tournamentTable260505 from "../../assets/works/2026/05/260505_dsgn_tournament-table.webp";
 import interview260505 from "../../assets/works/2026/05/260505_dsgn_interview.webp";
+import waiting260505 from "../../assets/works/2026/05/260505_tmnl_waiting-screen.webp";
 
 export const DESIGN = [
   {
@@ -767,31 +768,32 @@ export const DESIGN = [
       { name: "おしお", role: "映像" },
       { name: "くりす", role: "音楽" },
     ],
+    thumbnail: waiting260505,
     assets: [
       {
         type: "image",
-        caption: "プレゼント企画告知画像",
-        src: present260505,
+        caption: "キービジュアル①",
+        src: kv260505_1,
       },
       {
         type: "image",
-        caption: "ルール紹介",
-        src: rules260505,
+        caption: "キービジュアル②",
+        src: kv260505_2,
       },
       {
-        type: "image",
-        caption: "実況解説紹介①",
-        src: cast260505_1,
+        type: "video",
+        title: "待機画面",
+        src: "https://youtu.be/1RUG2xf4rTo",
       },
       {
-        type: "image",
-        caption: "実況解説紹介②",
-        src: cast260505_2,
+        type: "video",
+        title: "トランジション映像",
+        src: "https://youtu.be/RfzyNYSxtwE",
       },
       {
-        type: "image",
-        caption: "対戦カード",
-        src: matchup260505,
+        type: "music",
+        title: "Make Me Up",
+        src: "/music/make-me-up.mp3",
       },
       {
         type: "image",
@@ -805,13 +807,13 @@ export const DESIGN = [
       },
       {
         type: "image",
-        caption: "優勝賞品",
-        src: winningPrize260505,
+        caption: "実況解説紹介①",
+        src: cast260505_1,
       },
       {
         type: "image",
-        caption: "MVP賞",
-        src: mvpPrize260505,
+        caption: "実況解説紹介②",
+        src: cast260505_2,
       },
       {
         type: "image",
@@ -822,16 +824,6 @@ export const DESIGN = [
         type: "image",
         caption: "ウォッチパーティー紹介②",
         src: watchParty260505_2,
-      },
-      {
-        type: "image",
-        caption: "キービジュアル①",
-        src: kv260505_1,
-      },
-      {
-        type: "image",
-        caption: "キービジュアル②",
-        src: kv260505_2,
       },
       {
         type: "image",
@@ -855,8 +847,13 @@ export const DESIGN = [
       },
       {
         type: "image",
-        caption: "タイムスケジュール",
-        src: schedule260505,
+        caption: "トーナメント表",
+        src: tournamentTable260505,
+      },
+      {
+        type: "image",
+        caption: "ルール紹介",
+        src: rules260505,
       },
       {
         type: "image",
@@ -865,8 +862,8 @@ export const DESIGN = [
       },
       {
         type: "image",
-        caption: "トーナメント表",
-        src: tournamentTable260505,
+        caption: "対戦カード",
+        src: matchup260505,
       },
       {
         type: "image",
@@ -874,19 +871,24 @@ export const DESIGN = [
         src: interview260505,
       },
       {
-        type: "video",
-        title: "待機画面",
-        src: "https://youtu.be/1RUG2xf4rTo",
+        type: "image",
+        caption: "タイムスケジュール",
+        src: schedule260505,
       },
       {
-        type: "video",
-        title: "トランジション映像",
-        src: "https://youtu.be/RfzyNYSxtwE",
+        type: "image",
+        caption: "優勝賞品",
+        src: winningPrize260505,
       },
       {
-        type: "music",
-        title: "Make Me Up",
-        src: "/music/make-me-up.mp3",
+        type: "image",
+        caption: "MVP賞",
+        src: mvpPrize260505,
+      },
+      {
+        type: "image",
+        caption: "プレゼント企画告知画像",
+        src: present260505,
       },
     ],
   },
