@@ -51,7 +51,7 @@
 		expandSignal = 0
 	}: Props = $props();
 
-	let isExpanded = $state<boolean>(false);
+	let isExpanded = $state<boolean>(true);
 	let openDropdown = $state<DropdownKey>(null);
 	let rootElement = $state<HTMLElement>();
 	let previousExpandSignal = $state<number>(0);
