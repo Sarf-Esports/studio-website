@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 15 370 355" fill="none">
+  <defs>
+    <linearGradient id="pearl" x1=".1" y1="0" x2=".8" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#fff"/><stop offset=".55" stop-color="#e7eaff"/><stop offset="1" stop-color="#a5b2e7"/></linearGradient>
+    <linearGradient id="edge" x2="1" y2="1"><stop stop-color="#c3caff"/><stop offset=".5" stop-color="#4855ae"/><stop offset="1" stop-color="#93d5f7"/></linearGradient>
+  </defs>
+  <g transform="translate(0 10)" fill="url(#edge)" stroke="#96aaff" stroke-width="2"><path d="M57 172 Q136 169 214 170 Q300 170 354 173 Q343 177 333 185 L278 228 Q259 243 255 249 Q299 264 324 284 Q336 311 342 335 Q343 340 337 338 L156 284 Q150 283 155 279 Q187 263 201 237 Q208 224 211 215 Q174 220 129 221 Q124 222 121 227 L106 249 Q103 253 102 248 Q96 223 88 210 L79 192 Q73 181 57 172 Z"/><path d="M183 49 Q179 69 162 105 Q150 122 154 132 Q161 143 176 154 L237 154 Q241 154 239 149 Q228 120 215 105 Q193 79 183 49 Z"/></g>
+  <g fill="url(#pearl)" stroke="#f1f2ff" stroke-width="2" stroke-linejoin="round"><path d="M57 172 Q136 169 214 170 Q300 170 354 173 Q343 177 333 185 L278 228 Q259 243 255 249 Q299 264 324 284 Q336 311 342 335 Q343 340 337 338 L156 284 Q150 283 155 279 Q187 263 201 237 Q208 224 211 215 Q174 220 129 221 Q124 222 121 227 L106 249 Q103 253 102 248 Q96 223 88 210 L79 192 Q73 181 57 172 Z"/><path d="M183 49 Q179 69 162 105 Q150 122 154 132 Q161 143 176 154 L237 154 Q241 154 239 149 Q228 120 215 105 Q193 79 183 49 Z"/></g>
+  <g stroke="#10132d" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M132 203 Q137 192 141 187 Q144 197 148 206"/><path d="M211 199 Q219 187 224 180 Q230 192 235 205"/></g>
+</svg>

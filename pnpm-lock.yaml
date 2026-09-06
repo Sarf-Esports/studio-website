@@ -215,7 +215,7 @@ importers:
         version: 8.5.16(svelte@5.56.3(@typescript-eslint/types@8.61.0))(three@0.184.0)
       '@threlte/extras':
         specifier: ^9.21.0
-        version: 9.21.0(@types/three@0.176.0)(svelte@5.56.3(@typescript-eslint/types@8.61.0))(three@0.184.0)
+        version: 9.21.0(@types/three@0.184.1)(svelte@5.56.3(@typescript-eslint/types@8.61.0))(three@0.184.0)
       astro:
         specifier: ^6.4.6
         version: 6.4.6(@types/node@25.9.3)(rollup@4.62.0)(sass@1.101.0)(yaml@2.9.0)
@@ -256,6 +256,9 @@ importers:
       '@types/node':
         specifier: ^25.9.3
         version: 25.9.3
+      '@types/three':
+        specifier: ^0.184.1
+        version: 0.184.1
       '@typescript-eslint/parser':
         specifier: ^8.61.0
         version: 8.61.0(eslint@9.39.4)(typescript@6.0.3)
@@ -1531,8 +1534,8 @@ packages:
   '@types/stats.js@0.17.4':
     resolution: {integrity: sha512-jIBvWWShCvlBqBNIZt0KAshWpvSjhkwkEu4ZUcASoAvhmrgAUI2t1dXrjSL4xXVLB4FznPrIsX3nKXFl/Dt4vA==}
 
-  '@types/three@0.176.0':
-    resolution: {integrity: sha512-FwfPXxCqOtP7EdYMagCFePNKoG1AGBDUEVKtluv2BTVRpSt7b+X27xNsirPCTCqY1pGYsPUzaM3jgWP7dXSxlw==}
+  '@types/three@0.184.1':
+    resolution: {integrity: sha512-6q4VdiqVsrTRqmk62/BnlcAvIrnDM0zf2ZDVKI5kZiniWrSaOHaQzmbp+BNzoggc/8tgW412pL//wZIxu2PPTA==}
 
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
@@ -1642,9 +1645,6 @@ packages:
 
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
-
-  '@webgpu/types@0.1.70':
-    resolution: {integrity: sha512-LFiNHHKMvmAEvwVew3JLJmTdShhbdwRFSImUshGhE2mGE8ybQzIo63l5uRp+YKnNx+8Qno8Kf6gN+DKMreIJCA==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2678,8 +2678,8 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
-  meshoptimizer@0.18.1:
-    resolution: {integrity: sha512-ZhoIoL7TNV4s5B6+rx5mC//fw8/POGyNxS/DZyCJeiZ12ScLfVwRE/GfsxwiTkMYYD5DmK2/JXnEVXqL4rF+Sw==}
+  meshoptimizer@1.1.1:
+    resolution: {integrity: sha512-oRFNWJRDA/WTrVj7NWvqa5HqE1t9MYDj2VaWirQCzCCrAd2GHrqR/sQezCxiWATPNlKTcRaPRHPJwIRoPBAp5g==}
 
   micromark-core-commonmark@2.0.3:
     resolution: {integrity: sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==}
@@ -4774,11 +4774,11 @@ snapshots:
       vite: 7.3.5(@types/node@25.9.3)(sass@1.101.0)(yaml@2.9.0)
       vitefu: 1.1.3(vite@7.3.5(@types/node@25.9.3)(sass@1.101.0)(yaml@2.9.0))
 
-  '@threejs-kit/instanced-sprite-mesh@2.5.1(@types/three@0.176.0)(three@0.184.0)':
+  '@threejs-kit/instanced-sprite-mesh@2.5.1(@types/three@0.184.1)(three@0.184.0)':
     dependencies:
       diet-sprite: 0.0.1
       earcut: 2.2.4
-      maath: 0.10.8(@types/three@0.176.0)(three@0.184.0)
+      maath: 0.10.8(@types/three@0.184.1)(three@0.184.0)
       three: 0.184.0
       three-instanced-uniforms-mesh: 0.52.4(three@0.184.0)
       troika-three-utils: 0.52.4(three@0.184.0)
@@ -4790,9 +4790,9 @@ snapshots:
       svelte: 5.56.3(@typescript-eslint/types@8.61.0)
       three: 0.184.0
 
-  '@threlte/extras@9.21.0(@types/three@0.176.0)(svelte@5.56.3(@typescript-eslint/types@8.61.0))(three@0.184.0)':
+  '@threlte/extras@9.21.0(@types/three@0.184.1)(svelte@5.56.3(@typescript-eslint/types@8.61.0))(three@0.184.0)':
     dependencies:
-      '@threejs-kit/instanced-sprite-mesh': 2.5.1(@types/three@0.176.0)(three@0.184.0)
+      '@threejs-kit/instanced-sprite-mesh': 2.5.1(@types/three@0.184.1)(three@0.184.0)
       camera-controls: 3.1.2(three@0.184.0)
       svelte: 5.56.3(@typescript-eslint/types@8.61.0)
       three: 0.184.0
@@ -4839,15 +4839,14 @@ snapshots:
 
   '@types/stats.js@0.17.4': {}
 
-  '@types/three@0.176.0':
+  '@types/three@0.184.1':
     dependencies:
       '@dimforge/rapier3d-compat': 0.12.0
       '@tweenjs/tween.js': 23.1.3
       '@types/stats.js': 0.17.4
       '@types/webxr': 0.5.24
-      '@webgpu/types': 0.1.70
       fflate: 0.8.3
-      meshoptimizer: 0.18.1
+      meshoptimizer: 1.1.1
 
   '@types/trusted-types@2.0.7': {}
 
@@ -5009,8 +5008,6 @@ snapshots:
       vscode-uri: 3.1.0
 
   '@vscode/l10n@0.0.18': {}
-
-  '@webgpu/types@0.1.70': {}
 
   acorn-jsx@5.3.2(acorn@8.16.0):
     dependencies:
@@ -6213,9 +6210,9 @@ snapshots:
 
   lru-cache@11.5.1: {}
 
-  maath@0.10.8(@types/three@0.176.0)(three@0.184.0):
+  maath@0.10.8(@types/three@0.184.1)(three@0.184.0):
     dependencies:
-      '@types/three': 0.176.0
+      '@types/three': 0.184.1
       three: 0.184.0
 
   magic-string@0.30.21:
@@ -6358,7 +6355,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  meshoptimizer@0.18.1: {}
+  meshoptimizer@1.1.1: {}
 
   micromark-core-commonmark@2.0.3:
     dependencies:
